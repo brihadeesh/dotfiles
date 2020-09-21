@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+## Eval
+
+# Date/Time
+get_datetime() {
+    date +"%a %b %d | %H:%M"
+}
+
+
+
+# Battery: echo which battery if one even exists
+battery="BAT1";
+
+has_battery() {
+    if [ -d /sys/class/power_supply/$battery ]; then
+        return 0;
+    fi
+    return 1;
+}
+
+# echo battery status
+get_charging_status() {
+	if [ $(cat "/sys/class/power_supply/$battery/status") == "Discharging" ]; then
+		echo "";
+	else
+		echo "";
+	fi
+}
+
+# echo battery perc
+get_charge() {
+    cat "/sys/class/power_supply/$battery/capacity"
+#   acpi -b | awk '{print $4}' | sed s/,//
+}
+
+
+# echo battery data
+get_battery_status() {
+    echo "$(get_charging_status) $(get_charge)%"
+}
+
+
+
+## Set the overall status
+get_status() {
+    battery_status="";
+    if $(has_battery); then
+        battery_status="$(get_battery_status)";
+    fi
+
+    echo " ${battery_status} | $(get_datetime) ";
+}
+
+
+
+## Set the status bar
+
+while true
+do
+    xsetroot -name "$(get_status)";
+    sleep 30;
+done

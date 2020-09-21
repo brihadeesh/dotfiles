@@ -1,0 +1,693 @@
+1001 1
+12 999;   100 TITLEBAR
+  5 "artwork/border/titlebar.png";   371  0;   357  4  4  4  4
+  353 "artwork/border/titlebar.png";   371  0;   357  4  4  4  4
+  352 "artwork/border/titlebar.png";   371  0;   357  4  4  4  4
+  354 "artwork/border/titlebar.png";   371  0;   357  4  4  4  4
+  356 "artwork/border/titlebar.png";   371  0;   357  4  4  4  4
+  355 "artwork/border/titlebar.png";   371  0;   357  4  4  4  4
+  359 "artwork/border/titlebar.png";   371  0;   357  4  4  4  4
+  361 "artwork/border/titlebar.png";   371  0;   357  4  4  4  4
+  360 "artwork/border/titlebar.png";   371  0;   357  4  4  4  4
+  362 "artwork/border/titlebar.png";   371  0;   357  4  4  4  4
+  364 "artwork/border/titlebar.png";   371  0;   357  4  4  4  4
+  363 "artwork/border/titlebar.png";   371  0;   357  4  4  4  4
+  358 1  1  3  1
+1000
+12 999;   100 VTITLE
+  5 "artwork/border/vtitle.png";   371  0;   357  4  4  4  4
+  353 "artwork/border/vtitle.png";   371  0;   357  4  4  4  4
+  352 "artwork/border/vtitle.png";   371  0;   357  4  4  4  4
+  354 "artwork/border/vtitle.png";   371  0;   357  4  4  4  4
+  356 "artwork/border/vtitle.png";   371  0;   357  4  4  4  4
+  355 "artwork/border/vtitle.png";   371  0;   357  4  4  4  4
+  359 "artwork/border/vtitle.png";   371  0;   357  4  4  4  4
+  361 "artwork/border/vtitle.png";   371  0;   357  4  4  4  4
+  360 "artwork/border/vtitle.png";   371  0;   357  4  4  4  4
+  362 "artwork/border/vtitle.png";   371  0;   357  4  4  4  4
+  364 "artwork/border/vtitle.png";   371  0;   357  4  4  4  4
+  363 "artwork/border/vtitle.png";   371  0;   357  4  4  4  4
+  358 1  1  3  1
+1000
+12 999;   100 VBARLEFT
+  5 "artwork/border/vb_left.png";   371  0;   357  1  1  1  1
+  353 "artwork/border/vb_left.png";   371  0;   357  1  1  1  1
+  352 "artwork/border/vb_left.png";   371  0;   357  1  1  1  1
+  354 "artwork/border/vb_left.png";   371  0;   357  1  1  1  1
+  356 "artwork/border/vb_left.png";   371  0;   357  1  1  1  1
+  355 "artwork/border/vb_left.png";   371  0;   357  1  1  1  1
+  359 "artwork/border/vb_left.png";   371  0;   357  1  1  1  1
+  361 "artwork/border/vb_left.png";   371  0;   357  1  1  1  1
+  360 "artwork/border/vb_left.png";   371  0;   357  1  1  1  1
+  362 "artwork/border/vb_left.png";   371  0;   357  1  1  1  1
+  364 "artwork/border/vb_left.png";   371  0;   357  1  1  1  1
+  363 "artwork/border/vb_left.png";   371  0;   357  1  1  1  1
+  358 5  5  3  1
+1000
+12 999;   100 VBARRIGHT
+  5 "artwork/border/vb_right.png";   371  0;   357  1  1  1  1
+  353 "artwork/border/vb_right.png";   371  0;   357  1  1  1  1
+  352 "artwork/border/vb_right.png";   371  0;   357  1  1  1  1
+  354 "artwork/border/vb_right.png";   371  0;   357  1  1  1  1
+  356 "artwork/border/vb_right.png";   371  0;   357  1  1  1  1
+  355 "artwork/border/vb_right.png";   371  0;   357  1  1  1  1
+  359 "artwork/border/vb_right.png";   371  0;   357  1  1  1  1
+  361 "artwork/border/vb_right.png";   371  0;   357  1  1  1  1
+  360 "artwork/border/vb_right.png";   371  0;   357  1  1  1  1
+  362 "artwork/border/vb_right.png";   371  0;   357  1  1  1  1
+  364 "artwork/border/vb_right.png";   371  0;   357  1  1  1  1
+  363 "artwork/border/vb_right.png";   371  0;   357  1  1  1  1
+  358 5  5  3  1
+1000
+12 999;   100 TOPBAR
+  5 "artwork/border/hb_top.png";   371  0;   357  1  1  1  1
+  353 "artwork/border/hb_top.png";   371  0;   357  1  1  1  1
+  352 "artwork/border/hb_top.png";   371  0;   357  1  1  1  1
+  354 "artwork/border/hb_top.png";   371  0;   357  1  1  1  1
+  356 "artwork/border/hb_top.png";   371  0;   357  1  1  1  1
+  355 "artwork/border/hb_top.png";   371  0;   357  1  1  1  1
+  359 "artwork/border/hb_top.png";   371  0;   357  1  1  1  1
+  361 "artwork/border/hb_top.png";   371  0;   357  1  1  1  1
+  360 "artwork/border/hb_top.png";   371  0;   357  1  1  1  1
+  362 "artwork/border/hb_top.png";   371  0;   357  1  1  1  1
+  364 "artwork/border/hb_top.png";   371  0;   357  1  1  1  1
+  363 "artwork/border/hb_top.png";   371  0;   357  1  1  1  1
+  358 5  5  3  1
+1000
+12 999;   100 BOTTOMBAR
+  5 "artwork/border/hb_bottom.png";   371  0;   357  1  1  1  1
+  353 "artwork/border/hb_bottom.png";   371  0;   357  1  1  1  1
+  352 "artwork/border/hb_bottom.png";   371  0;   357  1  1  1  1
+  354 "artwork/border/hb_bottom.png";   371  0;   357  1  1  1  1
+  356 "artwork/border/hb_bottom.png";   371  0;   357  1  1  1  1
+  355 "artwork/border/hb_bottom.png";   371  0;   357  1  1  1  1
+  359 "artwork/border/hb_bottom.png";   371  0;   357  1  1  1  1
+  361 "artwork/border/hb_bottom.png";   371  0;   357  1  1  1  1
+  360 "artwork/border/hb_bottom.png";   371  0;   357  1  1  1  1
+  362 "artwork/border/hb_bottom.png";   371  0;   357  1  1  1  1
+  364 "artwork/border/hb_bottom.png";   371  0;   357  1  1  1  1
+  363 "artwork/border/hb_bottom.png";   371  0;   357  1  1  1  1
+  358 5  5  3  1
+1000
+12 999;   100 VBOTTOMBAR
+  5 "artwork/border/hb_vbottom.png";   371  0;   357  1  1  1  1
+  353 "artwork/border/hb_vbottom.png";   371  0;   357  1  1  1  1
+  352 "artwork/border/hb_vbottom.png";   371  0;   357  1  1  1  1
+  354 "artwork/border/hb_vbottom.png";   371  0;   357  1  1  1  1
+  356 "artwork/border/hb_vbottom.png";   371  0;   357  1  1  1  1
+  355 "artwork/border/hb_vbottom.png";   371  0;   357  1  1  1  1
+  359 "artwork/border/hb_vbottom.png";   371  0;   357  1  1  1  1
+  361 "artwork/border/hb_vbottom.png";   371  0;   357  1  1  1  1
+  360 "artwork/border/hb_vbottom.png";   371  0;   357  1  1  1  1
+  362 "artwork/border/hb_vbottom.png";   371  0;   357  1  1  1  1
+  364 "artwork/border/hb_vbottom.png";   371  0;   357  1  1  1  1
+  363 "artwork/border/hb_vbottom.png";   371  0;   357  1  1  1  1
+  358 5  5  3  1
+1000
+12 999;   100 BORDER_TOP_LEFT
+  5 "artwork/border/top_left.png";   371  0;   357  1  1  1  1
+  353 "artwork/border/top_left.png";   371  0;   357  1  1  1  1
+  352 "artwork/border/top_left.png";   371  0;   357  1  1  1  1
+  354 "artwork/border/top_left.png";   371  0;   357  1  1  1  1
+  356 "artwork/border/top_left.png";   371  0;   357  1  1  1  1
+  355 "artwork/border/top_left.png";   371  0;   357  1  1  1  1
+  359 "artwork/border/top_left.png";   371  0;   357  1  1  1  1
+  361 "artwork/border/top_left.png";   371  0;   357  1  1  1  1
+  360 "artwork/border/top_left.png";   371  0;   357  1  1  1  1
+  362 "artwork/border/top_left.png";   371  0;   357  1  1  1  1
+  364 "artwork/border/top_left.png";   371  0;   357  1  1  1  1
+  363 "artwork/border/top_left.png";   371  0;   357  1  1  1  1
+  358 1  1  1  1
+1000
+12 999;   100 BORDER_TOP_RIGHT
+  5 "artwork/border/top_right.png";   371  0;   357  1  1  1  1
+  353 "artwork/border/top_right.png";   371  0;   357  1  1  1  1
+  352 "artwork/border/top_right.png";   371  0;   357  1  1  1  1
+  354 "artwork/border/top_right.png";   371  0;   357  1  1  1  1
+  356 "artwork/border/top_right.png";   371  0;   357  1  1  1  1
+  355 "artwork/border/top_right.png";   371  0;   357  1  1  1  1
+  359 "artwork/border/top_right.png";   371  0;   357  1  1  1  1
+  361 "artwork/border/top_right.png";   371  0;   357  1  1  1  1
+  360 "artwork/border/top_right.png";   371  0;   357  1  1  1  1
+  362 "artwork/border/top_right.png";   371  0;   357  1  1  1  1
+  364 "artwork/border/top_right.png";   371  0;   357  1  1  1  1
+  363 "artwork/border/top_right.png";   371  0;   357  1  1  1  1
+  358 1  1  1  1
+1000
+12 999;   100 BORDER_DOWN_LEFT
+  5 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  353 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  352 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  354 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  356 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  355 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  359 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  361 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  360 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  362 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  364 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  363 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  358 1  1  1  1
+1000
+12 999;   100 BORDER_DOWN_RIGHT
+  5 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  353 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  352 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  354 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  356 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  355 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  359 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  361 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  360 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  362 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  364 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  363 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  358 1  1  1  1
+1000
+12 999;   100 BUTTON_KILL
+  5 "artwork/windowbutton/kill_3.png";   371  0;   357  1  1  1  1
+  353 "artwork/windowbutton/kill_3.png";   371  0;   357  1  1  1  1
+  352 "artwork/windowbutton/kill_2.png";   371  0;   357  1  1  1  1
+  354 "artwork/windowbutton/kill_1.png";   371  0;   357  1  1  1  1
+  356 "artwork/windowbutton/kill_1.png";   371  0;   357  1  1  1  1
+  355 "artwork/windowbutton/kill_2.png";   371  0;   357  1  1  1  1
+  359 "artwork/windowbutton/kill_1.png";   371  0;   357  1  1  1  1
+  361 "artwork/windowbutton/kill_1.png";   371  0;   357  1  1  1  1
+  360 "artwork/windowbutton/kill_2.png";   371  0;   357  1  1  1  1
+  362 "artwork/windowbutton/kill_1.png";   371  0;   357  1  1  1  1
+  364 "artwork/windowbutton/kill_1.png";   371  0;   357  1  1  1  1
+  363 "artwork/windowbutton/kill_2.png";   371  0;   357  1  1  1  1
+1000
+12 999;   100 BUTTON_VKILL
+  5 "artwork/windowbutton/vkill_3.png";   371  0;   357  1  1  1  1
+  353 "artwork/windowbutton/vkill_3.png";   371  0;   357  1  1  1  1
+  352 "artwork/windowbutton/vkill_2.png";   371  0;   357  1  1  1  1
+  354 "artwork/windowbutton/vkill_1.png";   371  0;   357  1  1  1  1
+  356 "artwork/windowbutton/vkill_1.png";   371  0;   357  1  1  1  1
+  355 "artwork/windowbutton/vkill_2.png";   371  0;   357  1  1  1  1
+  359 "artwork/windowbutton/vkill_1.png";   371  0;   357  1  1  1  1
+  361 "artwork/windowbutton/vkill_1.png";   371  0;   357  1  1  1  1
+  360 "artwork/windowbutton/vkill_2.png";   371  0;   357  1  1  1  1
+  362 "artwork/windowbutton/vkill_1.png";   371  0;   357  1  1  1  1
+  364 "artwork/windowbutton/vkill_1.png";   371  0;   357  1  1  1  1
+  363 "artwork/windowbutton/vkill_2.png";   371  0;   357  1  1  1  1
+1000
+12 999;   100 BUTTON_SYSTEM
+  5 "artwork/windowbutton/system_1.png";   371  0;   357  1  1  1  1
+  353 "artwork/windowbutton/system_1.png";   371  0;   357  1  1  1  1
+  352 "artwork/windowbutton/system_2.png";   371  0;   357  1  1  1  1
+  354 "artwork/windowbutton/system_1.png";   371  0;   357  1  1  1  1
+  356 "artwork/windowbutton/system_1.png";   371  0;   357  1  1  1  1
+  355 "artwork/windowbutton/system_2.png";   371  0;   357  1  1  1  1
+  359 "artwork/windowbutton/system_1.png";   371  0;   357  1  1  1  1
+  361 "artwork/windowbutton/system_1.png";   371  0;   357  1  1  1  1
+  360 "artwork/windowbutton/system_2.png";   371  0;   357  1  1  1  1
+  362 "artwork/windowbutton/system_1.png";   371  0;   357  1  1  1  1
+  364 "artwork/windowbutton/system_1.png";   371  0;   357  1  1  1  1
+  363 "artwork/windowbutton/system_2.png";   371  0;   357  1  1  1  1
+1000
+12 999;   100 BUTTON_ICONIFY
+  5 "artwork/windowbutton/iconify_3.png";   371  0;   357  1  1  1  1
+  353 "artwork/windowbutton/iconify_3.png";   371  0;   357  1  1  1  1
+  352 "artwork/windowbutton/iconify_2.png";   371  0;   357  1  1  1  1
+  354 "artwork/windowbutton/iconify_1.png";   371  0;   357  1  1  1  1
+  356 "artwork/windowbutton/iconify_1.png";   371  0;   357  1  1  1  1
+  355 "artwork/windowbutton/iconify_2.png";   371  0;   357  1  1  1  1
+  359 "artwork/windowbutton/iconify_1.png";   371  0;   357  1  1  1  1
+  361 "artwork/windowbutton/iconify_1.png";   371  0;   357  1  1  1  1
+  360 "artwork/windowbutton/iconify_2.png";   371  0;   357  1  1  1  1
+  362 "artwork/windowbutton/iconify_1.png";   371  0;   357  1  1  1  1
+  364 "artwork/windowbutton/iconify_1.png";   371  0;   357  1  1  1  1
+  363 "artwork/windowbutton/iconify_2.png";   371  0;   357  1  1  1  1
+1000
+12 999;   100 BUTTON_VICONIFY
+  5 "artwork/windowbutton/viconify_3.png";   371  0;   357  1  1  1  1
+  353 "artwork/windowbutton/viconify_3.png";   371  0;   357  1  1  1  1
+  352 "artwork/windowbutton/viconify_2.png";   371  0;   357  1  1  1  1
+  354 "artwork/windowbutton/viconify_1.png";   371  0;   357  1  1  1  1
+  356 "artwork/windowbutton/viconify_1.png";   371  0;   357  1  1  1  1
+  355 "artwork/windowbutton/viconify_2.png";   371  0;   357  1  1  1  1
+  359 "artwork/windowbutton/viconify_1.png";   371  0;   357  1  1  1  1
+  361 "artwork/windowbutton/viconify_1.png";   371  0;   357  1  1  1  1
+  360 "artwork/windowbutton/viconify_2.png";   371  0;   357  1  1  1  1
+  362 "artwork/windowbutton/viconify_1.png";   371  0;   357  1  1  1  1
+  364 "artwork/windowbutton/viconify_1.png";   371  0;   357  1  1  1  1
+  363 "artwork/windowbutton/viconify_2.png";   371  0;   357  1  1  1  1
+1000
+12 999;   100 BUTTON_MAXIMIZE
+  5 "artwork/windowbutton/max_3.png";   371  0;   357  1  1  1  1
+  353 "artwork/windowbutton/max_3.png";   371  0;   357  1  1  1  1
+  352 "artwork/windowbutton/max_2.png";   371  0;   357  1  1  1  1
+  354 "artwork/windowbutton/max_1.png";   371  0;   357  1  1  1  1
+  356 "artwork/windowbutton/max_1.png";   371  0;   357  1  1  1  1
+  355 "artwork/windowbutton/max_2.png";   371  0;   357  1  1  1  1
+  359 "artwork/windowbutton/max_1.png";   371  0;   357  1  1  1  1
+  361 "artwork/windowbutton/max_1.png";   371  0;   357  1  1  1  1
+  360 "artwork/windowbutton/max_2.png";   371  0;   357  1  1  1  1
+  362 "artwork/windowbutton/max_1.png";   371  0;   357  1  1  1  1
+  364 "artwork/windowbutton/max_1.png";   371  0;   357  1  1  1  1
+  363 "artwork/windowbutton/max_2.png";   371  0;   357  1  1  1  1
+1000
+12 999;   100 BUTTON_VMAXIMIZE
+  5 "artwork/windowbutton/vmax_3.png";   371  0;   357  1  1  1  1
+  353 "artwork/windowbutton/vmax_3.png";   371  0;   357  1  1  1  1
+  352 "artwork/windowbutton/vmax_2.png";   371  0;   357  1  1  1  1
+  354 "artwork/windowbutton/vmax_1.png";   371  0;   357  1  1  1  1
+  356 "artwork/windowbutton/vmax_1.png";   371  0;   357  1  1  1  1
+  355 "artwork/windowbutton/vmax_2.png";   371  0;   357  1  1  1  1
+  359 "artwork/windowbutton/vmax_1.png";   371  0;   357  1  1  1  1
+  361 "artwork/windowbutton/vmax_1.png";   371  0;   357  1  1  1  1
+  360 "artwork/windowbutton/vmax_2.png";   371  0;   357  1  1  1  1
+  362 "artwork/windowbutton/vmax_1.png";   371  0;   357  1  1  1  1
+  364 "artwork/windowbutton/vmax_1.png";   371  0;   357  1  1  1  1
+  363 "artwork/windowbutton/vmax_2.png";   371  0;   357  1  1  1  1
+1000
+12 999;   100 BUTTON_ARROW_UP
+  5 "artwork/desktopbutton/arrow_up_1.png";   371  0;   357  2  2  2  2
+  353 "artwork/desktopbutton/arrow_up_2.png";   371  0;   357  2  2  2  2
+  354 "artwork/desktopbutton/arrow_up_1.png";   371  0;   357  2  2  2  2
+  356 "artwork/desktopbutton/arrow_up_2.png";   371  0;   357  2  2  2  2
+  359 "artwork/desktopbutton/arrow_up_1.png";   371  0;   357  2  2  2  2
+  361 "artwork/desktopbutton/arrow_up_2.png";   371  0;   357  2  2  2  2
+  362 "artwork/desktopbutton/arrow_up_1.png";   371  0;   357  2  2  2  2
+  364 "artwork/desktopbutton/arrow_up_2.png";   371  0;   357  2  2  2  2
+  363 "artwork/windowbutton/vmax_2.png";   371  0;   357  1  1  1  1
+1000
+12 999;   100 BUTTON_ARROW_DOWN
+  5 "artwork/desktopbutton/arrow_down_1.png";   371  0;   357  2  2  2  2
+  353 "artwork/desktopbutton/arrow_down_2.png";   371  0;   357  2  2  2  2
+  354 "artwork/desktopbutton/arrow_down_1.png";   371  0;   357  2  2  2  2
+  356 "artwork/desktopbutton/arrow_down_2.png";   371  0;   357  2  2  2  2
+  359 "artwork/desktopbutton/arrow_down_1.png";   371  0;   357  2  2  2  2
+  361 "artwork/desktopbutton/arrow_down_2.png";   371  0;   357  2  2  2  2
+  362 "artwork/desktopbutton/arrow_down_1.png";   371  0;   357  2  2  2  2
+  364 "artwork/desktopbutton/arrow_down_2.png";   371  0;   357  2  2  2  2
+  363 "artwork/windowbutton/vmax_2.png";   371  0;   357  1  1  1  1
+1000
+12 999;   100 BORDER_DOWN_LEFT
+  5 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  353 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  352 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  354 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  356 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  355 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  359 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  361 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  360 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  362 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  364 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+  363 "artwork/border/down_left.png";   371  0;   357  1  1  1  1
+1000
+12 999;   100 BORDER_DOWN_RIGHT
+  5 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  353 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  352 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  354 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  356 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  355 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  359 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  361 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  360 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  362 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  364 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+  363 "artwork/border/down_right.png";   371  0;   357  1  1  1  1
+1000
+12 999;   100 BUTTON_BLACK
+  5 "artwork/black.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 COORDS
+  5 "artwork/coordsbackground.png";   371  0;   357  3  3  3  3
+  358 4  4  4  4
+1000
+12 999;   100 DIALOG
+  5 "artwork/dialog.png";   371  0;   357  6  6  6  6
+  353 "artwork/dialog.png";   371  0;   357  6  6  6  6
+  352 "artwork/dialog.png";   371  0;   357  6  6  6  6
+  358 10  10  10  10
+1000
+12 999;   100 DIALOG_BUTTON
+  5 "artwork/button.png";   371  0;   357  2  2  2  2
+  353 "artwork/button_hi.png";   371  0;   357  2  2  2  2
+  352 "artwork/button_clicked.png";   371  0;   357  2  2  2  2
+  358 6  6  6  6
+1000
+12 999;   100 DIALOG_WIDGET_BUTTON
+  5 "artwork/dialogs/w1.png";   371  0;   357  4  4  4  4
+  352 "artwork/dialogs/w2.png";   371  0;   357  4  4  4  4
+  358 4  4  4  4
+1000
+12 999;   100 DIALOG_WIDGET_CHECK_BUTTON
+  5 "artwork/dialogs/check0.png";   371  0;   357  0  0  0  0
+  353 "artwork/dialogs/check0.png";   371  0;   357  0  0  0  0
+  354 "artwork/dialogs/check1.png";   371  0;   357  0  0  0  0
+  356 "artwork/dialogs/check1.png";   371  0;   357  0  0  0  0
+  358 4  4  4  4
+1000
+12 999;   100 DIALOG_WIDGET_RADIO_BUTTON
+  5 "artwork/dialogs/option2.png";   371  0;   357  0  0  0  0
+  353 "artwork/dialogs/option2.png";   371  0;   357  0  0  0  0
+  354 "artwork/dialogs/option1.png";   371  0;   357  0  0  0  0
+  356 "artwork/dialogs/option1.png";   371  0;   357  0  0  0  0
+  358 4  4  4  4
+1000
+12 999;   100 DIALOG_WIDGET_SEPARATOR
+  5 "artwork/dialogs/hline.png";   371  0;   357  1  1  1  1
+  352 "artwork/dialogs/hline.png";   371  0;   357  1  1  1  1
+  358 1  1  1  1
+1000
+12 999;   100 DIALOG_WIDGET_TABLE
+  5 "artwork/p_sel.png";   371  0;   357  2  2  2  2
+  358 4  4  4  4
+1000
+12 999;   100 DIALOG_WIDGET_SLIDER_BASE_HORIZONTAL
+  5 "artwork/dialogs/scrollbar_h.png";   371  0;   357  4  4  1  1
+  358 4  4  1  1
+1000
+12 999;   100 DIALOG_WIDGET_SLIDER_KNOB_HORIZONTAL
+  5 "artwork/dialogs/trough_h1.png";   371  0;   357  4  4  4  4
+  352 "artwork/dialogs/trough_h2.png";   371  0;   357  4  4  4  4
+  358 4  4  4  4
+1000
+12 999;   100 DIALOG_WIDGET_SLIDER_BASE_VERTICAL
+  5 "artwork/dialogs/scrollbar_v.png";   371  0;   357  1  1  4  4
+  358 1  1  4  4
+1000
+12 999;   100 DIALOG_WIDGET_SLIDER_KNOB_VERTICAL
+  5 "artwork/dialogs/trough_v1.png";   371  0;   357  4  4  4  4
+  352 "artwork/dialogs/trough_v2.png";   371  0;   357  4  4  4  4
+  358 4  4  4  4
+1000
+12 999;   100 DIALOG_WIDGET_AREA
+  5 "artwork/dialogs/button1.png";   371  0;   357  4  4  4  4
+  358 4  4  4  4
+1000
+12 999;   100 SETTINGS_DESKTOP_AREA
+  5 "artwork/dialog.png";   371  0;   357  0  0  0  0
+  358 4  4  4  4
+1000
+12 999;   100 SETTINGS_AREA_AREA
+  5 "artwork/dialog.png";   371  0;   357  0  0  0  0
+  358 4  4  4  4
+1000
+12 999;   100 SETTINGS_AREADESK_AREA
+  5 "artwork/dialogs/button1.png";   371  0;   357  4  4  4  4
+  358 4  4  4  4
+1000
+12 999;   100 DEFAULT_DOCK_BUTTON
+  5 "artwork/dock1.png";   371  0;   357  4  4  4  4
+  353 "artwork/dock1.png";   371  0;   357  4  4  4  4
+  352 "artwork/dock1.png";   371  0;   357  4  4  4  4
+  358 4  4  4  4
+1000
+12 999;   100 DESKTOP_DRAGBUTTON_HORIZ
+  5 "artwork/border/titlebar_2.png";   371  0;   357  6  6  6  6
+  353 "artwork/border/titlebar_2.png";   371  0;   357  6  6  6  6
+  352 "artwork/border/titlebar_2.png";   371  0;   357  6  6  6  6
+1000
+12 999;   100 DESKTOP_RAISEBUTTON_HORIZ
+  5 "artwork/desktopbutton/arrow_up_1.png";   371  0;   357  0  0  0  0
+  353 "artwork/desktopbutton/arrow_up_1.png";   371  0;   357  0  0  0  0
+  352 "artwork/desktopbutton/arrow_up_2.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 DESKTOP_LOWERBUTTON_HORIZ
+  5 "artwork/desktopbutton/arrow_down_1.png";   371  0;   357  0  0  0  0
+  353 "artwork/desktopbutton/arrow_down_1.png";   371  0;   357  0  0  0  0
+  352 "artwork/desktopbutton/arrow_down_2.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 DESKTOP_DRAGBUTTON_VERT
+  5 "artwork/border/titlebar_3.png";   371  0;   357  2  2  50  2
+  353 "artwork/border/titlebar_3.png";   371  0;   357  2  2  50  2
+  352 "artwork/border/titlebar_3.png";   371  0;   357  2  2  50  2
+1000
+12 999;   100 DESKTOP_RAISEBUTTON_VERT
+  5 "artwork/desktopbutton/arrow_right_1.png";   371  0;   357  0  0  0  0
+  353 "artwork/desktopbutton/arrow_right_2.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 DESKTOP_LOWERBUTTON_VERT
+  5 "artwork/desktopbutton/arrow_left_1.png";   371  0;   357  0  0  0  0
+  353 "artwork/desktopbutton/arrow_left_2.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 EPPLET_BACKGROUND_HORIZONTAL
+  5 "artwork/button.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_BACKGROUND_VERTICAL
+  5 "artwork/button.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_BUTTON
+  5 "artwork/button.png";   371  0;   357  2  2  2  2
+  353 "artwork/button_hi.png";   371  0;   357  2  2  2  2
+  352 "artwork/button_clicked.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_TOGGLEBUTTON_OFF
+  5 "artwork/button.png";   371  0;   357  2  2  2  2
+  353 "artwork/button_hi.png";   371  0;   357  2  2  2  2
+  352 "artwork/button_clicked.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_TOGGLEBUTTON_ON
+  5 "artwork/button_clicked.png";   371  0;   357  2  2  2  2
+  353 "artwork/button_clicked.png";   371  0;   357  2  2  2  2
+  352 "artwork/button_clicked.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_DRAWINGAREA
+  5 "artwork/button_clicked.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_HSLIDER_BASE
+  5 "artwork/epplets/s_h.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_HSLIDER_KNOB
+  5 "artwork/epplets/s_k1.png";   371  0;   357  2  2  2  2
+  352 "artwork/epplets/s_k2.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_VSLIDER_BASE
+  5 "artwork/epplets/s_v.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_VSLIDER_KNOB
+  5 "artwork/epplets/s_k1.png";   371  0;   357  2  2  2  2
+  352 "artwork/epplets/s_k2.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_POPUP_BASE
+  5 "artwork/dialogs/button1.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_POPUP_ENTRY
+  5 "artwork/border/titlebar.png";   371  0;   357  2  2  2  2
+  353 "artwork/border/titlebar.png";   371  0;   357  2  2  2  2
+  352 "artwork/border/titlebar.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_HBAR_BASE
+  5 "artwork/border/titlebar_x.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_HBAR_BAR
+  5 "artwork/border/titlebar_r.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_VBAR_BASE
+  5 "artwork/border/titlebar_x.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_VBAR_BAR
+  5 "artwork/border/titlebar_r.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_ARROW_UP
+  5 "artwork/desktopbutton/arrow_up_1.png";   371  0;   357  2  2  2  2
+  353 "artwork/desktopbutton/arrow_up_1.png";   371  0;   357  2  2  2  2
+  352 "artwork/desktopbutton/arrow_up_2.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_ARROW_DOWN
+  5 "artwork/desktopbutton/arrow_down_1.png";   371  0;   357  2  2  2  2
+  353 "artwork/desktopbutton/arrow_down_1.png";   371  0;   357  2  2  2  2
+  352 "artwork/desktopbutton/arrow_down_2.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_ARROW_LEFT
+  5 "artwork/desktopbutton/arrow_left_1.png";   371  0;   357  2  2  2  2
+  353 "artwork/desktopbutton/arrow_left_1.png";   371  0;   357  2  2  2  2
+  352 "artwork/desktopbutton/arrow_left_2.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_ARROW_RIGHT
+  5 "artwork/desktopbutton/arrow_right_1.png";   371  0;   357  2  2  2  2
+  353 "artwork/desktopbutton/arrow_right_1.png";   371  0;   357  2  2  2  2
+  352 "artwork/desktopbutton/arrow_right_2.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_PLAY
+  5 "artwork/epplets/play_fg.png";   371  0;   357  2  2  2  2
+  353 "artwork/epplets/play_fg.png";   371  0;   357  2  2  2  2
+  352 "artwork/epplets/play_cl.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_STOP
+  5 "artwork/epplets/stop_fg.png";   371  0;   357  2  2  2  2
+  353 "artwork/epplets/stop_fg.png";   371  0;   357  2  2  2  2
+  352 "artwork/epplets/stop_cl.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_PAUSE
+  5 "artwork/epplets/pause_fg.png";   371  0;   357  2  2  2  2
+  353 "artwork/epplets/pause_fg.png";   371  0;   357  2  2  2  2
+  352 "artwork/epplets/pause_cl.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_PREVIOUS
+  5 "artwork/epplets/prev_fg.png";   371  0;   357  2  2  2  2
+  353 "artwork/epplets/prev_fg.png";   371  0;   357  2  2  2  2
+  352 "artwork/epplets/prev_cl.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_NEXT
+  5 "artwork/epplets/next_fg.png";   371  0;   357  2  2  2  2
+  353 "artwork/epplets/next_fg.png";   371  0;   357  2  2  2  2
+  352 "artwork/epplets/next_cl.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_EJECT
+  5 "artwork/epplets/eject_fg.png";   371  0;   357  2  2  2  2
+  353 "artwork/epplets/eject_fg.png";   371  0;   357  2  2  2  2
+  352 "artwork/epplets/eject_cl.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_CLOSE
+  5 "artwork/epplets/close_fg.png";   371  0;   357  2  2  2  2
+  353 "artwork/epplets/close_fg.png";   371  0;   357  2  2  2  2
+  352 "artwork/epplets/close_cl.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_FAST_FORWARD
+  5 "artwork/epplets/ff_fg.png";   371  0;   357  2  2  2  2
+  353 "artwork/epplets/ff_fg.png";   371  0;   357  2  2  2  2
+  352 "artwork/epplets/ff_cl.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_REWIND
+  5 "artwork/epplets/rw_fg.png";   371  0;   357  2  2  2  2
+  353 "artwork/epplets/rw_fg.png";   371  0;   357  2  2  2  2
+  352 "artwork/epplets/rw_cl.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_REPEAT
+  5 "artwork/epplets/repeat_fg.png";   371  0;   357  2  2  2  2
+  353 "artwork/epplets/repeat_fg.png";   371  0;   357  2  2  2  2
+  352 "artwork/epplets/repeat_cl.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_SKIP
+  5 "artwork/epplets/skip_fg.png";   371  0;   357  2  2  2  2
+  353 "artwork/epplets/skip_fg.png";   371  0;   357  2  2  2  2
+  352 "artwork/epplets/skip_cl.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_HELP
+  5 "artwork/epplets/help_fg.png";   371  0;   357  2  2  2  2
+  353 "artwork/epplets/help_fg.png";   371  0;   357  2  2  2  2
+  352 "artwork/epplets/help_cl.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 EPPLET_CONFIGURE
+  5 "artwork/epplets/config_fg.png";   371  0;   357  2  2  2  2
+  353 "artwork/epplets/config_fg.png";   371  0;   357  2  2  2  2
+  352 "artwork/epplets/config_cl.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 WARPFOCUS
+  5 "artwork/border/titlebar_1.png";   371  0;   357  6  6  6  6
+  352 "artwork/border/titlebar_2.png";   371  0;   357  6  6  6  6
+  358 6  6  6  6
+1000
+12 999;   100 ICONBOX_SCROLLBAR_BASE_HORIZONTAL
+  5 "artwork/dialogs/trough_h1.png";   371  0;   357  4  4  1  1
+  358 4  4  1  1
+1000
+12 999;   100 ICONBOX_SCROLLBAR_KNOB_HORIZONTAL
+  5 "artwork/dialogs/scrollbar_h.png";   371  0;   357  4  4  4  4
+  358 4  4  4  4
+1000
+12 999;   100 ICONBOX_SCROLLBAR_BASE_VERTICAL
+  5 "artwork/dialogs/trough_v1.png";   371  0;   357  1  1  4  4
+  358 1  1  4  4
+1000
+12 999;   100 ICONBOX_SCROLLBAR_KNOB_VERTICAL
+  5 "artwork/dialogs/scrollbar_h.png";   371  0;   357  4  4  4  4
+  358 4  4  4  4
+1000
+12 999;   100 ICONBOX_COVER_VERTICAL
+  5 "artwork/iconboxcover.png";   371  0;   357  6  6  6  6
+  358 4  4  4  4
+1000
+12 999;   100 ICONBOX_COVER_HORIZONTAL
+  5 "artwork/iconboxcover.png";   371  0;   357  6  6  6  6
+  358 4  4  4  4
+1000
+12 999;   100 ICONBOX_HORIZONTAL
+  5 "artwork/dialog.png";   371  0;   357  4  4  4  4
+  358 6  6  6  6
+1000
+12 999;   100 ICONBOX_VERTICAL
+  5 "artwork/dialog.png";   371  0;   357  4  4  4  4
+  358 6  6  6  6
+1000
+12 999;   100 ICONBOX_SCROLLKNOB_HORIZONTAL
+  5 "artwork/dialogs/trough1.png";   371  0;   357  4  4  4  4
+  352 "artwork/dialogs/trough2.png";   371  0;   357  4  4  4  4
+  358 4  4  4  4
+1000
+12 999;   100 ICONBOX_SCROLLKNOB_VERTICAL
+  5 "artwork/dialogs/trough_v1.png";   371  0;   357  4  4  4  4
+  352 "artwork/dialogs/trough_v2.png";   371  0;   357  4  4  4  4
+  358 4  4  4  4
+1000
+12 999;   100 ICONBOX_ARROW_LEFT
+  5 "artwork/desktopbutton/arrow_left_1.png";   371  0;   357  0  0  0  0
+  352 "artwork/desktopbutton/arrow_left_2.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 ICONBOX_ARROW_RIGHT
+  5 "artwork/desktopbutton/arrow_right_1.png";   371  0;   357  0  0  0  0
+  352 "artwork/desktopbutton/arrow_right_2.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 ICONBOX_ARROW_UP
+  5 "artwork/desktopbutton/arrow_up_1.png";   371  0;   357  0  0  0  0
+  352 "artwork/desktopbutton/arrow_up_2.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 ICONBOX_ARROW_DOWN
+  5 "artwork/desktopbutton/arrow_down_1.png";   371  0;   357  0  0  0  0
+  352 "artwork/desktopbutton/arrow_down_2.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 MENU_BG
+  5 "artwork/menu/menu_bg.png";   371  0;   357  8  8  8  8
+  353 "artwork/menu/menu_bg.png";   371  0;   357  8  8  8  8
+  352 "artwork/menu/menu_bg.png";   371  0;   357  8  8  8  8
+  358 8  8  12  8
+1000
+12 999;   100 MENU_SUB
+  5 "artwork/menu/submenu.png";   371  0;   357  0  15  3  3
+  353 "artwork/menu/submenu_hi.png";   371  0;   357  0  15  3  3
+  352 "artwork/menu/submenu_clicked.png";   371  0;   357  0  15  3  3
+  358 0  15  3  3
+1000
+12 999;   100 MENU_SEL
+  5 "artwork/border/titlebar.png";   371  0;   357  3  15  3  3
+  353 "artwork/menu/menu_hi.png";   371  0;   357  3  15  3  3
+  352 "artwork/menu/menu_clicked.png";   371  0;   357  3  15  3  3
+  358 3  3  3  3
+1000
+12 999;   100 PAGER_SEL
+  5 "artwork/p_sel.png";   371  0;   357  2  2  2  2
+  358 2  2  2  2
+1000
+12 999;   100 PAGER_TITLE_MAIN
+  5 "artwork/win_bg.png";   371  0;   357  6  22  1  1
+  358 6  22  1  1
+1000
+12 999;   100 PAGER_BACKGROUND
+  5 "artwork/button_clicked.png";   371  0;   357  6  6  6  6
+1000
+12 999;   100 PAGER_WIN
+  5 "artwork/button.png";   371  0;   357  3  3  3  3
+1000
+12 999;   100 PAGER_DRAG
+  5 "artwork/border/pb3.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 PAGER_SHADE
+  5 "artwork/border/pb4.png";   371  0;   357  3  4  6  7
+1000
+12 999;   100 TT_MAIN
+  5 "artwork/border/titlebar_1.png";   371  0;   357  11  11  11  11
+  358 24  24  24  24
+1000
+12 999;   100 TT_MINI
+  5 "artwork/border/titlebar_1.png";   371  0;   357  11  11  11  11
+  358 11  11  11  11
+1000
+12 999;   100 TT_CLOUD1
+  5 "artwork/border/titlebar_1.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 TT_CLOUD2
+  5 "artwork/border/titlebar_1.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 TT_CLOUD3
+  5 "artwork/border/titlebar_1.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 TT_CLOUD4
+  5 "artwork/border/titlebar_1.png";   371  0;   357  0  0  0  0
+1000

@@ -1,0 +1,4 @@
+"Network"
+"Firefox Web Browser" "/usr/share/icons/hicolor/48x48/apps/firefox.png" exec "firefox"
+"Skype" "/usr/share/pixmaps/skypeforlinux.png" exec "/usr/bin/skypeforlinux"
+"Zoom" "/usr/share/pixmaps/Zoom.png" exec "/usr/bin/zoom"

@@ -1,0 +1,311 @@
+#
+# Name: flat xwindow
+#
+# Author: Brihadeesh S <peregrinator@gitlab>
+#
+# Based on Brian Gomes Bascoy's vtwmrc [http://www.vtwm.org/samples/vtwmrc-bascoy.txt]
+#
+# Based on Cudcv's .tmwrc (with vtwm extensions)
+#
+
+###XClock resource###
+# xclock*geometry: -2+2
+# xclock*analog: false
+# xclock*background: gray
+# xclock*width: 150
+# xclock*height: 28
+# xclock*render: false
+# xclock*padding: 1
+
+###.xinitrc###
+# bggen darkcyan darkblue black | xv -8 -quic -root -quit -
+# xclock -strftime " %a %d %b %I:%M %p" &
+
+#
+# Variables
+#
+
+NoGrabServer
+RestartPreviousState
+NoDefaults
+
+ShowIconManager
+SortIconManager
+IconifyByUnmapping
+
+RightHandSidePulldownMenus
+StayUpMenus
+StayUpOptionalMenus
+
+NaturalAutoPanBehavior
+NotVirtualGeometries
+FixManagedVirtualGeometries
+FixTransientVirtualGeometries
+
+ShallowReliefWindowButton
+
+AutoRelativeResize
+InterpolateMenuColors
+RandomPlacement
+
+NoIconifyIconManagers
+
+MoveDelta					3
+
+ResizeRegion				"Centered"
+
+ButtonIndent				1
+TitlePadding				5
+TitleButtonBorderWidth		1
+
+BorderWidth					1
+BorderBevelWidth			0
+ButtonBevelWidth			0
+DoorBevelWidth				1
+IconBevelWidth				2
+IconManagerBevelWidth		0
+InfoBevelWidth				1
+VirtualDesktopBevelWidth	1
+IconManagerGeometry			"-0+30" 1 # if you don't use xclock set this to -0+3
+
+ClearBevelContrast			40
+DarkBevelContrast			40
+
+VirtualDesktop				"2x2-0-0" 16
+PanDistanceX				100
+PanDistanceY				100
+PanResistance				750
+AutoPan						100
+
+#
+# Fonts
+#
+
+TitleFont			"-artwiz-cure-medium-r-normal--*-110-*-*-*-*-*-*"
+ResizeFont			"-artwiz-cure-medium-r-normal--*-110-*-*-*-*-*-*"
+MenuFont			"-artwiz-cure-medium-r-normal--*-110-*-*-*-*-*-*"
+MenuTitleFont		"-artwiz-cure-medium-r-normal--*-110-*-*-*-*-*-*"
+DoorFont			"-artwiz-cure-medium-r-normal--*-110-*-*-*-*-*-*"
+IconFont			"-artwiz-cure-medium-r-normal--*-110-*-*-*-*-*-*"
+InfoFont			"-artwiz-cure-medium-r-normal--*-110-*-*-*-*-*-*"
+IconManagerFont		"-artwiz-cure-medium-r-normal--*-110-*-*-*-*-*-*"
+VirtualDesktopFont	"-artwiz-cure-medium-r-normal--*-110-*-*-*-*-*-*"
+
+#
+# Lists
+#
+
+WarpCursor
+
+NailedDown
+{
+	"VTWM *"
+	"xclock"
+}
+
+NoTitle
+{
+	"VTWM *"
+	"xclock"
+    "dunst"
+}
+
+NoBorder
+{
+	"VTWM *"
+	"xclock"
+    "dunst"
+}
+
+DontShowInDisplay
+{
+	"VTWM *"
+	"xclock"
+    "dunst"
+}
+
+IconManagerDontShow
+{
+	"VTWM *"
+	"xclock"
+    "dunst"
+}
+
+NoWindowRing
+{
+	"VTWM *"
+	"xclock"
+    "dunst"
+}
+
+Color
+{
+	# TWM Simple Color
+	DefaultBackground			"grey"
+	DefaultForeground			"black"
+
+	MenuBackground				"LightSteelBlue"
+	MenuForeground				"black"
+	MenuShadowColor				"black"
+	MenuTitleForeground			"black"
+	MenuTitleBackground			"white"
+
+	# TWM Complex Color
+    BorderColor					"black" { }
+    BorderTileForeground		"black" { }
+    BorderTileBackground		"white" { }
+
+    IconBackground				"LightSteelBlue" { }
+    IconBorderColor				"black" { }
+    IconForeground				"black" { }
+
+    IconManagerBackground		"grey" { }
+    IconManagerForeGround		"black" { }
+
+	# VTWM Simple Color
+	RealScreenBackground		"orange"
+	RealScreenForeground		"yellow"
+	VirtualBackground			"grey"
+	VirtualForeground			"red"
+
+	DesktopDisplayBorder		"black" { }
+	DesktopDisplayForeground	"black" { }
+
+	DoorBackGround				"orange" { }
+	DoorForeGround				"black"  { }
+}
+
+#
+# Functions and Bindings
+#
+
+LeftTitleButton ":darrow" = f.menu "arrange"
+RightTitleButton ":delete" = f.delete
+RightTitleButton ":dot" = f.iconify
+RightTitleButton ":resize" = f.resize
+
+Button1 = : root : f.menu "apps"
+Button3 = : root : f.menu "main"
+
+Button1 = : title : f.move
+Button2 = : title : f.resize
+Button3 = : title : f.raiselower
+
+Button1 = : virtual | desktop : f.movescreen
+
+Button1 = m : window : f.move
+Button3 = m : window : f.resize
+
+Button1 = : iconmgr : f.iconify
+Button3 = : iconmgr : f.warp
+
+WindowRing
+WarpVisible
+
+"Tab" = m : all : f.warpring "next"
+"Tab" = m |s : all : f.warpring "prev"
+
+"F4" = m : window | title | frame : f.delete
+
+"Up" = c | m : all : f.panup "100"
+"Down" = c | m : all : f.pandown "100"
+"Left" = c | m: all : f.panleft "100"
+"Right" = c | m : all : f.panright "100"
+
+"Up" = m4 : window | title | frame : f.topzoom
+"Down" = m4 : window | title | frame : f.bottomzoom
+"Left" = m4 : window | title | frame : f.leftzoom
+"Right" = m4 : window | title | frame : f.rightzoom
+"Return" = m4 : window | title | frame : f.fullzoom
+
+"C" = m4 : all : f.exec "urxvt &"
+
+#
+# Menus
+#
+
+menu "main"
+{
+	"  VTWM  "			f.title
+	"Operations"		f.menu "ops"
+	"Version"			f.version
+	"Caution"			f.title
+	"Restart"			("red":"white")f.restart
+	"Exit"				("red":"white")f.quit
+}
+
+menu "apps"
+{
+	"  Applications  "	f.title
+	"Editors"			f.menu "editors"
+	"Terminals" 		f.menu "terminals"
+	"Network"			f.menu "network"
+	"Graphics"			f.menu "graphics"
+}
+
+menu "network"
+{
+	"  Network  "		f.title
+	"Firefox"			f.exec "firefox &"
+	"Zoom"              f.exec "zoom &"
+}
+
+menu "graphics"
+{
+	"  Graphics  "		f.title
+	"Gimp"				f.exec "gimp &"
+	"Gcolor3"           f.exec "gcolor3 &"
+}
+
+menu "editors"
+{
+	"  Editors  "		f.title
+	"Emacs"				f.exec "emacs -q &"
+	"Doom-Emacs"        f.exec "emacs --with-profile doom &"
+	"Vim"            	f.exec "alacritty -e vim &"
+	"Vis"               f.exec "alacritty -e vis &"
+}
+
+menu "terminals"
+{
+	"  Terminals  "		f.title
+	"Alacritty"			f.exec "alacritty &"
+	"Simple Terminal"	f.exec "st &"
+}
+
+menu "ops"
+{
+	"  Operations  "	f.title
+	"Auto Pan"			f.autopan
+	"New Door"			f.newdoor
+	"Snap Screen"		f.snaprealscreen
+	"Static Icons"		f.staticiconpositions
+	"Warp Snug"			f.warpsnug
+	"Warp Visible"		f.warpvisible
+	""					f.separator
+	"Show Icon Mgr"		f.showiconmgr
+	"Hide Icon Mgr"		f.hideiconmgr
+	"Show Desktop"		f.showdesktopdisplay
+	"Hide Desktop"		f.hidedesktopdisplay
+	""					f.separator
+	"Refresh"			f.refresh
+}
+
+menu "arrange"
+{
+	"  Arrange  "		f.title
+	"Autoraise"			f.autoraise
+	"Raise"				f.raise
+	"Lower"				f.lower
+	"Nail"				f.nail
+	"Ring"				f.ring
+	""					f.separator
+	"Full Zoom"			f.fullzoom
+	"Horiz Zoom"		f.horizoom
+	"Vert Zoom"			f.zoom
+	""					f.separator
+	"Identify"			f.identify
+	""					f.separator
+	"Delete"			f.delete
+	"Destroy"			f.destroy
+}

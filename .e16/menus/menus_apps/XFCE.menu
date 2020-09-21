@@ -1,0 +1,4 @@
+"XFCE"
+"File Manager" "system-file-manager" exec "thunar-settings"
+"Preferred Applications" "/usr/share/icons/hicolor/48x48/apps/preferences-desktop-default-applications.png" exec "exo-preferred-applications"
+"Removable Drives and Media" "/usr/share/icons/Adwaita/48x48/devices/drive-removable-media.png" exec "thunar-volman-settings"

@@ -1,0 +1,4 @@
+"Development"
+"CMake" "/usr/share/icons/hicolor/32x32/apps/CMakeSetup.png" exec "cmake-gui"
+"Emacs" "/usr/share/icons/hicolor/48x48/apps/emacs.png" exec "emacs"
+"RStudio" "/usr/share/pixmaps/rstudio.png" exec "/usr/bin/rstudio-bin"

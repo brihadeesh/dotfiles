@@ -1,0 +1,4 @@
+"Game"
+"Counter-Strike: Global Offensive" "/home/ossifrage/.local/share/icons/hicolor/48x48/apps/steam_icon_730.png" exec "steam steam://rungameid/730"
+"Xonotic (GLX)" "/usr/share/icons/hicolor/48x48/apps/xonotic.png" exec "/usr/bin/xonotic-glx"
+"Xonotic (SDL)" "/usr/share/icons/hicolor/48x48/apps/xonotic.png" exec "/usr/bin/xonotic-sdl"

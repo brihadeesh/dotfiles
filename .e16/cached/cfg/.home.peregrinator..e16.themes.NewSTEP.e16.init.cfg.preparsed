@@ -1,0 +1,21 @@
+1001 1
+5 999;  100 "STARTUP_BACKGROUND"
+  560 "a8 a8 a8"
+1000
+12 999;   100 STARTUP_BAR
+  5 "artwork/dragbar.png";   371  0;   357  19  2  2  2
+1000
+12 999;   100 PROGRESS_BAR
+  5 "artwork/menu_back.png";   371  0;   357  2  2  2  2
+  352 "artwork/menu_back.png";   371  0;   357  2  2  2  2
+  354 "artwork/menu_back.png";   371  0;   357  2  2  2  2
+  358 2  2  2  2
+1000
+1 999;   100 "PROGRESS_TEXT"
+  5 "*font-init";   204  0;   205  0 0 0;   206  0 0 0
+  201 0
+1000
+1 999;   100 "PROGRESS_TEXT_NUMBER"
+  5 "*font-init";   204  0;   205  0 0 0;   206  0 0 0
+  201 512
+1000

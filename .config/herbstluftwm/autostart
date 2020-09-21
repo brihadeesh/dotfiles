@@ -1,0 +1,203 @@
+#!/usr/bin/env bash
+
+# this is a simple config for herbstluftwm
+
+hc() {
+    herbstclient "$@"
+}
+
+hc emit_hook reload
+
+# pywal bleh bleh
+wal -R
+# wal --theme ~/dotfiles/colourschemes/json/elegance.json
+#. "${HOME}/.cache/wal/colors.sh"
+
+# remove all existing keybindings
+hc keyunbind --all
+
+# keybindings
+# if you have a super key you will be much happier with Mod set to Mod4
+Mod=Mod4    # Use super as the main modifier
+
+hc keybind $Mod-Shift-Escape quit
+hc keybind $Mod-Shift-r reload
+hc keybind $Mod-Shift-q close
+# TODO: script this shit?
+# hc keybind $Mod-0 spawn slock
+# hc keybind $Mod-Shift-0 spawn ~/bin/suspend.sh
+
+hc keybind $Mod-Shift-Return spawn alacritty
+hc keybind $Mod-Control-Return spawn st
+# hc keybind $Mod-d spawn rofi -show run -theme ~/.config/rofi/curvature.rasi
+hc keybind $Mod-p spawn dmenu_run -m 0 -fn "vixus:weight=Regular" -nb gray42 -nf \
+   white -sb gray82 -sf "#870000" -h 14 -x 70 -y 2 -w 1296 -l 0 -p ">"
+
+# Brightness and volume controls
+hc keybind XF86AudioLowerVolume spawn volumeControl.sh down
+hc keybind XF86AudioRaiseVolume spawn volumeControl.sh up
+hc keybind XF86AudioMute spawn volumeControl.sh mute
+hc keybind XF86MonBrightnessUp spawn brightnessControl.sh up
+hc keybind XF86MonBrightnessDown spawn brightnessControl.sh down
+hc keybind XF86AudioNext spawn playerctl next
+hc keybind XF86AudioPrev spawn playerctl previous
+hc keybind XF86AudioPlay spawn playerctl play-pause
+
+# basic movement
+# focusing clients
+#hc keybind $Mod-h     focus left
+#hc keybind $Mod-j     focus down
+#hc keybind $Mod-k     focus up
+#hc keybind $Mod-l     focus right
+
+# moving clients
+hc keybind $Mod-Shift-h     shift left
+hc keybind $Mod-Shift-j     shift down
+hc keybind $Mod-Shift-k     shift up
+hc keybind $Mod-Shift-l     shift right
+
+# splitting frames
+# create an empty frame at the specified direction
+hc keybind $Mod-u       split   bottom  0.5
+hc keybind $Mod-o       split   right   0.5
+# let the current frame explode into subframes
+hc keybind $Mod-Control-space split explode
+
+# resizing frames
+resizestep=0.025
+hc keybind $Mod-h       resize left +$resizestep
+hc keybind $Mod-j       resize down +$resizestep
+hc keybind $Mod-k       resize up +$resizestep
+hc keybind $Mod-l       resize right +$resizestep
+
+# tags
+tag_names=( "ffox" "edit" "term" "misc" )
+# tag_names=( {1..4} )
+tag_keys=( {1..4} )
+
+hc rename default "${tag_names[0]}" || true
+for i in ${!tag_names[@]} ; do
+    hc add "${tag_names[$i]}"
+    key="${tag_keys[$i]}"
+    if [ -n "$key" ] ; then
+        hc keybind "$Mod-$key" use_index "$i"
+        hc keybind "$Mod-Shift-$key" move_index "$i"
+    fi
+done
+
+# cycle through tags
+#hc keybind $Mod-period use_index +1 --skip-visible
+#hc keybind $Mod-comma  use_index -1 --skip-visible
+
+# layouting
+hc keybind $Mod-r remove
+hc keybind $Mod-s floating toggle
+hc keybind $Mod-Shift-e fullscreen toggle
+hc keybind $Mod-f pseudotile toggle
+# The following cycles through the available layouts within a frame, but skips
+# layouts, if the layout change wouldn't affect the actual window positions.
+# I.e. if there are two windows within a frame, the grid layout is skipped.
+hc keybind $Mod-space                                                           \
+            or , and . compare tags.focus.curframe_wcount = 2                   \
+                     . cycle_layout +1 vertical horizontal max vertical grid    \
+               , cycle_layout +1
+
+# mouse
+hc mouseunbind --all
+hc mousebind $Mod-Button1 move
+hc mousebind $Mod-Button2 zoom
+hc mousebind $Mod-Button3 resize
+
+# focus
+#hc keybind $Mod-BackSpace   cycle_monitor
+hc keybind $Mod-Tab         cycle_all +1
+hc keybind $Mod-Shift-Tab   cycle_all -1
+hc keybind $Mod-i jumpto urgent
+
+
+
+# theme
+# settings
+hc attr theme.tiling.reset 1
+hc attr theme.floating.reset 1
+hc set frame_bg_transparent 1
+hc set frame_active_opacity 0
+hc set frame_normal_opacity 0
+hc set smart_window_surroundings 0
+hc set smart_frame_surroundings 1
+hc set mouse_recenter_gap 0
+hc set focus_follows_mouse 0
+hc set focus_stealing_prevention 0
+
+# borders
+hc attr theme.inner_width 2
+hc attr theme.border_width 2
+hc attr theme.floating.border_width 0
+hc attr theme.floating.outer_width 0
+hc set frame_border_width 0
+hc set always_show_frame 0
+hc set frame_transparent_width 0
+hc set frame_gap 8
+hc set window_gap -2
+hc set frame_padding 0
+
+# theme colors
+hc attr theme.urgent.color "#ff0000"
+hc attr theme.normal.inner_color "#c0c0c0"
+hc attr theme.floating.outer_color "#4f4f4f"
+hc attr theme.active.inner_color "#4f4f4f"
+
+
+
+# rules
+hc unrule -F
+#hc rule class=XTerm tag=3 # move all xterms to tag 3
+hc rule focus=on # normally focus new clients
+#hc rule focus=off # normally do not focus new clients
+# give focus to most common terminals
+#hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
+#hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=on focus=on pseudotile=on
+#hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
+hc rule class=Alacritty tag=3 focus=on
+hc rule class=Emacs tag=2
+hc rule class=Firefox tag=1
+# hc rule class=Bar
+
+#hc set tree_style '╾│ ├└╼─┐'
+#hc set tree_style "-| |'--"
+hc set tree_style '╾│ ├╰╼─╮'
+
+# unlock, just to be sure
+hc unlock
+
+# do multi monitor setup here, e.g.:
+# hc set_monitors 1280x1024+0+0 1280x1024+1280+0
+# or simply:
+# hc detect_monitors
+
+
+
+# Autostart stuff
+hsetroot -solid gray60 &
+picom -b &
+numlockx on &
+xbanish -i mod4 &
+
+# panel
+panel=~/.config/herbstluftwm/launch.sh
+
+# pkill "$panel"
+
+[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
+for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
+    # start it on each monitor
+    "$panel" $monitor &
+#    hc pad $monitor 16 0 0 0
+done
+
+# This resets redshift (which I turn off for movies so I need it to be rerun on reload)
+pkill redshift
+while pgrep -u $UID -x redshift >/dev/null; do sleep 1; done
+redshift -c ~/.config/redshift.conf &

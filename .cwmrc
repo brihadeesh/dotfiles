@@ -1,0 +1,93 @@
+# ~/.cwmrc
+
+# Override built-in term command
+#command term "xterm +vb +sb -ls -fn 9x15 -bg black -fg white -geometry 80x30"
+# command term "st -g 197x63+175+5"
+command term "alacritty"
+
+# Turn on sticky group mode i.e. new windows are added to underlying group
+sticky yes
+
+## Fonts, Style, Color
+fontname        "vixus:pixelsize=11"
+color menubg    "#d0d0d0"
+color font      "#000000"
+color selfont   "#ffffaf"
+
+borderwidth 2
+color activeborder      "#000000"
+color inactiveborder    "#d0d0d0"
+gap 18 5 5 5 	        #[T,B,L,R]
+
+# application menu
+command alacritty alacritty
+command st st
+command sanemacs sanemacs
+command doom doom-emacs
+command emacs "emacs -q"
+command firefox firefox
+command spotify spotify
+command ncmpcpp "alacritty -t ncmpcpp -e ncmpcpp"
+
+# groups predefined, use xprop to get these from each program
+autogroup 0 XClock
+autogroup 0 Polybar
+autogroup 0 9menu
+autogroup 0 dunst
+
+autogroup 1 Firefox
+autogroup 2 st
+autogroup 2 Alacritty
+autogroup 2 emacs*
+autogroup 3 ncmpcpp
+autogroup 3 Spotify
+
+# inherit current selected group
+sticky yes
+
+# Ignore programs by that name by not drawing borders around them.
+ignore xclock
+ignore xload
+ignore dunst
+ignore polybar
+
+# Keybinds
+unbind-key all
+unbind-mouse all
+
+bind-key 4-1            group-only-1
+bind-key 4-2            group-only-2
+bind-key 4-3            group-only-3
+bind-key 4S-1           window-movetogroup-1
+bind-key 4S-2           window-movetogroup-2
+bind-key 4S-3           window-movetogroup-3
+
+bind-key 4-Return	terminal
+bind-key 4S-r		restart
+bind-key 4S-Escape	quit
+bind-key 4-p    	menu-exec
+
+bind-key 4-Tab		window-cycle
+bind-key 4S-Tab		window-rcycle
+bind-key 4S-q		window-delete
+
+bind-key 4C-e		window-fullscreen
+bind-key 4S-e 		window-maximize
+bind-key 4C-l       	window-menu-label
+bind-key 4-w    	window-hide
+bind-key 4S-w		menu-window-hidden
+
+bind-key XF86AudioRaiseVolume	"volumeControl.sh up"
+bind-key XF86AudioLowerVolume	"volumeControl.sh down"
+bind-key XF86AudioMute		"volumeControl.sh mute"
+bind-key XF86MonBrightnessDown  "brightnessControl.sh down"
+bind-key XF86MonBrightnessUp  	"brightnessControl.sh up"
+
+bind-mouse 4-1   	window-move
+bind-mouse 4-2          window-lower
+bind-mouse 4-3          window-resize
+
+bind-mouse "1"      	menu-window
+bind-mouse "3" 		menu-cmd
+bind-mouse "4" 		group-rcycle
+bind-mouse "5" 		group-cycle

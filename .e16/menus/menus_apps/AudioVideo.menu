@@ -1,0 +1,3 @@
+"AudioVideo"
+"mpv Media Player" "/usr/share/icons/hicolor/32x32/apps/mpv.png" exec "mpv --player-operation-mode=pseudo-gui --"
+"PulseAudio Volume Control" "multimedia-volume-control" exec "pavucontrol"

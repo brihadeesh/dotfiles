@@ -1,0 +1,23 @@
+1001 1
+5 999;  100 STARTUP_BACKGROUND
+  560 "200 200 200"
+  561 "artwork/init/white_mist.png" 1 1 0 0 0 0
+  562 "artwork/init/ap_splash.png" 1 512 512 0 0
+1000
+12 999;   100 STARTUP_BAR
+  5 "artwork/trans.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 PROGRESS_BAR
+  5 "artwork/init/trough.png";   371  0;   357  4  4  4  4
+  352 "artwork/init/trough.png";   371  0;   357  4  4  4  4
+  354 "artwork/init/slider.png";   371  0;   357  4  5  2  2
+  358 3  3  1  1
+1000
+1 999;   100 PROGRESS_TEXT
+  5 "*font-init";   204  0;   205  0 0 0;   206  0 0 0
+  201 512
+1000
+1 999;   100 PROGRESS_TEXT_NUMBER
+  5 "*font-init";   204  0;   205  0 0 0;   206  0 0 0
+  201 512
+1000

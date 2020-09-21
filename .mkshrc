@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# export PS1='$(local WD=${PWD/~}; if (( ${#WD} > 10 )); then print ...${WD: -10: -1}; else print $WD; fi) $(git branch 2>/dev/null | grep \*; ) $(if (( USER_ID )); then print \$; else print \#; fi) '
+
+export PS1='$(local WD=${PWD/~}; if (( ${#WD} > 10 )); then print ...${WD: -10: -1}; else print $WD; fi) $(if (( USER_ID )); then print \$; else print \#; fi) '
+
+alias ls='ls --color=always'

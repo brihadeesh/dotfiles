@@ -1,0 +1,296 @@
+1001 0
+11 999
+  100 ACTION_BUTTON_DRAG
+  17 "Click and drag to move desktop"
+  17 "(on any desktop but desktop 0)"
+  102 5
+  930 1
+  103 1
+  931 1
+  428 0
+  104 button mo ptr
+1000
+11 999
+  100 ACTION_GOTO_DESK_NEXT
+  17 "Switch Desktops"
+  102 5
+  107 "Go to the next desktop."
+  930 1
+  103 1
+  428 1
+  104 desk next
+1000
+11 999
+  100 ACTION_GOTO_DESK_PREV
+  17 "Switch Desktops"
+  102 5
+  107 "Go to the previous desktop."
+  930 1
+  103 1
+  428 1
+  104 desk prev
+1000
+11 999
+  100 ACTION_MOVE
+  17 "Move"
+  102 5
+  107 "Move this window."
+  428 0
+  4 1
+  104 wop * mo ptr
+  105
+  107 "Shade/Unshade this window."
+  428 0
+  4 2
+  104 wop * sh
+  105
+  107 "Show the Window Options menu."
+  428 0
+  4 3
+  104 menus show "winops.menu"
+  105
+  107 "Shade/Unshade this window."
+  428 6
+  4 1
+  104 wop * sh
+  105
+  107 "Show/Hide group borders."
+  428 0
+  4 2
+  101 900
+  104 gop * showhide
+  105
+  107 "Start a group."
+  428 0
+  4 1
+  101 900
+  104 gop * start
+  105
+  107 "Add to current group."
+  428 0
+  4 1
+  101 902
+  104 gop * add
+  105
+  107 "Break this window's group."
+  428 0
+  4 1
+  101 911
+  104 gop * break
+  105
+  107 "Shade."
+  428 0
+  4 4
+  103 1
+  104 wop * sh on
+  105
+  107 "Unshade."
+  428 0
+  4 5
+  103 1
+  104 wop * sh off
+1000
+11 999
+  100 ACTION_RESIZE
+  17 "Resize"
+  102 5
+  107 "Resize this window."
+  428 0
+  4 1
+  104 wop * sz ptr
+  105
+  107 "Move this window."
+  4 3
+  104 wop * mo ptr
+1000
+11 999
+  100 ACTION_RESIZE_H
+  17 "Resize Horizontally"
+  102 5
+  107 "Resize this window horizontally."
+  428 0
+  103 1
+  4 1
+  104 wop * sz ptr-h
+  105
+  107 "Move this window."
+  4 3
+  104 wop * mo ptr
+1000
+11 999
+  100 ACTION_RESIZE_V
+  17 "Resize Vertically"
+  102 5
+  107 "Resize this window vertically."
+  428 0
+  103 1
+  4 1
+  104 wop * sz ptr-v
+  105
+  107 "Move this window."
+  4 3
+  104 wop * mo ptr
+1000
+11 999
+  100 ACTION_KILL
+  17 "Close"
+  102 5
+  107 "Close this window."
+  428 1
+  103 1
+  4 1
+  104 wop * close
+  105
+  107 "Forcibly destroy this window."
+  4 3
+  104 wop * kill
+1000
+11 999
+  100 ACTION_MAXH
+  17 "Maximize Height"
+  102 5
+  107 "Toggle between maximum screen height and normal height."
+  428 1
+  103 1
+  930 1
+  104 wop * th
+1000
+11 999
+  100 ACTION_MAXW
+  17 "Maximize Width"
+  102 5
+  107 "Toggle between maximum screen width and normal width."
+  428 1
+  103 1
+  930 1
+  104 wop * tw
+1000
+11 999
+  100 ACTION_MAX
+  17 "Maximize"
+  102 5
+  107 "Toggle between maximum screen size and normal size."
+  428 1
+  103 1
+  4 1
+  104 wop * ts
+  105
+  107 "Toggle between maximum screen width and normal width."
+  4 2
+  104 wop * tw
+  105
+  107 "Toggle between maximum screen height and normal height."
+  4 3
+  104 wop * th
+1000
+11 999
+  100 ACTION_SEND_NEXT
+  17 "Send To Another Desktop"
+  102 5
+  107 "Send this Window to the next desktop."
+  428 1
+  103 1
+  930 1
+  104 wop * desk next
+1000
+11 999
+  100 ACTION_SEND_PREV
+  17 "Send To Another Desktop"
+  102 5
+  107 "Send this Window to the previous desktop."
+  428 1
+  103 1
+  930 1
+  104 wop * desk prev
+1000
+11 999
+  100 ACTION_SNAPSHOT
+  17 "Snapshot"
+  102 5
+  107 "This button does nothing interesting."
+  930 1
+  428 1
+  104 remember * all
+1000
+11 999
+  100 ACTION_SHADE
+  17 "Shade/Unshade"
+  102 5
+  107 "Shade/Unshade this window."
+  930 1
+  428 1
+  104 wop * sh
+1000
+11 999
+  100 ACTION_MENU
+  17 "Window Options"
+  102 5
+  107 "Show the Window Options menu."
+  103 1
+  428 0
+  930 1
+  104 menus show "winops.menu"
+1000
+11 999
+  100 ACTION_ICONIFY
+  17 "Iconify"
+  102 5
+  107 "Iconify (Minimize) this window."
+  103 1
+  428 1
+  4 1
+  104 wop * ic
+  105
+  107 "Show the Window Options menu."
+  428 0
+  4 3
+  104 menus show "winops.menu"
+1000
+11 999
+  100 ACTION_WINDOW_SLIDEOUT
+  17 "More Buttons"
+  102 5
+  107 "Show more buttons."
+  930 1
+  428 1
+  104 slideout mainwindowslider
+1000
+11 999
+  100 ACTION_RAISE
+  17 "Raise"
+  102 5
+  107 "Raise this window to the top."
+  428 1
+  103 1
+  930 1
+  104 wop * ra
+1000
+11 999
+  100 ACTION_LOWER
+  17 "Lower"
+  102 5
+  107 "Lower this window."
+  428 1
+  103 1
+  930 1
+  104 wop * lo
+1000
+11 999
+  100 ACTION_STICK
+  17 "Stick/Unstick"
+  102 5
+  107 "Toggle the Omnipresent (visible on all Desktops) state of this window."
+  428 1
+  103 1
+  930 1
+  104 wop * st
+1000
+11 999
+   100 ACTION_AUTOSHADE
+   102 5
+   428 2
+   104 wop * sh off
+   105
+   428 3
+   104 wop * sh on
+1000

@@ -1,0 +1,393 @@
+1001 1
+12 999;   100 TOP_LEFT_RESIZE
+  5 "artwork/borders/top_left_resize_n.png";   371  0;   357  3  0  2  2
+  353 "artwork/borders/top_left_resize_n.png";   371  0;   357  3  0  2  2
+  352 "artwork/borders/top_left_resize_n.png";   371  0;   357  3  0  2  2
+  354 "artwork/borders/top_left_resize_h.png";   371  0;   357  3  0  2  2
+  356 "artwork/borders/top_left_resize_h.png";   371  0;   357  3  0  2  2
+  355 "artwork/borders/top_left_resize_h.png";   371  0;   357  3  0  2  2
+  358 3  3  3  3
+1000
+12 999;   100 TITLEBAR
+  5 "artwork/borders/title_n.png";   371  0;   357  3  0  2  2
+  353 "artwork/borders/title_n.png";   371  0;   357  3  0  2  2
+  352 "artwork/borders/title_n.png";   371  0;   357  3  0  2  2
+  354 "artwork/borders/title_h.png";   371  0;   357  3  0  2  2
+  356 "artwork/borders/title_h.png";   371  0;   357  3  0  2  2
+  355 "artwork/borders/title_h.png";   371  0;   357  3  0  2  2
+  358 1  5  3  3
+1000
+12 999;   100 TOP_RESIZE
+  5 "artwork/borders/resize_top_n.png";   371  0;   357  3  0  2  2
+  353 "artwork/borders/resize_top_n.png";   371  0;   357  3  0  2  2
+  352 "artwork/borders/resize_top_n.png";   371  0;   357  3  0  2  2
+  354 "artwork/borders/resize_top_h.png";   371  0;   357  3  0  2  2
+  356 "artwork/borders/resize_top_h.png";   371  0;   357  3  0  2  2
+  355 "artwork/borders/resize_top_h.png";   371  0;   357  3  0  2  2
+  358 3  3  3  3
+1000
+12 999;   100 BUTTON_ICONIFY
+  5 "artwork/borders/iconify_n.png";   371  0;   357  3  0  2  2
+  353 "artwork/borders/iconify_n.png";   371  0;   357  3  0  2  2
+  352 "artwork/borders/iconify_n.png";   371  0;   357  3  0  2  2
+  354 "artwork/borders/iconify_h.png";   371  0;   357  3  0  2  2
+  356 "artwork/borders/iconify_h.png";   371  0;   357  3  0  2  2
+  355 "artwork/borders/iconify_c.png";   371  0;   357  3  0  2  2
+  358 3  3  3  3
+1000
+12 999;   100 BUTTON_MAX
+  5 "artwork/borders/max_n.png";   371  0;   357  3  0  2  2
+  353 "artwork/borders/max_n.png";   371  0;   357  3  0  2  2
+  352 "artwork/borders/max_n.png";   371  0;   357  3  0  2  2
+  354 "artwork/borders/max_h.png";   371  0;   357  3  0  2  2
+  356 "artwork/borders/max_h.png";   371  0;   357  3  0  2  2
+  355 "artwork/borders/max_c.png";   371  0;   357  3  0  2  2
+  358 3  3  3  3
+1000
+12 999;   100 BUTTON_KILL
+  5 "artwork/borders/kill_n.png";   371  0;   357  3  0  2  2
+  353 "artwork/borders/kill_n.png";   371  0;   357  3  0  2  2
+  352 "artwork/borders/kill_n.png";   371  0;   357  3  0  2  2
+  354 "artwork/borders/kill_h.png";   371  0;   357  3  0  2  2
+  356 "artwork/borders/kill_h.png";   371  0;   357  3  0  2  2
+  355 "artwork/borders/kill_c.png";   371  0;   357  3  0  2  2
+  358 3  3  3  3
+1000
+12 999;   100 TOP_RIGHT_RESIZE
+  5 "artwork/borders/top_right_resize_n.png";   371  0;   357  3  0  2  2
+  353 "artwork/borders/top_right_resize_n.png";   371  0;   357  3  0  2  2
+  352 "artwork/borders/top_right_resize_n.png";   371  0;   357  3  0  2  2
+  354 "artwork/borders/top_right_resize_h.png";   371  0;   357  3  0  2  2
+  356 "artwork/borders/top_right_resize_h.png";   371  0;   357  3  0  2  2
+  355 "artwork/borders/top_right_resize_h.png";   371  0;   357  3  0  2  2
+  358 3  3  3  3
+1000
+12 999;   100 RIGHT_RESIZE
+  5 "artwork/borders/resize_right_n.png";   371  0;   357  3  0  2  2
+  353 "artwork/borders/resize_right_n.png";   371  0;   357  3  0  2  2
+  352 "artwork/borders/resize_right_n.png";   371  0;   357  3  0  2  2
+  354 "artwork/borders/resize_right_h.png";   371  0;   357  3  0  2  2
+  356 "artwork/borders/resize_right_h.png";   371  0;   357  3  0  2  2
+  355 "artwork/borders/resize_right_h.png";   371  0;   357  3  0  2  2
+  358 3  3  3  3
+1000
+12 999;   100 BOTTOM_RIGHT_RESIZE
+  5 "artwork/borders/bottom_right_resize_n.png";   371  0;   357  3  0  2  2
+  353 "artwork/borders/bottom_right_resize_n.png";   371  0;   357  3  0  2  2
+  352 "artwork/borders/bottom_right_resize_n.png";   371  0;   357  3  0  2  2
+  354 "artwork/borders/bottom_right_resize_h.png";   371  0;   357  3  0  2  2
+  356 "artwork/borders/bottom_right_resize_h.png";   371  0;   357  3  0  2  2
+  355 "artwork/borders/bottom_right_resize_h.png";   371  0;   357  3  0  2  2
+  358 3  3  3  3
+1000
+12 999;   100 BOTTOM_RESIZE
+  5 "artwork/borders/resize_bottom_n.png";   371  0;   357  3  0  2  2
+  353 "artwork/borders/resize_bottom_n.png";   371  0;   357  3  0  2  2
+  352 "artwork/borders/resize_bottom_n.png";   371  0;   357  3  0  2  2
+  354 "artwork/borders/resize_bottom_h.png";   371  0;   357  3  0  2  2
+  356 "artwork/borders/resize_bottom_h.png";   371  0;   357  3  0  2  2
+  355 "artwork/borders/resize_bottom_h.png";   371  0;   357  3  0  2  2
+  358 3  3  3  3
+1000
+12 999;   100 LEFT_RESIZE
+  5 "artwork/borders/resize_left_n.png";   371  0;   357  3  0  2  2
+  353 "artwork/borders/resize_left_n.png";   371  0;   357  3  0  2  2
+  352 "artwork/borders/resize_left_n.png";   371  0;   357  3  0  2  2
+  354 "artwork/borders/resize_left_h.png";   371  0;   357  3  0  2  2
+  356 "artwork/borders/resize_left_h.png";   371  0;   357  3  0  2  2
+  355 "artwork/borders/resize_left_h.png";   371  0;   357  3  0  2  2
+  358 3  3  3  3
+1000
+12 999;   100 BOTTOM_LEFT_RESIZE
+  5 "artwork/borders/bottom_left_resize_n.png";   371  0;   357  3  0  2  2
+  353 "artwork/borders/bottom_left_resize_n.png";   371  0;   357  3  0  2  2
+  352 "artwork/borders/bottom_left_resize_n.png";   371  0;   357  3  0  2  2
+  354 "artwork/borders/bottom_left_resize_h.png";   371  0;   357  3  0  2  2
+  356 "artwork/borders/bottom_left_resize_h.png";   371  0;   357  3  0  2  2
+  355 "artwork/borders/bottom_left_resize_h.png";   371  0;   357  3  0  2  2
+  358 3  3  3  3
+1000
+12 999;   100 SHADED_BAR_CENTER
+  5 "artwork/borders/shaded_center_n.png";   371  0;   357  3  0  2  2
+  353 "artwork/borders/shaded_center_n.png";   371  0;   357  3  0  2  2
+  352 "artwork/borders/shaded_center_n.png";   371  0;   357  3  0  2  2
+  354 "artwork/borders/shaded_center_h.png";   371  0;   357  3  0  2  2
+  356 "artwork/borders/shaded_center_h.png";   371  0;   357  3  0  2  2
+  355 "artwork/borders/shaded_center_h.png";   371  0;   357  3  0  2  2
+  358 7  7  14  3
+1000
+12 999;   100 SHADED_BAR_LEFT
+  5 "artwork/borders/shaded_left_n.png";   371  0;   357  3  0  2  2
+  353 "artwork/borders/shaded_left_n.png";   371  0;   357  3  0  2  2
+  352 "artwork/borders/shaded_left_n.png";   371  0;   357  3  0  2  2
+  354 "artwork/borders/shaded_left_h.png";   371  0;   357  3  0  2  2
+  356 "artwork/borders/shaded_left_h.png";   371  0;   357  3  0  2  2
+  355 "artwork/borders/shaded_left_h.png";   371  0;   357  3  0  2  2
+  358 7  7  14  3
+1000
+12 999;   100 SHADED_BAR_RIGHT
+  5 "artwork/borders/shaded_right_n.png";   371  0;   357  3  0  2  2
+  353 "artwork/borders/shaded_right_n.png";   371  0;   357  3  0  2  2
+  352 "artwork/borders/shaded_right_n.png";   371  0;   357  3  0  2  2
+  354 "artwork/borders/shaded_right_h.png";   371  0;   357  3  0  2  2
+  356 "artwork/borders/shaded_right_h.png";   371  0;   357  3  0  2  2
+  355 "artwork/borders/shaded_right_h.png";   371  0;   357  3  0  2  2
+  358 7  7  14  3
+1000
+12 999;   100 TOP_LEFT
+  5 "artwork/borders/menu/top_left_resize_n.png";   371  0;   357  3  0  2  2
+  353 "artwork/borders/menu/top_left_resize_n.png";   371  0;   357  3  0  2  2
+  352 "artwork/borders/menu/top_left_resize_n.png";   371  0;   357  3  0  2  2
+  354 "artwork/borders/menu/top_left_resize_h.png";   371  0;   357  3  0  2  2
+  356 "artwork/borders/menu/top_left_resize_h.png";   371  0;   357  3  0  2  2
+  355 "artwork/borders/menu/top_left_resize_h.png";   371  0;   357  3  0  2  2
+  358 3  3  3  3
+1000
+12 999;   100 TOP_RIGHT
+  5 "artwork/borders/menu/top_right_resize_n.png";   371  0;   357  3  0  2  2
+  353 "artwork/borders/menu/top_right_resize_n.png";   371  0;   357  3  0  2  2
+  352 "artwork/borders/menu/top_right_resize_n.png";   371  0;   357  3  0  2  2
+  354 "artwork/borders/menu/top_right_resize_h.png";   371  0;   357  3  0  2  2
+  356 "artwork/borders/menu/top_right_resize_h.png";   371  0;   357  3  0  2  2
+  355 "artwork/borders/menu/top_right_resize_h.png";   371  0;   357  3  0  2  2
+  358 3  3  3  3
+1000
+12 999;   100 BOTTOM_RIGHT
+  5 "artwork/borders/menu/bottom_right_resize_n.png";   371  0;   357  3  0  2  2
+  353 "artwork/borders/menu/bottom_right_resize_n.png";   371  0;   357  3  0  2  2
+  352 "artwork/borders/menu/bottom_right_resize_n.png";   371  0;   357  3  0  2  2
+  354 "artwork/borders/menu/bottom_right_resize_h.png";   371  0;   357  3  0  2  2
+  356 "artwork/borders/menu/bottom_right_resize_h.png";   371  0;   357  3  0  2  2
+  355 "artwork/borders/menu/bottom_right_resize_h.png";   371  0;   357  3  0  2  2
+  358 3  3  3  3
+1000
+12 999;   100 BOTTOM_LEFT
+  5 "artwork/borders/menu/bottom_left_resize_n.png";   371  0;   357  3  0  2  2
+  353 "artwork/borders/menu/bottom_left_resize_n.png";   371  0;   357  3  0  2  2
+  352 "artwork/borders/menu/bottom_left_resize_n.png";   371  0;   357  3  0  2  2
+  354 "artwork/borders/menu/bottom_left_resize_h.png";   371  0;   357  3  0  2  2
+  356 "artwork/borders/menu/bottom_left_resize_h.png";   371  0;   357  3  0  2  2
+  355 "artwork/borders/menu/bottom_left_resize_h.png";   371  0;   357  3  0  2  2
+  358 3  3  3  3
+1000
+12 999;   100 SHADED_LEFT
+  5 "artwork/borders/menu/shaded_left_n.png";   371  0;   357  3  0  2  2
+  353 "artwork/borders/menu/shaded_left_n.png";   371  0;   357  3  0  2  2
+  352 "artwork/borders/menu/shaded_left_n.png";   371  0;   357  3  0  2  2
+  354 "artwork/borders/menu/shaded_left_h.png";   371  0;   357  3  0  2  2
+  356 "artwork/borders/menu/shaded_left_h.png";   371  0;   357  3  0  2  2
+  355 "artwork/borders/menu/shaded_left_h.png";   371  0;   357  3  0  2  2
+  358 7  7  14  3
+1000
+12 999;   100 SHADED_RIGHT
+  5 "artwork/borders/menu/shaded_right_n.png";   371  0;   357  3  0  2  2
+  353 "artwork/borders/menu/shaded_right_n.png";   371  0;   357  3  0  2  2
+  352 "artwork/borders/menu/shaded_right_n.png";   371  0;   357  3  0  2  2
+  354 "artwork/borders/menu/shaded_right_h.png";   371  0;   357  3  0  2  2
+  356 "artwork/borders/menu/shaded_right_h.png";   371  0;   357  3  0  2  2
+  355 "artwork/borders/menu/shaded_right_h.png";   371  0;   357  3  0  2  2
+  358 7  7  14  3
+1000
+12 999;   100 COORDS
+  5 "artwork/menus/tooltip.png";   371  0;   357  4  4  4  4
+  358 4  4  4  4
+1000
+12 999;   100 DIALOG
+  5 "artwork/other/Dialog_bg.png";   371  0;   357  2  2  2  2
+  358 5  5  5  5
+1000
+12 999;   100 DIALOG_BUTTON
+  5 "artwork/other/Dialog_btn_1.png";   371  0;   357  3  3  3  3
+  353 "artwork/other/Dialog_btn_2.png";   371  0;   357  3  3  3  3
+  352 "artwork/other/Dialog_btn_3.png";   371  0;   357  3  3  3  3
+  358 12  12  4  4
+1000
+12 999;   100 DIALOG_WIDGET_BUTTON
+  5 "artwork/other/Dialog_btn_1.png";   371  0;   357  4  4  4  4
+  353 "artwork/other/Dialog_btn_2.png";   371  0;   357  4  4  4  4
+  352 "artwork/other/Dialog_btn_3.png";   371  0;   357  4  4  4  4
+  358 4  4  4  4
+1000
+12 999;   100 DIALOG_WIDGET_CHECK_BUTTON
+  5 "artwork/dialogs/select_empty_n.png";   371  0;   357  0  0  0  0
+  353 "artwork/dialogs/select_empty_h.png";   371  0;   357  0  0  0  0
+  354 "artwork/dialogs/select_check_n.png";   371  0;   357  0  0  0  0
+  356 "artwork/dialogs/select_check_h.png";   371  0;   357  0  0  0  0
+  358 4  4  4  4
+1000
+12 999;   100 DIALOG_WIDGET_RADIO_BUTTON
+  5 "artwork/dialogs/select_empty_n.png";   371  0;   357  0  0  0  0
+  353 "artwork/dialogs/select_empty_h.png";   371  0;   357  0  0  0  0
+  354 "artwork/dialogs/select_radio_n.png";   371  0;   357  0  0  0  0
+  356 "artwork/dialogs/select_radio_h.png";   371  0;   357  0  0  0  0
+  358 4  4  4  4
+1000
+12 999;   100 DIALOG_WIDGET_SEPARATOR
+  5 "artwork/dialogs/box_in.png";   371  0;   357  2  2  2  2
+  358 2  2  2  2
+1000
+12 999;   100 DIALOG_WIDGET_TABLE
+  5 "artwork/misc/p_sel.png";   371  0;   357  2  2  2  2
+  358 4  4  4  4
+1000
+12 999;   100 DIALOG_WIDGET_SLIDER_BASE_HORIZONTAL
+  5 "artwork/dialogs/slider_in.png";   371  0;   357  3  3  3  3
+1000
+12 999;   100 DIALOG_WIDGET_SLIDER_BASE_VERTICAL
+  5 "artwork/dialogs/slider_in.png";   371  0;   357  3  3  3  3
+1000
+12 999;   100 DIALOG_WIDGET_SLIDER_KNOB_HORIZONTAL
+  5 "artwork/dialogs/box_out.png";   371  0;   357  0  0  0  0
+  352 "artwork/dialogs/box_in.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 DIALOG_WIDGET_SLIDER_KNOB_VERTICAL
+  5 "artwork/dialogs/box_out.png";   371  0;   357  0  0  0  0
+  352 "artwork/dialogs/box_in.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 DIALOG_WIDGET_AREA
+  5 "artwork/other/Dialog_btn_3.png";   371  0;   357  4  4  4  4
+  358 4  4  4  4
+1000
+12 999;   100 SETTINGS_DESKTOP_AREA
+  5 "artwork/other/Dialog_btn_3.png";   371  0;   357  4  4  4  4
+  358 4  4  4  4
+1000
+12 999;   100 SETTINGS_AREA_AREA
+  5 "artwork/other/Dialog_btn_3.png";   371  0;   357  4  4  4  4
+  358 4  4  4  4
+1000
+12 999;   100 SETTINGS_AREADESK_AREA
+  5 "artwork/other/Dialog_btn_3.png";   371  0;   357  4  4  4  4
+  358 4  4  4  4
+1000
+12 999;   100 DEFAULT_DOCK_BUTTON
+  5 "artwork/dialogs/box_out.png";   371  0;   357  4  4  4  4
+  352 "artwork/dialogs/box_in.png";   371  0;   357  4  4  4  4
+  358 4  4  4  4
+1000
+12 999;   100 DESKTOP_DRAGBUTTON_HORIZ
+  5 "artwork/dragbar/dragbar_normal.png";   371  0;   357  126  126  2  2
+  353 "artwork/dragbar/dragbar_hilited.png";   371  0;   357  126  126  2  2
+  352 "artwork/dragbar/dragbar_clicked.png";   371  0;   357  126  126  2  2
+1000
+12 999;   100 DESKTOP_RAISEBUTTON_HORIZ
+  5 "artwork/dragbar/arrow_up_normal.png";   371  0;   357  0  0  0  0
+  353 "artwork/dragbar/arrow_up_hilited.png";   371  0;   357  0  0  0  0
+  352 "artwork/dragbar/arrow_up_clicked.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 DESKTOP_LOWERBUTTON_HORIZ
+  5 "artwork/dragbar/arrow_down_normal.png";   371  0;   357  0  0  0  0
+  353 "artwork/dragbar/arrow_down_hilited.png";   371  0;   357  0  0  0  0
+  352 "artwork/dragbar/arrow_down_clicked.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 DESKTOP_DRAGBUTTON_VERT
+  5 "artwork/dragbar/dragbar_vert_normal.png";   371  0;   357  2  2  126  126
+  353 "artwork/dragbar/dragbar_vert_normal.png";   371  0;   357  2  2  126  126
+  352 "artwork/dragbar/dragbar_vert_clicked.png";   371  0;   357  2  2  126  126
+1000
+12 999;   100 DESKTOP_RAISEBUTTON_VERT
+  5 "artwork/dragbar/arrow_left_normal.png";   371  0;   357  0  0  0  0
+  353 "artwork/dragbar/arrow_left_hilited.png";   371  0;   357  0  0  0  0
+  352 "artwork/dragbar/arrow_left_clicked.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 DESKTOP_LOWERBUTTON_VERT
+  5 "artwork/dragbar/arrow_right_normal.png";   371  0;   357  0  0  0  0
+  353 "artwork/dragbar/arrow_right_hilited.png";   371  0;   357  0  0  0  0
+  352 "artwork/dragbar/arrow_right_clicked.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 DESKTOP_DESKRAY_HORIZ
+  5 "artwork/dragbar/deskray_horiz_normal.png";   371  0;   357  0  0  0  0
+  353 "artwork/dragbar/deskray_horiz_hilited.png";   371  0;   357  0  0  0  0
+  352 "artwork/dragbar/deskray_horiz_clicked.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 DESKTOP_DESKRAY_VERT
+  5 "artwork/dragbar/deskray_vert_normal.png";   371  0;   357  0  0  0  0
+  353 "artwork/dragbar/deskray_vert_hilited.png";   371  0;   357  0  0  0  0
+  352 "artwork/dragbar/deskray_vert_clicked.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 COORDS
+  5 "artwork/menus/tooltip.png";   371  0;   357  4  4  4  4
+  358 4  4  4  4
+1000
+12 999;   100 DEFAULT_ICON_BUTTON
+  5 "artwork/other/Dialog_btn_1.png";   371  0;   357  2  2  2  2
+  353 "artwork/other/Dialog_btn_2.png";   371  0;   357  2  2  2  2
+  352 "artwork/other/Dialog_btn_3.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 ICONBOX_HORIZONTAL
+  5 "artwork/other/Dialog_btn_3.png";   371  0;   357  4  4  4  4
+1000
+12 999;   100 ICONBOX_VERTICAL
+  5 "artwork/other/Dialog_btn_3.png";   371  0;   357  4  4  4  4
+1000
+12 999;   100 ICONBOX_ARROW_LEFT
+  5 "artwork/dragbar/arrow_left_normal.png";   371  0;   357  0  0  0  0
+  353 "artwork/dragbar/arrow_left_hilited.png";   371  0;   357  0  0  0  0
+  352 "artwork/dragbar/arrow_left_clicked.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 ICONBOX_ARROW_RIGHT
+  5 "artwork/dragbar/arrow_right_normal.png";   371  0;   357  0  0  0  0
+  353 "artwork/dragbar/arrow_right_hilited.png";   371  0;   357  0  0  0  0
+  352 "artwork/dragbar/arrow_right_clicked.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 ICONBOX_ARROW_UP
+  5 "artwork/dragbar/arrow_up_normal.png";   371  0;   357  0  0  0  0
+  353 "artwork/dragbar/arrow_up_hilited.png";   371  0;   357  0  0  0  0
+  352 "artwork/dragbar/arrow_up_clicked.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 ICONBOX_ARROW_DOWN
+  5 "artwork/dragbar/arrow_down_normal.png";   371  0;   357  0  0  0  0
+  353 "artwork/dragbar/arrow_down_hilited.png";   371  0;   357  0  0  0  0
+  352 "artwork/dragbar/arrow_down_clicked.png";   371  0;   357  0  0  0  0
+1000
+12 999;   100 ICONBOX_SCROLLBAR_BASE_HORIZONTAL
+  5 "artwork/dialogs/slider_out.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 ICONBOX_SCROLLBAR_BASE_VERTICAL
+  5 "artwork/dialogs/slider_out.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 ICONBOX_SCROLLBAR_KNOB_HORIZONTAL
+  5 "artwork/dialogs/slider_in.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 ICONBOX_SCROLLBAR_KNOB_VERTICAL
+  5 "artwork/dialogs/slider_in.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 ICONBOX_SCROLLKNOB_HORIZONTAL
+  5 "artwork/dialogs/box_out.png";   371  0;   357  2  2  2  2
+  352 "artwork/dialogs/box_in.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 ICONBOX_SCROLLKNOB_VERTICAL
+  5 "artwork/dialogs/box_out.png";   371  0;   357  2  2  2  2
+  352 "artwork/dialogs/box_in.png";   371  0;   357  2  2  2  2
+1000
+12 999;   100 MENU_SUB
+  5 "artwork/menus/menu_n.png";   371  0;   357  3  18  15  0
+  353 "artwork/menus/menu_h.png";   371  0;   357  3  18  15  0
+  352 "artwork/menus/menu_c.png";   371  0;   357  3  18  15  0
+  358 5  15  2  2
+1000
+12 999;   100 MENU_BG
+  5 "artwork/menus/menu_main.png";   371  0;   357  3  3  3  3
+  358 2  2  2  2
+1000
+12 999;   100 MENU_SEL
+  5 "artwork/menus/menu_item.png";   371  0;   357  0  0  0  0
+  358 5  2  2  2
+1000
+12 999;   100 PAGER_SEL
+  5 "artwork/misc/p_sel.png";   371  0;   357  2  2  2  2
+  358 2  2  2  2
+1000
+12 999;   100 PAGER_BACKGROUND
+  5 "artwork/menus/tooltip.png";   371  0;   357  4  4  4  4
+1000
+12 999;   100 PAGER_WIN
+  5 "artwork/menus/tooltip.png";   371  0;   357  4  4  4  4
+1000
+12 999;   100 TT_MAIN
+  5 "artwork/menus/tooltip.png";   371  0;   357  5  5  5  5
+  358 3  4  3  4
+1000
+12 999;   100 TT_BLANK
+  5 "artwork/misc/tttrans.png";   371  0;   357  0  0  0  0
+1000

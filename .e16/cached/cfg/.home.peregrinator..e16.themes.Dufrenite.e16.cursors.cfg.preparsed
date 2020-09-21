@@ -1,0 +1,9 @@
+1001 1
+800 999;   100 DEFAULT;   802  230 240 255;   801  50 30 25;   803  "artwork/cursors/cursor.xbm"; 1000
+800 999;   100 MOVE;   802  230 240 255;   801  50 30 25;   803  "artwork/cursors/cursor.xbm"; 1000
+800 999;   100 RESIZE_H;   802  84 102 128;   801  50 30 25;   803  "artwork/cursors/resize_h.xbm"; 1000
+800 999;   100 RESIZE_V;   802  84 102 128;   801  50 30 25;   803  "artwork/cursors/resize_v.xbm"; 1000
+800 999;   100 RESIZE_BR;   802  84 102 128;   801  50 30 25;   803  "artwork/cursors/resize_br.xbm"; 1000
+800 999;   100 RESIZE_TR;   802  84 102 128;   801  50 30 25;   803  "artwork/cursors/resize_tr.xbm"; 1000
+800 999;   100 KILL;   802  84 102 128;   801  0 0 0;   803  "artwork/cursors/kill.xbm"; 1000
+800 999;   100 ICONIFY;   802  84 102 128;   801  0 0 0;   803  "artwork/cursors/iconify.xbm"; 1000

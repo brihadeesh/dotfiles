@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+wal -R
+
+xbanish -i mod4 &
+
+hsetroot -solid gray40 &
+
+pkill -x picom
+picom -b &
+
+rdshft &
+
+# pkill -x xclock; xclock -strftime "%a %e %b  %H%M h" -geometry 130x18+5+5 -render \
+    # 			-face  "Spleen:pixelsize=12" -fg SandyBrown -bg
+
+# Terminate already running bar instances
+pkill -x polybar
+# Wait until the processes have been shut down
+while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+# Launch bar
+polybar -q -c ~/.config/polybar/config cwm &

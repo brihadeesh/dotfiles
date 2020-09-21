@@ -1,0 +1,7 @@
+1001 1
+14 999;  100  "TRANSIENT""_MATCH";  480  "TRANSIENT";  483 "*GIMP";1000
+14 999;  100 "TRANSIENT""_MATCH";  480 "TRANSIENT";  486 1;  1000
+USE_BORDER_FOR_STICKY_CLIENT("STICKY")
+14 999;  100  "artwork/icons/editor_icon.png""_MATCH";  490  "artwork/icons/editor_icon.png";  482 "Emacs";1000
+14 999;  100  "artwork/icons/netscape_icon.png""_MATCH";  490  "artwork/icons/netscape_icon.png";  482 "Netscape";1000
+14 999;  100  "artwork/icons/xterm_icon.png""_MATCH";  490  "artwork/icons/xterm_icon.png";  482 "XTerm";1000

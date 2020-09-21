@@ -1,0 +1,38 @@
+1001 0
+5 999;  100 "STARTUP_BACKGROUND"
+  560 "30 30 90"
+  561 "artwork/common/light.png" 1 1 0 0 0 0
+1000
+12 999
+  100 STARTUP_BAR
+  5  "artwork/common/dark.png"
+  357   0 0 0 0
+1000
+12 999
+  100 PROGRESS_BAR
+  5         "artwork/common/hilite.png"
+  357   0 0 0 0
+  358        5 5 3 3
+  352        "artwork/common/hilite.png"
+  357   0 0 0 0
+  358        5 5 3 3
+  354  "artwork/common/hilite.png"
+  357   0 0 0 0
+  358        4 4 3 3
+1000
+1 999
+  100 "PROGRESS_TEXT"
+  201 512
+  5 "*font-default"
+  204 0
+  205 208 208 208
+  206 0 0 0
+1000
+1 999
+  100 "PROGRESS_TEXT_NUMBER"
+  201 512
+  5 "*font-default"
+  204 0
+  205 208 208 208
+  206 0 0 0
+1000

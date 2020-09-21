@@ -1,0 +1,49 @@
+1001 1
+1 999;   100 COORDS
+  5 "*font-coords";   204  0;   205  0 0 0;   206  0 0 0
+  201 0
+1000
+1 999;   100 DIALOG
+  5 "*font-dialog";   204  0;   205  0 0 0;   206  0 0 0
+  201 512
+1000
+1 999;   100 DIALOG_BUTTON
+  5 "*font-dialog-hilite";   204  0;   205  0 0 0;   206  0 0 0
+  201 512
+1000
+1 999;   100 DIALOG_WIDGET_BUTTON
+  5 "*font-dialog-hilite";   204  0;   205  0 0 0;   206  0 0 0
+  201 512
+1000
+1 999;   100 DIALOG_WIDGET_CHECK_BUTTON
+  5 "*font-dialog";   204  0;   205  0 0 0;   206  0 0 0
+  201 0
+1000
+1 999;   100 DIALOG_WIDGET_RADIO_BUTTON
+  5 "*font-dialog";   204  0;   205  0 0 0;   206  0 0 0
+  201 0
+1000
+1 999;   100 DIALOG_WIDGET_TEXT
+  5 "*font-dialog";   204  0;   205  0 0 0;   206  0 0 0
+  201 512
+1000
+1 999;   100 MENU_TEXT
+  5 "*font-menu";   204  0;   205  0 0 0;   206  0 0 0
+1000
+1 999;   100 TEXT1
+  5 "*font-default";   204  0;   205  0 0 0;   206  0 0 0
+  354 "*font-default";   204  2;   205  0 0 0;   206  255 255 255
+  201 512
+1000
+1 999;   100 TEXT2
+  5 "*font-default";   204  0;   205  0 0 0;   206  0 0 0
+1000
+1 999;   100 TT_MINI_TEXT
+  5 "*font-tooltip";   204  __EFFECT_NICE;   205  0 0 0;   206  0 0 0
+  201 0
+1000
+1 999;   100 WARPFOCUS
+  5 "*font-focus";   204  0;   205  0 0 0;   206  0 0 0
+  352 "*font-focus";   204  0;   205  0 0 0;   206  0 0 0
+  201 0
+1000

@@ -1,0 +1,61 @@
+#!/bin/sh
+
+#################
+##  Bar config ##
+#################
+PANEL_FIFO='/tmp/panel-fifo'
+PANEL_HEIGHT=20
+PANEL_GEO=1366x23+0+10
+MON=0
+FONT='Fira Code:pixelsize=12:weight=Medium'
+
+# Colors
+FG='#ffffff'
+
+################
+## Bar script ##
+################
+if [ $(pgrep -cx panel) -gt 1 ] ; then
+    pkill -o panel
+fi
+
+trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
+
+[ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
+mkfifo "$PANEL_FIFO"
+
+## date/time
+while [[ true ]]; do 
+	date +'C%a %b %d, %H:%m'
+	sleep 30
+done > "$PANEL_FIFO" &
+
+
+## battery status
+while [[ true ]]; do
+	batt='acpi -b'
+	bat_perc=`($batt | awk '{print $4}' | sed s/,//)`
+	echo "B $bat_perc"
+    sleep 30
+done > $PANEL_FIFO &
+
+
+###############
+## Bar setup ## 
+###############
+
+while read -r line; do
+    case $line in
+            C*)
+                clock="${line#?}"
+                ;;
+            B*)
+                batt="${line#?}"
+                ;;
+    esac
+
+    printf "%s\n" "%{r}$clock  $batt      "
+done < "$PANEL_FIFO" | lemonbar -f "$FONT" -F "$FG" -g $PANEL_GEO -o 2 -u 3 -d | \
+	while read line; do eval "$line"; done &
+
+wait

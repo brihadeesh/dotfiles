@@ -1,0 +1,208 @@
+5 999
+100 NONE
+1000
+5 999
+100 Phlat_WhiteInterleave
+560 30 30 90
+565 /home/peregrinator/.e16/themes/Phlat/e16/artwork/common/tile.png
+566 1 1 0 0 0 0
+1000
+5 999
+100 LightOne_Background_Elogo
+560 100 70 40
+565 /home/peregrinator/.e16/themes/LightOne/e16/artwork/background/bg.png
+566 0 0 0 0 1024 1024
+567 /home/peregrinator/.e16/themes/LightOne/e16/artwork/background/name.png
+568 1 512 512 0 0
+1000
+5 999
+100 Axios_CarbonDesign
+560 177 177 177
+565 /home/peregrinator/.e16/themes/Axios/e16/artwork/backgrounds/carbon_simple.jpg
+566 0 0 0 0 1024 1024
+1000
+5 999
+100 DarkOne_Background_Logo
+560 100 70 40
+565 /home/peregrinator/.e16/themes/DarkOne/e16/artwork/backgrounds/bg.png
+566 1 1 0 0 0 0
+567 /home/peregrinator/.e16/themes/DarkOne/e16/artwork/backgrounds/name.png
+568 1 512 512 0 0
+564 3
+564 4
+564 5
+564 6
+564 7
+564 8
+564 9
+564 10
+564 11
+564 12
+564 13
+564 14
+564 15
+564 16
+564 17
+564 18
+564 19
+564 20
+564 21
+564 22
+564 23
+564 24
+564 25
+564 26
+564 27
+564 28
+564 29
+564 30
+564 31
+1000
+5 999
+100 Dufrenite_Radial_Logo
+560 100 70 40
+565 /home/peregrinator/.e16/themes/Dufrenite/e16/artwork/backgrounds/bg.png
+566 0 0 0 0 1024 1024
+567 /home/peregrinator/.e16/themes/Dufrenite/e16/artwork/backgrounds/dufrenite.png
+568 1 512 512 0 0
+1000
+5 999
+100 LightGnome_edesktop
+565 /home/peregrinator/.e16/themes/LiteGnome/e16/artwork/backgrounds/tileable.png
+566 1 1 0 0 0 0
+567 /home/peregrinator/.e16/themes/LiteGnome/e16/artwork/backgrounds/enlightenment.png
+568 1 512 512 0 0
+1000
+5 999
+100 Sensible_Grey_Static
+560 40 60 80
+565 /home/peregrinator/.e16/themes/Sensible/e16/artwork/backgrounds/grey_static.png
+566 1 1 0 0 0 0
+1000
+5 999
+100 Sensible_Blue_Static
+560 40 60 80
+565 /home/peregrinator/.e16/themes/Sensible/e16/artwork/backgrounds/blue_static.png
+566 1 1 0 0 0 0
+1000
+5 999
+100 ApplePlatinum_LightBlue_Texture_ApplePlatinum_Logo
+560 128 128 128
+565 /home/peregrinator/.e16/themes/ApplePlatinum/e16/artwork/backgrounds/lightblue_texture.png
+566 1 1 0 0 0 0
+567 /home/peregrinator/.e16/themes/ApplePlatinum/e16/artwork/backgrounds/ap_splash.png
+568 1 512 512 0 0
+1000
+5 999
+100 ApplePlatinum_BabyBlue_Foil
+560 128 128 128
+565 /home/peregrinator/.e16/themes/ApplePlatinum/e16/artwork/backgrounds/babyblue_foil.png
+566 1 1 0 0 0 0
+1000
+5 999
+100 ApplePlatinum_Watter_Blips
+560 128 128 128
+565 /home/peregrinator/.e16/themes/ApplePlatinum/e16/artwork/backgrounds/watter_blips.png
+566 1 1 0 0 0 0
+1000
+5 999
+100 ApplePlatinum_LightBlue_Texture
+560 128 128 128
+565 /home/peregrinator/.e16/themes/ApplePlatinum/e16/artwork/backgrounds/lightblue_texture.png
+566 1 1 0 0 0 0
+1000
+5 999
+100 X11_Background
+560 115 117 139
+565 /home/peregrinator/.e16/themes/X11/e16/artwork/backgrounds/bg.png
+566 1 1 0 0 0 0
+567 /home/peregrinator/.e16/themes/X11/e16/artwork/backgrounds/X11.png
+568 1 512 512 0 0
+1000
+5 999
+100 NewStep
+560 200 200 200
+1000
+5 999
+100 CD-E_BG1
+560 50 70 100
+565 /home/peregrinator/.e16/themes/CD-E/e16/artwork/backgrds/bg_cde.png
+566 1 1 0 0 0 0
+1000
+5 999
+100 eMac_Official
+560 50 70 100
+565 /home/peregrinator/.e16/themes/eMac/e16/artwork/backgrounds/eMac_Official_BG.jpg
+566 0 0 0 0 1024 1024
+1000
+5 999
+100 eMac_Boot
+560 50 70 100
+565 /home/peregrinator/.e16/themes/eMac/e16/artwork/backgrounds/eMacBoot.jpg
+566 0 0 0 0 1024 1024
+1000
+5 999
+100 eMac_Cyan
+565 /home/peregrinator/.e16/themes/eMac/e16/artwork/backgrounds/bg_cyan.jpg
+566 1 1 0 0 0 0
+1000
+5 999
+100 eMac_Blueberry
+565 /home/peregrinator/.e16/themes/eMac/e16/artwork/backgrounds/bg_blue.jpg
+566 1 1 0 0 0 0
+1000
+5 999
+100 eMac_Grape
+565 /home/peregrinator/.e16/themes/eMac/e16/artwork/backgrounds/bg_purple.jpg
+566 1 1 0 0 0 0
+1000
+5 999
+100 eMac_Strawberry
+565 /home/peregrinator/.e16/themes/eMac/e16/artwork/backgrounds/bg_red.jpg
+566 1 1 0 0 0 0
+1000
+5 999
+100 eMac_Tangerine
+565 /home/peregrinator/.e16/themes/eMac/e16/artwork/backgrounds/bg_orange.jpg
+566 1 1 0 0 0 0
+1000
+5 999
+100 eMac_Lime
+565 /home/peregrinator/.e16/themes/eMac/e16/artwork/backgrounds/bg_green.jpg
+566 1 1 0 0 0 0
+1000
+5 999
+100 OPENSTEP_Background
+560 200 200 200
+1000
+5 999
+100 DEFAULT_WUI_BLUE
+560 200 200 200
+565 /usr/share/e16/themes/winter/backgrounds/images/winter_ui_blue.png
+566 0 0 0 0 1024 1024
+1000
+5 999
+100 DEFAULT_WUI_GREEN
+565 /usr/share/e16/themes/winter/backgrounds/images/winter_ui_green.png
+566 0 0 0 0 1024 1024
+1000
+5 999
+100 E-Girl
+565 /home/peregrinator/.e16/themes/eGirl/e16/artwork/backgrounds/E-Girl.jpg
+566 0 0 0 0 1024 1024
+1000
+5 999
+100 DEFAULT_BRUSHED_METAL_BG
+560 30 34 49
+564 0
+564 1
+564 2
+1000
+5 999
+100 __NEWBG_1595177418
+560 65 34 49
+1000
+5 999
+100 __NEWBG_1595177436
+560 65 65 113
+1000

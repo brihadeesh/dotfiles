@@ -1,0 +1,20 @@
+1001 1
+12 999
+  100 TT_MAIN
+  5         "tooltips/images/tooltipbg.png"
+  357   9 9 9 9
+  358        6 8 8 12
+1000
+12 999
+  100 TT_CLEAR
+  5         "tooltips/images/clear.png"
+1000
+1 999
+  100 "TT_TEXT"
+  201 512
+  5 "*font-tooltip"
+  204 1
+  205 0 0 0
+  206 192 192 192
+1000
+17 999;  100 "DEFAULT";  12  "TT_MAIN";  641  "TT_MAIN";  642  "TT_MAIN";  643  "TT_MAIN";  644  "TT_MAIN";  646  "TT_CLEAR";  1  "TT_TEXT";  645  84;1000

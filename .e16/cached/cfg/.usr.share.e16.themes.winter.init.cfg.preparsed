@@ -1,0 +1,36 @@
+1001 1
+5 999;  100 "STARTUP_BACKGROUND"
+  560 "30 30 90"
+  561 "backgrounds/images/startup-bg.png" 1 0 0 0 0 1024
+1000
+12 999
+  100 STARTUP_BAR
+  5 "init/images/btn3.png"
+  357   1 1 1 1
+1000
+12 999
+  100 PROGRESS_BAR
+  5  "init/images/progress.png"
+  357   2 2 2 2
+  352 "init/images/progress.png"
+  357   2 2 2 2
+  354  "init/images/progress_bar.png"
+  357   2 2 2 2
+  358        2 2 2 2
+1000
+1 999
+  100 "PROGRESS_TEXT"
+  201 0
+  5 "*font-init"
+  204 1
+  205 0 0 0
+  206 180 180 180
+1000
+1 999
+  100 "PROGRESS_TEXT_NUMBER"
+  201 512
+  5 "*font-init"
+  204 1
+  205 0 0 0
+  206 180 180 180
+1000

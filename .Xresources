@@ -1,0 +1,183 @@
+Xft.autohint: 0
+Xft.antialias: 1
+Xft.hinting: true
+Xft.hintstyle: hintslight
+Xft.dpi: 96
+Xft.rgba: rgb
+Xft.lcdfilter: lcddefault
+
+
+*.fading:               10
+*.fadeColor:	        #170f0d
+
+! special
+*.foreground:   #1c1c1c
+*.background:   #ffffff
+*.cursorColor:  #1c1c1c
+
+! black
+*.color0:       #ffffff
+*.color8:       #969896
+
+! red
+*.color1:       #ed6a43
+*.color9:       #ed6a43
+
+! green
+*.color2:       #00008b
+*.color10:      #00008b
+
+! yellow
+*.color3:       #000000
+*.color11:      #000000
+
+! blue
+*.color4:       #969896
+*.color12:      #000000
+
+! magenta
+*.color5:       #ed6a43
+*.color13:      #ed6a43
+
+! cyan
+*.color6:       #00008b
+*.color14:      #00008b
+
+! white
+*.color7:       #969896
+*.color15:      #1c1c1c
+
+
+
+Xcursor.theme:          dmz-black
+Xcursor.size:           0
+
+
+! urxvt
+!
+! URxvt*font:             xft:Gohu GohuFont:style=Regular:pixelsize=11
+! URxvt*boldFont:         xft:Gohu GohuFont:style=Bold:pixelsize=11
+!
+! URxvt*font:             xft:Misc Tamsyn:style=Regular:pixelsize=12
+! URxvt*boldFont:         xft:Misc Tamsyn:style=Bold:pixelsize=12
+!
+! URxvt*font:             xft:tewi:style=Regular:pixelsize=11
+! URxvt*boldFont:         xft:tewi:style=Bold:pixelsize=11
+! URxvt*boldFont:         xft:tewi:style=Regular:pixelsize=11
+!
+! URxvt*font:             xft:Terminus:style=Regular:pixelsize=12
+! URxvt*boldFont:         xft:Terminus:style=Bold:pixelsize=12
+!
+! URxvt*font:             xft:Fixed:style=Regular:pixelsize=10
+! URxvt*boldFont:         xft:Fixed:style=Regular:pixelsize=10
+!
+! URxvt*font:             xft:xsg XSG Fixed 106:style=Regular:pixelsize=10
+! URxvt*boldFont:         xft:xsg XSG Fixed 106:style=Bold:pixelsize=10
+!
+! URxvt*font:             xft:kakwafont:style=Regular:pixelsize=12
+! URxvt*boldFont:         xft:kakwafont:style=Bold:pixelsize=12
+!
+! URxvt.font:             xft:UW Ttyp0:style=Regular:pixelsize=11
+! URxvt.boldFont:         xft:UW Ttyp0:style=Bold:pixelsize=11
+!
+! URxvt*font:             xft:cherry:style=Regular:pixelsize=11
+! URxvt*boldFont:         xft:cherry:style=Bold:pixelsize=11
+!
+! URxvt*font:             xft:Termsyn:style=Regular:pixelsize=11
+! URxvt*boldFont:         xft:Termsyn:style=Bold:pixelsize=11
+!
+! URxvt*font:             xft:CtrlD:style=Regular:pixelsize=10
+! URxvt*boldFont:         xft:CtrlD:style=Bold:pixelsize=10
+!
+! URxvt*font:             xft:artwiz drift:style=Regular:pixelsize=10
+! URxvt*boldFont          xft:artwiz drift:style=Bold:pixelsize=10
+!
+! URxvt*font:		  xft:Bedstead:style=Regular:pixelsize=10
+! URxvt*boldFont:	  	  xft:Bedstead:style=Regular:pixelsize=10
+!
+URxvt*font:             xft:Iosevka Term Light Extended:style=Light Extended:size=8
+URxvt*boldFont:         xft:Iosevka Term:style=Regular:size=8
+
+! URxvt config
+URxvt*internalBorder:   2
+URxvt*scrollBar:        false
+
+! Scrolling
+! do not scroll with output
+URxvt*scrollTtyOutput: false
+
+! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt*scrollWithBuffer: true
+
+! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: true
+
+! sane secondary buffer scrolling viz. in `less`
+URxvt.secondaryScreen: 1
+URxvt.secondaryScroll: 0
+
+
+! Enable perl extension for clipboard,keyboard url-selection,tabs...
+URxvt.perl-ext-common:  clipboard,url-select
+! ,tabbed
+
+! Clipboard config
+URxvt.clipboard.autocopy: true
+URxvt.keysym.C-S-c: perl:clipboard:copy
+URxvt.keysym.C-S-v: perl:clipboard:paste
+
+! URL-select with keyboard
+URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.url-select.launcher: /usr/bin/xdg-open
+URxvt.url-select.underline: true
+
+
+
+! xterm
+!
+! xterm*font:           envypn-13
+xterm*faceName:         uushi:pixelsize=11
+xterm*loginShell:       true
+xterm*vt100*geometry:   90x34
+xterm*saveLines:        2000
+xterm*charClass:        33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48
+xterm*termName:         xterm-256color
+xterm*eightBitInput:    false
+
+
+
+! UXTerm
+!
+UXTerm*termName:        uxterm-256color
+UXTerm*cursorColor:     white
+UXTerm*VT100.geometry:  90x30
+! UXTerm*font:          envypn-13
+! UXTerm*faceName:
+UXTerm*faceSize:        8
+UXTerm*dynamicColors:   true
+UXTerm*utf8: 2
+UXTerm*eightBitInput:   true
+UXTerm*saveLines:       10000
+UXTerm*scrollKey:       true
+UXTerm*scrollTtyOutput: false
+UXTerm*scrollBar:       false
+UXTerm*rightScrollBar:  false
+UXTerm*jumpScroll:      true
+UXTerm*multiScroll:     true
+UXTerm*toolBar:         false
+
+
+
+
+! XClock
+!
+XClock*analog:          false
+XClock*twentyfour:      true
+XClock*padding:         2
+XClock*geometry:        -2-2
+XClock*render:          false
+XClock*font:            -misc-fixed-bold-r-normal-*-13-*-*-*-*-*-iso10646-1
+XClock*height:          20
+XClock*background:      black
+XClock*foreground:      yellow
+XClock*borderWidth:     0

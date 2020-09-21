@@ -1,0 +1,45 @@
+1001 1
+12 999
+  100 M1
+  5         "dialogs/images/window-base.png"
+  357   2 2 2 2  
+  358        1 1 2 2
+1000
+12 999
+  100 M2
+  5         "menustyles/images/menu-sel.png"
+  357   6 22 1 1
+  353        "menustyles/images/menu-sel.png"
+  357   6 22 2 1
+  352        "menustyles/images/menu-sel.png"
+  357   6 22 1 1
+  358        6 22 1 1
+1000
+12 999
+  100 M3
+  5         "menustyles/images/menu-arrow.png"
+  357   6 22 1 1
+  353        "menustyles/images/menu-arrow-sel.png"
+  357   6 22 1 1
+  352        "menustyles/images/menu-arrow-sel.png"
+  357   6 22 1 1
+  358        6 22 1 1
+1000
+1 999
+  100 "MENU"
+  201 0
+  5 "*font-menu"
+  204 1
+  205 70 70 70
+  206 215 215 215
+  353 "*font-menu"
+  204 1
+  205 70 70 70
+  206 210 210 210
+1000
+699 999;  100 "DEFAULT";  3  "MENU";  1  "MENU";  700  "M1";  701  "M2";  702  "M3";  703 0;  705  40;1000
+699 999;  100 "DESK_MENU";  3  "MENU";  1  "MENU";  700  "M1";  701  "M2";  702  "M3";  703 0;  705  40;1000
+699 999;  100 "ROOT";  3  "MENU";  1  "MENU";  700  "M1";  701  "M2";  702  "M3";  703 0;  705  40;1000
+699 999;  100 "ROOT_IMAGE";  3  "MENU";  1  "MENU";  700  "M1";  701  "M2";  702  "M3";  703 0;  705  20;1000
+699 999;  100 "EMPTY";  3  "MENU";  1  "MENU";  700  "M1";  701  "M2";  702  "M3";  703 0;  705  40;1000
+699 999;  100 "GROUP_MENU";  3  "MENU";  1  "MENU";  700  "M1";  701  "M2";  702  "M3";  703 0;  705  40;1000

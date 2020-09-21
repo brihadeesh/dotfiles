@@ -1,0 +1,91 @@
+1001 1
+1 999;   100 COORDS
+  5 "*font-coords";   204  0;   205  120 120 120;   206  0 0 0
+  201 512
+1000
+1 999;   100 DEFAULT_TITLE
+  5 "*font-border";   204  0;   205  163 163 163;   206  0 0 0
+  354 "*font-border";   204  0;   205  110 110 110;   206  0 0 0
+  359 "*font-border";   204  0;   205  163 163 163;   206  0 0 0
+  362 "*font-border";   204  0;   205  110 110 110;   206  0 0 0
+  201 0
+1000
+1 999;   100 DIALOG
+  5 "*font-dialog";   204  0;   205  84 84 84;   206  0 0 0
+  201 512
+1000
+1 999;   100 DIALOG_BUTTON
+  5 "*font-dialog-hilite";   204  0;   205  164 164 164;   206  0 0 0
+  353 "*font-dialog-hilite";   204  0;   205  122 122 122;   206  0 0 0
+  352 "*font-dialog-hilite";   204  0;   205  122 122 122;   206  0 0 0
+  201 512
+1000
+1 999;   100 DIALOG_WIDGET_BUTTON
+  5 "*font-dialog-hilite";   204  0;   205  163 163 163;   206  0 0 0
+  353 "*font-dialog-hilite";   204  0;   205  122 122 122;   206  0 0 0
+  352 "*font-dialog-hilite";   204  0;   205  122 122 122;   206  0 0 0
+  201 512
+1000
+1 999;   100 DIALOG_WIDGET_CHECK_BUTTON
+  5 "*font-dialog";   204  0;   205  122 122 122;   206  0 0 0
+  201 0
+1000
+1 999;   100 DIALOG_WIDGET_RADIO_BUTTON
+  5 "*font-dialog";   204  0;   205  122 122 122;   206  0 0 0
+  201 0
+1000
+1 999;   100 DIALOG_WIDGET_TEXT
+  5 "*font-dialog";   204  0;   205  122 122 122;   206  0 0 0
+  201 512
+1000
+1 999;   100 EPPLET_BUTTON
+  5 "*font-epplet";   204  0;   205  20 20 20;   206  0 0 0
+1000
+1 999;   100 EPPLET_LABEL
+  5 "*font-epplet";   204  0;   205  20 20 20;   206  0 0 0
+1000
+1 999;   100 EPPLET_POPUP
+  5 "*font-epplet";   204  0;   205  20 20 20;   206  0 0 0
+1000
+1 999;   100 EPPLET_TEXT_LARGE
+  5 "*font-epplet-large";   204  0;   205  20 20 20;   206  0 0 0
+1000
+1 999;   100 EPPLET_TEXT_MEDIUM
+  5 "*font-epplet-medium";   204  0;   205  20 20 20;   206  0 0 0
+1000
+1 999;   100 EPPLET_TEXT_TINY
+  5 "*font-epplet-small";   204  0;   205  20 20 20;   206  0 0 0
+1000
+1 999;   100 EPPLET_TOGGLEBUTTON_OFF
+  5 "*font-epplet";   204  0;   205  20 20 20;   206  0 0 0
+1000
+1 999;   100 EPPLET_TOGGLEBUTTON_ON
+  5 "*font-epplet";   204  0;   205  20 20 20;   206  0 0 0
+1000
+1 999;   100 MENU_TEXT
+  5 "*font-menu";   204  0;   205  122 122 122;   206  0 0 0
+  353 "*font-menu";   204  0;   205  122 122 122;   206  0 0 0
+  201 0
+1000
+1 999;   100 MENU_TITLE
+  5 "*font-menu";   204  0;   205  110 110 110;   206  0 0 0
+  201 0
+1000
+1 999;   100 MENU_TITLE_90
+  5 "*font-menu";   204  0;   205  110 110 110;   206  0 0 0
+  200 1
+  201 0
+1000
+1 999;   100 TT_MINI_TEXT
+  5 "*font-tooltip";   204  0;   205  120 120 120;   206  0 0 0
+  201 512
+1000
+1 999;   100 TT_TEXT
+  5 "*font-tooltip";   204  0;   205  120 120 120;   206  0 0 0
+  201 0
+1000
+1 999;   100 WARPFOCUS
+  5 "*font-focus";   204  0;   205  164 164 164;   206  0 0 0
+  352 "*font-focus";   204  0;   205  120 120 120;   206  0 0 0
+  201 512
+1000

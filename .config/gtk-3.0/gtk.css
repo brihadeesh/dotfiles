@@ -1,0 +1,18 @@
+.window-frame {
+  box-shadow: none;
+  margin: 0;
+}
+
+VteTerminal, vte-terminal {
+padding: 5px;
+}
+
+*:not(.path-bar-button):not(.rubberband) {
+	border: none;
+}
+
+.thunar * .path-bar-button:checked {
+	border-image: radial-gradient(circle closest-corner at center calc(100% - 1px), #282828 100%, transparent 0%) 0 0 2/0 0 2px;
+}
+
+

@@ -1,0 +1,3 @@
+"Utility"
+"compton" "/usr/share/icons/hicolor/48x48/apps/compton.png" exec "compton"
+"picom" "" exec "picom"

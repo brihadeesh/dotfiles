@@ -1,0 +1,163 @@
+#!/usr/bin/env bash
+
+#################
+##  Bar config ##
+#################
+PANEL_FIFO='/tmp/panel-fifo'
+PANEL_HEIGHT=23
+PANEL_GEO=1366x23+0+0
+MON=0
+FONT='Terminusmodx:pixelsize=12:weight=Regular'
+
+# Colors
+
+# Import the colors from wal
+# . "${HOME}/.cache/wal/colors.sh"
+
+SEP="  %{F#767676}|%{F-}  "
+
+
+################
+## Bar script ##
+################
+if [ $(pgrep -cx panel) -gt 1 ] ; then
+    pkill -o panel
+fi
+
+trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
+
+[ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
+mkfifo "$PANEL_FIFO"
+
+herbstclient pad $MON $PANEL_HEIGHT
+
+
+## clock
+while true; do
+	date +'C%H:%M' 
+	sleep 30
+done > "$PANEL_FIFO" &
+
+
+## calendar
+while true; do
+	date +'D%Y-%m-'
+	sleep 30
+done > "$PANEL_FIFO" &
+
+
+## date
+while true; do
+	date +'H%d'
+	sleep 30
+done > "$PANEL_FIFO" &
+
+
+
+while true; do
+	batt='acpi -b'
+	bat_perc=$(cat /sys/class/power_supply/BAT1/capacity)
+
+	if $(cat < /sys/class/power_supply/BAT1/status | grep -q Charging); then
+		status='chr'
+	else
+		status='bat'
+	fi
+
+	echo "B%{F#999999}$status%{F-}  %{F#ffffff}$bat_perc%%{F-}"
+
+    sleep 30
+done > $PANEL_FIFO &
+
+
+# workspace indicator
+tags="$(herbstclient tag_status $monitor)"
+while true; do
+    for i in "${tags[@]}" ; do
+            case ${i:0:1} in
+                '#')
+                    echo -n "%{F#cccccc}"
+                    ;;
+                '+')
+                    echo -n "%{F#999999}"
+                    ;;
+                ':')
+                    echo -n "%{F#999999}"
+                    ;;
+                '!')
+                    echo -n "%{F#ffffff}"
+                    ;;
+                *)
+                    echo -n "%{F#767676}"
+                    ;;
+            esac
+    done
+    sleep 0.5
+done > $PANEL_FIFO &
+
+
+# goto='herbstclient use'
+#while true; do
+#	wspaces=""
+#	for i in $(herbstclient tag_status)[@] ; do
+#		case ${i:0:1} in
+#			'#') # focused occupied desktop
+#				wspaces="${wspaces}%{F#cccccc}%{A:${goto} ${i:1}:}  ${i:1} %{A}%{F-}"
+#				;;
+#			'+') # focused free desktop
+#				wspaces="${wspaces}%{F#999999}%{A:${goto} ${i:1}:}  ${i:1} %{A}%{F-}"
+#				;;
+#			'!') # focused urgent desktop
+#				wspaces="${wspaces}%{F#ffffff}%{A:${goto} ${i:1}:}  ${i:1} %{A}%{F-}"
+#				;;
+#			':') # occupied desktop
+#				wspaces="${wspaces}%{F#999999}%{A:${goto} ${i:1}:}  ${i:1} %{A}%{F-}"
+#				;;
+#			*) # free desktop
+#				wspaces="${wspaces}%{F#767676}%{A:${goto} ${i:1}:}  ${i:1} %{A}%{F-}"
+#				;;
+#		esac
+#	done
+#	echo "W$wspaces"
+#	sleep .3
+#done > $PANEL_FIFO &
+
+
+## fake launcher
+
+#while [[ true ]]; do
+#	echo "L" "run"
+#	sleep 3600
+#done > $PANEL_FIFO &
+
+
+###############
+## Bar setup ## 
+###############
+
+while read -r line; do
+        case $line in
+                C*)
+                        clock="%{F#ffffff}${line#?} %{F-}"
+                        ;;
+		D*)
+			clndr="%{F#cccccc} ${line#?}%{F-}"
+			;;
+		H*)
+			today="%{F#ffffff}${line#?}%{F-}"
+			;;
+                B*)
+                        batt="${line#?}"
+                        ;;
+#                W*)
+#                        wspaces="${line#?}"
+#                        ;;
+#		L*)
+#			launch="%{F$color2}${line#?}%{F-}"
+#			;;
+        esac
+        printf "%s\n" "%{r}$SEP$batt$SEP$clock$clndr$today$SEP  "
+done < "$PANEL_FIFO" | lemonbar -f "$FONT" -B "#000000" -g $PANEL_GEO -u 3 | \
+	while read -r line; do eval "$line"; done &
+
+wait

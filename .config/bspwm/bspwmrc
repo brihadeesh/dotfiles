@@ -1,0 +1,129 @@
+#!/usr/bin/env bash
+
+# border width
+BW=3
+# panel height
+PH=19
+# outer gaps
+OG=10
+
+export BW
+export PH
+export OG
+
+bspc config border_width $BW
+bspc config window_gap -$BW
+
+# tiled window padding + overlapping borders
+bspc config border_width $BW
+bspc config top_padding $(($PH+$OG+$BW))
+for side in right bottom left ; do
+	bspc config ${side}_padding $(($OG+$BW))
+done
+
+# remove padding for monocled windows
+# bspc config top_monocle_padding $PH
+for side in top left right bottom ; do
+	bspc config ${side}_monocle_padding -$(($OG+$BW))
+done
+
+
+## Various settings
+
+# Settings for manual splitting
+bspc config split_ratio          0.50
+bspc config gapless_monocle      true
+bspc config borderless_monocle	 true
+bspc config single_monocle	 true
+# bspc config paddingless_monocle  false
+
+# bspc config ignore_ewmh_focus      true
+# bspc config initial_polarity second_child
+
+bspc config remove_disabled_monitors  true
+bspc config remove_unplugged_monitors true
+
+# bspc config honor_size_hints true
+
+# fakefullscreen
+bspc config ignore_ewmh_focus all
+
+# source the colors.
+# wal -R
+#wal --theme ~/.dotfiles/colourschemes/json/reddish.json  
+#. "${HOME}/.cache/wal/colors.sh" 
+
+# Set the border colors.
+bspc config normal_border_color '#c0c0c0'
+bspc config active_border_color '#4f4f4f'
+bspc config focused_border_color '#4f4f4f'
+# Use the line below if you are on bspwm >= 0.9.4
+bspc config presel_feedback_color darkgray
+# Use the line below if you are on bspwm < 0.9.4
+bspc config presel_border_color red
+
+bspc config presel_feedback true
+
+## Focus follows mouse cursor
+bspc config focus_follows_pointer false # true
+
+## Workspace names
+# bspc monitor -d I II III IV V VI VII VIII
+# bspc monitor -d i ii iii iv v vi vii viii
+# bspc monitor -d One Two Three Four Five Six Seven Eight Nine Ten
+# bspc monitor -d I II III IV V VI VII VIII IX X
+# bspc monitor -d • • • • • • • • • •
+# bspc monitor -d I II III IV V VI
+# bspc monitor -d 1 2 3
+bspc monitor -d ffox edit term spot
+
+## This creates and names desktops for multiple monitors.
+# workspaces_multimonitor &
+
+
+## Window rules
+
+bspc desktop 1 --layout monocle
+
+#bspc rule -a conky sticky=on manage=off lower=on
+bspc rule -a '*:Firefox' private=on desktop=ffox
+bspc rule -a open state=floating center=false
+bspc rule -a 'Save file to*' state=floating center=false
+bspc rule -a 'Save' state=floating center=true
+bspc rule -a Spotify monocle=on desktop=misc
+bspc rule -a 'Alacritty:Alacritty' desktop=term
+bspc rule -a Emacs desktop=edit
+
+# hoping for floating launcher support sith urxvt but needs work
+#bspc rule -a URxvt:stick state=floating sticky=on center
+#bspc rule -a URxvt:stick1 state=floating sticky=on
+#bspc rule -a URxvt:stick2 state=floating sticky=on
+#bspc rule -a URxvt:float state=floating
+
+
+## Autostart apps
+# Keybindings from sxhkd
+sxhkd -c ~/.config/bspwm/sxhkdrc &
+
+# Numlock
+numlockx on &
+
+# fixes default x-cursor
+xsetroot -cursor_name left_ptr &
+
+# Hide mousecursor when inactive
+unclutter -root &
+
+# Polybar
+~/.config/bspwm/launch.sh &
+
+# Wallpaper and Compositor
+# feh --bg-scale '/home/ossifrage/Pictures/Wallpapers/really_minimal/aleks-dahlberg-274644-unsplash.jpg'; sleep 1; compton -b &
+hsetroot -solid gray60 &
+picom -b &
+
+# Redshift
+pkill -x redshift; 
+while pgrep -u $UID -x redshift >/dev/null; do sleep 1; done
+redshift -c ~/.config/redshift.conf &
+

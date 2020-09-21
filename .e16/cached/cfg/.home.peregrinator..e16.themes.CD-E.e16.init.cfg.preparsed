@@ -1,0 +1,23 @@
+1001 1
+5 999;  100 STARTUP_BACKGROUND
+  560 "50 70 100"
+  561 "artwork/backgrds/bg_cde.png" 1 1 0 0 0 0
+  ADD_OVERLAY_IMAGE_TOP("artwork/backgrds/bg_cde_logo.png")
+1000
+12 999;   100 STARTUP_BAR
+  5 "artwork/dragbar/dragbar_normal.png";   371  0;   357  126  126  2  2
+1000
+12 999;   100 PROGRESS_BAR
+  5 "artwork/init/progress_bar_text.png";   371  0;   357  2  2  2  2
+  352 "artwork/init/progress_bar_number.png";   371  0;   357  2  2  2  2
+  354 "artwork/init/progress_bar.png";   371  0;   357  7  8  2  2
+  358 2  2  2  2
+1000
+1 999;   100 "PROGRESS_TEXT"
+  5 "*font-init";   204  1;   205  0 0 0;   206  255 255 255
+  201 0
+1000
+1 999;   100 "PROGRESS_TEXT_NUMBER"
+  5 "*font-init";   204  1;   205  0 0 0;   206  255 255 255
+  201 512
+1000

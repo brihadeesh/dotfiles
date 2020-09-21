@@ -1,0 +1,2 @@
+"Audio"
+"Spotify" "/usr/share/icons/hicolor/48x48/apps/spotify-client.png" exec "spotify"

@@ -1,0 +1,289 @@
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+############################
+######    SETTINGS    ######
+############################
+[settings]
+screenchange-reload = true
+
+
+############################
+######     COLORS     ######
+############################
+[colors]
+background-0 = ${xrdb:background}
+background-1 = ${xrdb:background}
+foreground = ${xrdb:foreground}
+black = ${xrdb:color0}
+gray = ${xrdb:color8}
+red = ${xrdb:color1}
+orange = ${xrdb:color9}
+green = ${xrdb:color2}
+yellow = ${xrdb:color3}
+blue = ${xrdb:color4}
+magenta = ${xrdb:color5}
+cyan = ${xrdb:color6}
+white = ${xrdb:color7}
+
+
+#############################
+######    BSPWM BAR    ######
+#############################
+[bar/bspwm]
+#monitor = eDP1
+radius = 0.0
+fixed-center = true
+bottom = false
+height = 16
+
+width = 100%
+
+border-top-size = 3
+border-bottom-size = 3
+border-color = ${colors.background-0}
+
+enable-ipc = true
+
+padding-left = 2
+padding-right = 2
+
+module-margin = 1
+
+underline-size = 3
+overline-size = 3
+line-color = ${colors.gray}
+
+modules-left = bspwm sep spotify
+modules-center = date
+modules-right = network eth vpn sep volume sep battery sep info
+
+background-0 = ${colors.background-0}
+background-1 = ${colors.background-1}
+foreground = ${colors.white}
+
+font-0 = "Iosevka Term:weight=Medium:size=7;2"
+font-1 = "Siji:style=Regular:pixelsize=9;2"
+font-2 = "Iosevka Term:weight=Bold:size=7;2"
+
+
+cursor-click = pointer
+
+#######################################
+######     MODULES - TOP BAR     ######
+#######################################
+
+[module/info]
+type = custom/script
+exec = echo "bspwm-$(bspwm -v)"
+interval = 3600
+label = %output%
+format = <label>
+format-foreground = ${colors.red}
+
+[module/sep]
+type = custom/script
+exec = echo "|"
+interval = 500
+label-padding = 0
+
+[module/spotify]
+type = custom/script
+exec = ~/bin/polybar/now_playing
+interval = 1
+format = <label>
+label = " %output%"
+;format-prefix = 
+format-foreground = ${colors.blue}
+click-left = playerctl play-pause
+click-right = next
+
+
+[module/network]
+type = internal/network
+interface = wlo1
+
+format-connected = <ramp-signal> <label-connected>
+label-connected = %essid%
+label-disconnected = %{T2}%{T-}
+label-disconnected-foreground = ${colors.gray}
+
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-font = 2
+ramp-signal-foreground = ${colors.blue}
+
+
+[module/eth]
+type = internal/network
+interface = enp1s0
+
+
+label-connected = 
+label-connected-foreground = ${colors.blue}
+
+label-disconnected = 
+label-disconnected-foreground = ${colors.gray}
+
+
+[module/vpn]
+type = custom/script
+exec = echo ""
+exec-if = ps ax | grep [o]penvpn
+interval = 5
+
+[module/bspwm]
+type = internal/bspwm
+
+format = <label-state> <label-mode>
+
+label-monocle = 
+label-monocle-font = 3
+label-tiled = 
+label-fullscreen = 
+label-floating = 
+label-pseudotiled = 
+label-locked = 
+label-locked-foreground = ${colors.yellow}
+label-sticky = 
+label-sticky-foreground = ${colors.blue}
+label-private = 
+label-private-foreground = ${colors.red}
+
+label-focused = %name%
+label-focused-foreground = ${colors.red}
+label-focused-padding = 1
+
+label-occupied = %name%
+label-occupied-padding = 1
+label-occupied-foreground = ${colors.white}
+
+label-urgent = %name%
+label-urgent-font = 3
+label-urgent-foreground = ${colors.red}
+label-urgent-background = ${colors.white}
+label-urgent-padding = 1
+
+label-empty = %name%
+label-empty-foreground = ${colors.gray}
+label-empty-padding = 1
+
+
+[module/xwindow]
+type = internal/xwindow
+label = " %title:0:37:...% "
+label-empty = "  "
+label-background = ${colors.gray}
+label-foreground = ${colors.green}
+
+
+[module/battery]
+type = internal/battery
+battery = BAT1
+adapter = AC
+full-at = 100
+interval = 1
+
+format-charging = <label-charging>
+label-charging = %{T2}%{F#85add4}%{F- T-} %percentage:3%%
+
+format-discharging = <ramp-capacity> <label-discharging>
+label-discharging = %percentage:3%%
+
+format-full = <label-full>
+label-full = %{T2}%{F#85add4}%{F- T-} %percentage:3%%
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-0-foreground = ${colors.red}
+ramp-capacity-foreground = ${colors.blue}
+ramp-capacity-font = 2
+
+
+[module/date]
+type = internal/date
+date = "%{F#85add4}%a %b %e%{F-} %{F#dadada}%H:%M%%{F-} %{F#85add4}%Z%{F-}"
+interval = 1
+
+
+[module/updates]
+type = custom/script
+exec = updates-arch-combined
+exec-if = "ping -q -w 2 -c 1 176.34.135.167 > /dev/null"
+tail = true
+label = %{A1:termite --exec=pacli & disown:}%output%%{A-}
+
+
+[module/volume]
+type = internal/pulseaudio
+
+format-volume = <ramp-volume> <label-volume>
+label-volume = %percentage:3%%
+label-volume-foreground = ${root.foreground}
+
+format-muted-foreground = ${colors.gray}
+label-muted =  %percentage:3%%
+
+ramp-volume-0 = 
+ramp-volume-0-foreground = ${colors.blue}
+ramp-volume-0-font = 2
+
+
+[module/mpd]
+type = internal/mpd
+
+host     = 127.0.0.1
+port     = 6600
+interval = 1
+
+format-online = <label-song>
+;format-playing = <icon-prev> <label-time> <label-song> <icon-next>
+;format-paused = <icon-prev> <label-time> <label-offline> <icon-next>
+format-playing = ${self.format-online}
+format-paused = ${self.format-online}
+format-stopped = stopped
+format-playing-foreground = ${colors.blue}
+format-paused-foreground = ${colors.gray}
+format-stopped-foreground = ${colors.gray}
+
+format-spacing = 3
+label-song = "%{A1:mpc toggle:} %artist% - %title:0:25:...%%{A-}"
+label-song-ellipsis = true
+;label-song-maxlen = 25
+label-time = "%{A1:mpc -q toggle:}[%elapsed%]%{A-}"
+;label-time-foreground = ${colors.blue}
+;label-time-background = ${colors.gray}
+
+icon-play	   = "  "
+icon-pause	   = "  "
+icon-stop      = "  "
+icon-prev      = "  "
+icon-next      = "  "
+
+icon-prev-foreground = ${colors.orange}
+icon-next-foreground = ${colors.orange}
+
+bar-progress-width = 15
+bar-progress-indicator = |
+bar-progress-indicator-foreground = ${colors.red}
+bar-progress-indicator-font = 1
+bar-progress-fill = ─
+bar-progress-fill-font = 1
+bar-progress-empty = ─
+bar-progress-empty-font = 1
+bar-progress-empty-foreground = ${colors.gray}
+
+[module/uptime]
+type = custom/script
+;exec = echo "%{F#D08770}%{T7}$(uname -n)%{T-}%{F-}" "%{F#88C0D0}up%{F-} -> " "%{F#BF616A}$(uptime --pretty | sed 's/up //' | sed 's/\ years\?,/y/' | sed 's/\ ;days\?,/d/' | sed 's/\ hours\?,\?/h/' | sed 's/\ minutes\?/m/')%{F-}"
+exec = uptime-polybar
+label = %output%
+interval = 1
+;format-prefix = "  "
+;format-prefix-background = ${colors.gray}
+
+
+

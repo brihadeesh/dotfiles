@@ -1,0 +1,7 @@
+"peregrinus"
+"st" NULL exec "st"
+"firefox" NULL exec "firefox"
+"emacs" NULL exec "emacs"
+"emacs-nox" NULL exec "st -e 'emacs -nw'"
+"termite" NULL exec "termite"
+"ncmpcpp" NULL exec "st -e ncmpcpp"

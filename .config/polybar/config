@@ -1,0 +1,182 @@
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+############################
+######    SETTINGS    ######
+############################
+[settings]
+screenchange-reload = true
+
+
+############################
+######     COLORS     ######
+############################
+[colors]
+background-0 = #6c6c6c
+background-1 = #6c6c6c
+foreground = #a8a8a8
+black = #000000
+red = #870000
+green = #005f00
+gray = #a8a8a8
+gray2 = #d0d0d0
+
+
+############################
+######      FONTS     ######
+############################
+
+[fonts]
+font-0 = "vixus:style=Regular;1"
+font-1 = "vixus:style=Regular;1"
+
+############################
+######    HLWM BAR    ######
+############################
+[bar/hlwm]
+#monitor = eDP1
+radius = 0.0
+fixed-center = true
+bottom = false
+height = 14
+override-redirect = true
+
+#width = 25%
+#offset-x = 37.5%
+
+border-top-size = 2
+border-bottom-size = 2
+;border-left-size = 2
+;border-right-size = 2
+border-top-color = ${colors.background-0}
+border-bottom-color = ${colors.gray2}
+
+enable-ipc = true
+
+padding-left = 2
+padding-right = 2
+
+module-margin = 1
+
+underline-size = 3
+
+
+modules-left = time
+modules-center = hlwm-ws
+modules-right = date sep battery
+
+background-0 = ${colors.background-0}
+background-1 = ${colors.background-1}
+foreground = ${colors.foreground}
+
+font-0 = ${fonts.font-0}
+font-1 = ${fonts.font-1}
+
+
+cursor-click = pointer
+
+###########################
+#####    BSPWM BAR    #####
+###########################
+
+[bar/bspwm]
+inherit = bar/hlwm
+modules-center = bspwm-ws
+
+
+###########################
+######    cwm BAR    ######
+###########################
+
+[bar/cwm]
+inherit = bar/hlwm
+modules-left = time date battery
+modules-center =
+modules-right =
+
+background-0 = gray50
+background-1 = gray50
+border-bottom-size = 0
+
+
+#######################################
+######          MODULES          ######
+#######################################
+
+[module/sep]
+type = custom/text
+content = |
+
+
+[module/bspwm-ws]
+type = internal/bspwm
+
+format = <label-state>
+format-padding = 1
+
+label-dimmed-foreground = ${colors.gray}
+
+label-focused = %name%
+label-focused-foreground = ${colors.red}
+label-focused-fonts = 2
+label-focused-padding = 2
+
+label-occupied = %index%
+label-occupied-foreground = ${colors.black}
+label-occupied-padding = 2
+
+label-urgent = %index%
+label-urgent-foreground = ${colors.green}
+label-urgent-padding = 2
+
+label-empty = "*"
+label-empty-foreground = ${colors.gray}
+label-empty-padding = 2
+
+
+[module/hlwm-ws]
+type = internal/xworkspaces
+enable-click = true
+enable-scroll = true
+
+; format = <label-state>
+
+label-active = "%name%"
+label-active-padding = 2
+label-active-foreground = ${colors.red}
+label-active-background = ${colors.gray2}
+
+label-empty = *
+label-empty-padding = 2
+label-empty-foreground = ${colors.gray}
+
+
+[module/battery]
+type = internal/battery
+battery = BAT1
+adapter = AC
+full-at = 100
+interval = 30
+label-padding = 1
+
+format-charging = <label-charging>
+label-charging = "chr %{F#ffffff}%percentage:3%%%{F-}"
+
+format-discharging = <label-discharging>
+label-discharging = "bat %{F#ffffff}%percentage:3%%%{F-}"
+
+format-full = <label-full>
+label-full = "charged"
+
+[module/time]
+type = internal/date
+date = "%{F#ffffff}%H%M%{F-} %{F#a8a8a8}hrs%{F-}"
+interval = 1
+label-padding = 1
+
+[module/date]
+type= internal/date
+date =  "%{F#d0d0d0}%a%{F-} %Y-%m-%{F#ffffff}%d%{F-}"
+interval = 60
+label-padding = 1

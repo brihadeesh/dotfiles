@@ -1,0 +1,27 @@
+1001 1
+5 999;  100 "ApplePlatinum_LightBlue_Texture_ApplePlatinum_Logo"
+  560 "128 128 128"
+  561 "artwork/backgrounds/lightblue_texture.png" 1 1 0 0 0 0
+  562 "artwork/backgrounds/ap_splash.png" 1 512 512 0 0
+  564 "0"
+  564 "3"
+  564 "6"
+1000
+5 999;  100 "ApplePlatinum_BabyBlue_Foil"
+  560 "128 128 128"
+  561 "artwork/backgrounds/babyblue_foil.png" 1 1 0 0 0 0
+  564 "1"
+  564 "4"
+  564 "7"
+1000
+5 999;  100 "ApplePlatinum_Watter_Blips"
+  560 "128 128 128"
+  561 "artwork/backgrounds/watter_blips.png" 1 1 0 0 0 0
+  564 "2"
+  564 "5"
+  564 "8"
+1000
+5 999;  100 "ApplePlatinum_LightBlue_Texture"
+  560 "128 128 128"
+  561 "artwork/backgrounds/lightblue_texture.png" 1 1 0 0 0 0
+1000

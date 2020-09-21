@@ -1,0 +1,11 @@
+"peregrinator"
+"alacritty" NULL exec "alacritty"
+"st" NULL exec "st"
+"firefox" NULL exec "firefox"
+"sanemacs" NULL exec "sanemacs"
+"doom-emacs" NULL exec "doom-emacs"
+"ncmpcpp" NULL exec "alacritty -e ncmpcpp -q"
+"spotify" NULL exec "spotify"
+"exec" NULL exec "dmenu""
+"applications" NULL menu "menus_apps/index.menu"
+

@@ -1,0 +1,72 @@
+configuration {
+  display-run: "run";
+  modi: "run";
+  font: "Hermit Bold 7.5";
+  fake-transparency: false;
+  hide-scrollbar: true;
+  bw: 0;
+  fullscreen: true;
+  show-icons: false;
+  terminal: "st";
+  sidebar-mode: false;
+}
+
+* {
+  text-color: #ffffff;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+window {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+mainbox {
+  children: [ inputbar, listview ];
+/*  padding: 12% 66% 12% 12%; */
+  padding: 0 250 500 145;
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+listview {
+  columns: 1;
+  layout: vertical;
+  spacing: 0;
+}
+
+element {
+  background-color: rgba(0, 0, 0, 0);
+  text-color: #ffffff;
+  orientation: vertical;
+  padding: 2;
+  margin: 0 10 0 0;
+}
+
+element selected {
+  background-color: rgba(0, 0, 0, 0);
+  text-color: #f9d42e;
+  transition: 20;
+}
+
+element-text {
+  horizontal-align: 0.5;
+  text-color: inherit;
+}
+
+inputbar {
+  margin: 0 0 8 -28;
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 7 7 7 7;
+}
+
+prompt {
+  background-color: rgba(0, 0, 0, 0);
+  padding: 4;
+  text-color: #eb3247;
+  enabled: true;
+}
+
+entry {
+  background-color: rgba(0, 0, 0, 1);
+  text-color: #f9d42e;
+  padding: 4;
+}

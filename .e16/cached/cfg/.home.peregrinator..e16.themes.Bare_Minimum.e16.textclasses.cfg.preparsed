@@ -1,0 +1,208 @@
+1001 0
+1 999
+  100             "COORDS"
+  201    512
+  5           "*font-default"
+  204   0
+  205  208 208 208
+  206 0 0 0
+1000
+1 999
+  100	      "WARPFOCUS"
+  201     0
+  5	      "*font-border"
+  204    0
+  205   128 128 128
+  206  0 0 0
+  352	      "*font-border"
+  204    1
+  205   208 208 208
+  206  18 18 18
+1000
+1 999
+  100 "ICONBOX_WINDOW_TITLE"
+  201 512
+  5 "*font-default"
+  204 0
+  205 208 208 208
+  206 0 0 0
+1000
+1 999
+  100 "DIALOG"
+  201 512
+  5 "*font-border"
+  204 0
+  205 208 208 208
+  206 0 0 0
+1000
+1 999
+  100 "DIALOG_WIDGET_BUTTON"
+  201 512
+  5 "*font-border"
+  204 0
+  205 208 208 208
+  206 0 0 0
+1000
+1 999
+  100 "DIALOG_WIDGET_CHECK_BUTTON"
+  201 0
+  5 "*font-default"
+  204 0
+  205 28 28 28
+  206 0 0 0
+1000
+1 999
+  100 "DIALOG_WIDGET_RADIO_BUTTON"
+  201 0
+  5 "*font-default"
+  204 0
+  205 28 28 28
+  206 0 0 0
+1000
+1 999
+  100 "DIALOG_WIDGET_TEXT"
+  201 512
+  5 "*font-default"
+  204 0
+  205 28 28 28
+  206 0 0 0
+1000
+1 999
+  100 "DIALOG_BUTTON"
+  201 512
+  5 "font-border"
+  204 0
+  205 208 208 208
+  206 0 0 0
+1000
+1 999
+  100 "EPPLET_LABEL"
+  5 "-*-helvetica-medium-r-normal-*-*-80-75-75-p-*-iso8859-1"
+  204 0
+  205 160 160 160
+  206 0 0 0
+1000
+1 999
+  100 "EPPLET_BUTTON"
+  5 "-*-helvetica-medium-r-normal-*-*-80-75-75-p-*-iso8859-1"
+  204 0
+  205 240 128 0
+  206 0 0 0
+1000
+1 999
+  100 "EPPLET_TOGGLEBUTTON_ON"
+  5 "-*-helvetica-medium-r-normal-*-*-80-75-75-p-*-iso8859-1"
+  204 0
+  205 160 160 160
+  206 0 0 0
+1000
+1 999
+  100 "EPPLET_TOGGLEBUTTON_OFF"
+  5 "-*-helvetica-medium-r-normal-*-*-80-75-75-p-*-iso8859-1"
+  204 0
+  205 160 160 160
+  206 0 0 0
+1000
+1 999
+  100 "EPPLET_POPUP"
+  5 "-*-helvetica-medium-r-normal-*-*-80-75-75-p-*-iso8859-1"
+  204 0
+  205 90 90 90
+  206 0 0 0
+  356 "-*-helvetica-medium-r-normal-*-*-80-75-75-p-*-iso8859-1"
+  204 0
+  205 255 128 0
+  206 0 0 0
+1000
+1 999
+  100 "EPPLET_TEXT_TINY"
+  5 "-*-helvetica-medium-r-normal-*-*-80-75-75-p-*-iso8859-1"
+  204 0
+  205 160 160 160
+  206 0 0 0
+1000
+1 999
+  100 "EPPLET_TEXT_MEDIUM"
+  5 "-*-helvetica-medium-r-normal-*-*-100-75-75-p-*-iso8859-1"
+  204 0
+  205 160 160 160
+  206 0 0 0
+1000
+1 999
+  100 "EPPLET_TEXT_LARGE"
+  5 "-*-vizung-medium-r-normal--*-*-75-75-*-*-*-*"
+  204 0
+  205 240 240 240
+  206 0 0 0
+1000
+1 999
+  100 "MENU"
+  201 0
+  5 "*font-default"
+  204 0
+  205 28 28 28
+  206 0 0 0
+  353 "*font-default"
+  204 1
+  205 240 240 240
+  206 18 18 18
+  352 "*font-default"
+  204 0
+  205 90 90 90
+  206 0 0 0
+1000
+1 999
+  100 "PAGER_WINDOW_TITLE"
+  201    512
+  5           "*font-default"
+  204   0
+  205  208 208 208
+  206 0 0 0
+1000
+1 999
+  100 "TT_TEXT"
+  201 0
+  5 "*font-default"
+  204 0
+  205 208 208 208
+  206 0 0 0
+1000
+1 999
+  100                 "DEFAULT_TITLE"
+  5               "*font-border"
+  201        512
+  204       0
+  205      128 128 128
+  206     0 0 0
+  354        "*font-border"
+  201        512
+  204       1
+  205      208 208 208
+  206     18 18 18 
+  359        "*font-border"
+  201        512
+  204       0
+  205      128 128 128
+  206     0 0 0
+  362 "*font-border"
+  201        512
+  204       1
+  205      208 208 208
+  206     18 18 18
+1000
+1 999
+  100             "MENU_TITLE"
+  5           "*font-default"
+  201    0
+  204   0
+  205  208 208 208
+  206 0 0 0
+1000
+1	      999
+  100	      "PAGER"
+  5	      "*font-default"
+  201     512
+  204    0
+  205   208 208 208
+  200	      2
+1000

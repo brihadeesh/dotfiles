@@ -1,0 +1,68 @@
+#!/usr/bin/env sh
+## bspwm autostart file
+
+## Autogap adjusts windowgap automatically according to the number of
+## windows on the desktop. Using it disables negative window gap.
+autogap &
+
+
+## This script balances all windows when new one is spawned
+~/bin/bspwm/euclid_balancer &
+~/bin/bspwm/pseudo_automatic_mode &
+
+
+## Edge-switcher switches to next workspace when moves moves to the
+## edge of the monitor (behavior similar to enlightenment)
+# edge-switcher &
+
+
+## External rules
+# Pseudo automatic mode: always splits focused window when opening new window
+#bspc config external_rules_command ~/bin/bspwm/pseudo_automatic_mode
+
+## Adjust new window: splits biggest windows to keep windows about the same size
+#bspc config external_rules_command ~/bin/bspwm/adjust-new-window
+
+
+## Autostart apps
+# Keybindings from sxhkd
+sxhkd &
+
+# Notification service
+dunst -c ~/.config/dunst/dunstrc &
+
+# Numlock
+numlockx on &
+
+# Polkit agent
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+gnome-keyring-daemon --start --components=pkcs11 &
+
+# ???
+#fix_xcursor &
+#xsetroot -cursor_name Chameleon-Pearl-Small-0.5
+fix_xcursor
+xsetroot -cursor_name left_ptr &
+
+# Redshift
+redshift &
+
+# Polybar(s)
+$HOME/.config/bspwm/launch.sh bspwm &
+
+# Hide mousecursor when inactive
+unclutter -root &
+
+## Pywal
+# restore the colorscheme
+# wal -R
+
+# Wallpaper and Compositor
+nitrogen --restore; sleep 1; compton -b &
+
+# 2bspwm
+#~/bin/2bspwm &
+
+# Numlock on
+numlockx on &
+

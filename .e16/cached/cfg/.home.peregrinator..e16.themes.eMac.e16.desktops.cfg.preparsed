@@ -1,0 +1,65 @@
+1001 1
+5 999;  100 "eMac_Official"
+  560 "50 70 100"
+  561 "artwork/backgrounds/eMac_Official_BG.jpg" 0 0 0 0 1024 1024
+  564 "0"
+  564 "1"
+  564 "2"
+  564 "3"
+  564 "4"
+  564 "5"
+  564 "6"
+  564 "7"
+  564 "8"
+  564 "9"
+  564 "10"
+  564 "11"
+  564 "12"
+  564 "13"
+  564 "14"
+  564 "15"
+  564 "16"
+  564 "17"
+  564 "18"
+  564 "19"
+  564 "20"
+  564 "21"
+  564 "22"
+  564 "23"
+  564 "24"
+  564 "25"
+  564 "26"
+  564 "27"
+  564 "28"
+  564 "29"
+  564 "30"
+  564 "31"
+1000
+5 999;  100 "eMac_Boot"
+  560 "50 70 100"
+  561 "artwork/backgrounds/eMacBoot.jpg" 0 0 0 0 1024 1024
+1000 
+5 999;  100 "eMac_Cyan"
+  SET_SOLIG("50 70 100")
+  561 "artwork/backgrounds/bg_cyan.jpg" 1 1 0 0 0 0
+1000
+5 999;  100 "eMac_Blueberry"
+  SET_SOLIG("0 172 218")
+  561 "artwork/backgrounds/bg_blue.jpg" 1 1 0 0 0 0
+1000
+5 999;  100 "eMac_Grape"
+  SET_SOLIG("180 132 190")
+  561 "artwork/backgrounds/bg_purple.jpg" 1 1 0 0 0 0
+1000
+5 999;  100 "eMac_Strawberry"
+  SET_SOLIG("188 70 68")
+  561 "artwork/backgrounds/bg_red.jpg" 1 1 0 0 0 0
+1000
+5 999;  100 "eMac_Tangerine"
+  SET_SOLIG("239 196 94")
+  561 "artwork/backgrounds/bg_orange.jpg" 1 1 0 0 0 0
+1000
+5 999;  100 "eMac_Lime"
+  SET_SOLIG("106 196 90")
+  561 "artwork/backgrounds/bg_green.jpg" 1 1 0 0 0 0
+1000
