@@ -238,4 +238,4 @@ let NERDTreeShowBookmarks=1
 " hi Normal guibg=NONE ctermfg=NONE
 colorscheme wal
 " only for acme; TODO: incorporate into json scheme/wal.vim??
-hi CursorLine ctermbg=229 guibg=#ffffaf ctermfg=NONE guifg=NONE cterm=NONE term=NONE
+" hi CursorLine ctermbg=229 guibg=#ffffaf ctermfg=NONE guifg=NONE cterm=NONE term=NONE
