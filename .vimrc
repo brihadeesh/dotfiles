@@ -122,7 +122,7 @@ set laststatus=0
 set autowrite     		
 
 " highlight current line
-" set cursorline			
+set cursorline			
 
 " Autocomplete with dictionary words when spell check is on
 set complete+=kspell
