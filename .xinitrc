@@ -6,7 +6,7 @@
 #    startx ~/.xinitrc WM
 
 # session to run if none passed as first arg ($1)
-session="${1:-dwm}"
+session="${1:-hlwm}"
 
 # set environment wm for use in scripts
 export WM="$session"
@@ -50,11 +50,6 @@ setxkbmap -option ctrl:nocaps
 case $session in
 
     spectrwm)
-        # numlockx &
-        # hsetroot -solid '#000000'
-        # redshift &
-        # picom -b &
- 	# ~/.config/herbstluftwm/launch.sh &
 	exec spectrwm ;;
 
     dwm)
