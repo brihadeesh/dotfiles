@@ -17,18 +17,18 @@ scrolling:
 draw_bold_text_with_bright_colors: false
 font:
   normal:
-    family: Input Mono
-    style:  Extra Light
+    family: Inconsolata
+    style:  Light
   bold:
-    family: Input Mono
-    style:  Light
+    family: Inconsolata
+    style:  Regular
   italic:
-    family: Input Mono
-    style:  Extra Light
-  bold-italic:
-    family: Input Mono
+    family: Inconsolata
     style:  Light
-  size: 7.5
+  bold-italic:
+    family: Inconsolata
+    style:  Regular
+  size: 9
   offset:
     x: 0
     y: 0
