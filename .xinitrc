@@ -103,12 +103,13 @@ case $session in
         exec sowm ;;
 
     fvwm)
-        redshift &
+        # redshift &
         picom -b &
         xsetroot -cursor_name left_ptr &
         numlockx &
+	xbanish -i mod1 &
         hsetroot -solid '#666666' &
-        exec fvwm ;;
+        exec fvwm3 ;;
 
     wmii)
 	exec wmii ;;
