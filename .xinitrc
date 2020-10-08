@@ -6,7 +6,7 @@
 #    startx ~/.xinitrc WM
 
 # session to run if none passed as first arg ($1)
-session="${1:-hlwm}"
+session="${1:-fvwm}"
 
 # set environment wm for use in scripts
 export WM="$session"
@@ -101,6 +101,14 @@ case $session in
         # numlockx &
         # hsetroot -solid '#666666' &
         exec sowm ;;
+
+    fvwm)
+        redshift &
+        picom -b &
+        xsetroot -cursor_name left_ptr &
+        numlockx &
+        hsetroot -solid '#666666' &
+        exec fvwm ;;
 
     wmii)
 	exec wmii ;;
