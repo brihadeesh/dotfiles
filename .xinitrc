@@ -6,7 +6,7 @@
 #    startx ~/.xinitrc WM
 
 # session to run if none passed as first arg ($1)
-session="${1:-fvwm}"
+session="${1:-cwm}"
 
 # set environment wm for use in scripts
 export WM="$session"

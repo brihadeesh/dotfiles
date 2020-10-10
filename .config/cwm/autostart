@@ -4,12 +4,14 @@ wal -R
 
 xbanish -i mod4 &
 
-hsetroot -solid gray40 &
+hsetroot -solid '#8fbcbb' &
+
+numlockx on &
 
 pkill -x picom
 picom -b &
 
-rdshft &
+# rdshft &
 
 # pkill -x xclock; xclock -strftime "%a %e %b  %H%M h" -geometry 130x18+5+5 -render \
     # 			-face  "Spleen:pixelsize=12" -fg SandyBrown -bg

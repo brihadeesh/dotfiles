@@ -15,7 +15,7 @@ color font      "#000000"
 color selfont   "#ffffaf"
 
 borderwidth 2
-color activeborder      "#000000"
+color activeborder      "#ed6a43"
 color inactiveborder    "#d0d0d0"
 gap 18 5 5 5 	        #[T,B,L,R]
 
