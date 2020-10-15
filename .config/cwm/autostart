@@ -4,7 +4,7 @@ wal -R
 
 xbanish -i mod4 &
 
-hsetroot -solid '#8fbcbb' &
+hsetroot -solid '#a8d0a9' &
 
 numlockx on &
 
