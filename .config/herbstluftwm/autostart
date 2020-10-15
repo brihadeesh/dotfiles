@@ -180,7 +180,7 @@ hc unlock
 
 
 # Autostart stuff
-hsetroot -solid gray60 &
+hsetroot -solid '#a8d0a9' &
 picom -b &
 numlockx on &
 xbanish -i mod4 &

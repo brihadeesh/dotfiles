@@ -17,18 +17,18 @@ scrolling:
 draw_bold_text_with_bright_colors: false
 font:
   normal:
-    family: IBM Plex Mono
+    family: Anonymous Pro Minus
     style:  Light
   bold:
-    family: IBM Plex Mono
+    family: Anonymous Pro Minus
     style:  Regular
   italic:
-    family: IBM Plex Mono
+    family: Anonymous Pro Minus
     style:  Light
   bold-italic:
-    family: IBM Plex Mono
+    family: Anonymous Pro Minus
     style:  Regular
-  size: 7.5
+  size: 8.5
   offset:
     x: 0
     y: 0

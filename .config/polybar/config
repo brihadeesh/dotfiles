@@ -13,9 +13,9 @@ screenchange-reload = true
 ######     COLORS     ######
 ############################
 [colors]
-background-0 = #6c6c6c
-background-1 = #6c6c6c
-foreground = #a8a8a8
+background-0 = #ffffff
+background-1 = #ffffff
+foreground = #000000
 black = #000000
 red = #870000
 green = #005f00
@@ -28,8 +28,8 @@ gray2 = #d0d0d0
 ############################
 
 [fonts]
-font-0 = "vixus:style=Regular;1"
-font-1 = "vixus:style=Regular;1"
+font-0 = "Fantasque Sans Mono:size=8;1"
+font-1 = "Fantasque Sans Mono:size-8;1"
 
 ############################
 ######    HLWM BAR    ######
@@ -95,8 +95,8 @@ modules-left = time date battery
 modules-center =
 modules-right =
 
-background-0 = gray50
-background-1 = gray50
+background-0 = ${colors.background-0}
+background-1 = ${colors.background-0}
 border-bottom-size = 0
 
 
@@ -144,7 +144,7 @@ enable-scroll = true
 
 label-active = "%name%"
 label-active-padding = 2
-label-active-foreground = ${colors.red}
+label-active-foreground = ${colors.foreground}
 label-active-background = ${colors.gray2}
 
 label-empty = *
@@ -161,22 +161,22 @@ interval = 30
 label-padding = 1
 
 format-charging = <label-charging>
-label-charging = "chr %{F#ffffff}%percentage:3%%%{F-}"
+label-charging = "chr %percentage:3%%"
 
 format-discharging = <label-discharging>
-label-discharging = "bat %{F#ffffff}%percentage:3%%%{F-}"
+label-discharging = "bat %percentage:3%%"
 
 format-full = <label-full>
 label-full = "charged"
 
 [module/time]
 type = internal/date
-date = "%{F#ffffff}%H%M%{F-} %{F#a8a8a8}hrs%{F-}"
+date = "%H%M hrs"
 interval = 1
 label-padding = 1
 
 [module/date]
 type= internal/date
-date =  "%{F#d0d0d0}%a%{F-} %Y-%m-%{F#ffffff}%d%{F-}"
+date =  "%a %Y-%m-%d"
 interval = 60
 label-padding = 1
