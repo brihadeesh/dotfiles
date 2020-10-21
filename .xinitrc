@@ -67,8 +67,8 @@ case $session in
 	xbanish -i mod4 &
 
 	# hsetroot -solid '#a8d0a9' &
-	feh --bg-fill ~/Pictures/Wallpapers/really_minimal/light/Fondo_iconoaperture.png &
-	# feh --bg-fill Pictures/Wallpapers/really_minimal/dark/TriCircle-Blues.png &
+	hsetroot -extend ~/Pictures/Wallpapers/really_minimal/light/Fondo_iconoaperture.png &
+	# hsetroot -extend Pictures/Wallpapers/really_minimal/dark/TriCircle-Blues.png &
 
 	numlockx on &
 
@@ -93,55 +93,51 @@ case $session in
 	    #     -face "Isonorm:size=8" -fg '#fffff0' -bg '#C1EAFE' & # '#14172E' &
 	exec cwm ;;
 
-    glazier)
-	~/.config/cwm/autostart &
-	exec glazier ;;
-
     e16)
         exec e16 ;;
 
     exwm)
-        # Disable access control for the current user.
-        xhost +SI:localuser:$USER
-        # Make Java applications aware this is a non-reparenting window manager.
-        export _JAVA_AWT_WM_NONREPARENTING=1
+	# Disable access control for the current user.
+	xhost +SI:localuser:$USER
+	# Make Java applications aware this is a non-reparenting window manager.
+	export _JAVA_AWT_WM_NONREPARENTING=1
 
-        # Set default cursor.
-        xsetroot -cursor_name left_ptr
+	# Set default cursor.
+	xsetroot -cursor_name left_ptr
 
-        # Set keyboard repeat rate.
-        # xset r rate 200 60
+	# Set keyboard repeat rate.
+	# xset r rate 200 60
 
-        # Uncomment the following block to use the exwm-xim module.
-        #export XMODIFIERS=@im=exwm-xim
-        #export GTK_IM_MODULE=xim
-        #export QT_IM_MODULE=xim
-        #export CLUTTER_IM_MODULE=xim
+	# Uncomment the following block to use the exwm-xim module.
+	#export XMODIFIERS=@im=exwm-xim
+	#export GTK_IM_MODULE=xim
+	#export QT_IM_MODULE=xim
+	#export CLUTTER_IM_MODULE=xim
 
-        # usually reqd stuff
-        xbanish -i control &
-        rdshft &
-        picom -b
+	# usually reqd stuff
+	xbanish -i control &
+	rdshft &
+	picom -b
 
-        # Finally start Emacs
-        exec emacs ;;
+	# Finally start Emacs
+	exec emacs ;;
 
     sowm)
-        # redshift &
-        # picom -b &
-        # xsetroot -cursor_name left_ptr &
-        # numlockx &
-        # hsetroot -solid '#666666' &
-        exec sowm ;;
+	# redshift &
+	# picom -b &
+	# xsetroot -cursor_name left_ptr &
+	# numlockx &
+	# hsetroot -solid '#666666' &
+	exec sowm ;;
 
     fvwm)
-        # redshift &
-        picom -b &
-        xsetroot -cursor_name left_ptr &
-        numlockx &
+	# redshift &
+	picom -b &
+	xsetroot -cursor_name left_ptr &
+	numlockx &
 	xbanish -i mod1 &
-        hsetroot -solid '#666666' &
-        exec fvwm3 ;;
+	hsetroot -solid '#666666' &
+	exec fvwm3 ;;
 
     wmii)
 	exec wmii ;;
