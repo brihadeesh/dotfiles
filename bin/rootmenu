@@ -1,0 +1,12 @@
+#!/bin/sh
+# each entry must be executable and present in $PATH
+
+xmenu -d \
+    'drawterm' \
+    'killw $(slw)' \
+    'reshape' \
+    'snarf' \
+    'plumb' \
+    'firefox' \
+    'sanemacs' \
+    | while read x; do sh -c "$x & exit"; done 2>/dev/null

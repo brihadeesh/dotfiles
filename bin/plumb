@@ -1,0 +1,63 @@
+#!/bin/sh
+
+usage() {
+    echo "usage: $(basename $0) [-hs] [-u uri]" >&2
+}
+
+# default mimetype
+mime=text/plain
+clip="$(xsel -o)"
+
+[ "$1" = "-" ] && {
+    input=$(mktemp -p /tmp plumb.XXXXXXXX)
+    cat > $input
+}
+
+while getopts "hsu:v-" OPT; do
+    case $OPT in
+    s) input="$(cat)" ;;
+    u) input="$OPTARG" ;;
+    v) verbose=1 ;;
+    h) usage; exit 0 ;;
+    *) usage; exit 1 ;;
+    esac
+done
+
+uri="${input:-$clip}"
+
+[ -z "$uri" ] && exit 1
+
+proto="$(echo "$uri" | sed -n 's,^\([^:]*\)://.*,\1,p')"
+
+if [ -z "$proto" ]; then
+    mime=$(file -i "$uri" | tr -d ' ' |cut -d: -f2 | cut -d\; -f1)
+else
+    mime=$(timeout 2s curl -skI "$uri" | grep -ioE 'content-type:[^;]*'|cut -d: -f2)
+    [ "$proto" = "gopher" ] && mime=text/plain
+fi
+
+pipe() {
+    [ -n "$proto" ] && curl -skL "$1"
+    [ -z "$proto" ] && cat "$1"
+}
+
+# verbose mode
+[ -n "$verbose" ] && printf 'uri: %s\nproto: %s\nmime: "%s"\n' "$uri" "$proto" "$mime"
+
+case "$mime" in
+    text/html) exec firefox --new-tab "$uri" ;;
+    text/xml)  exec firefox --new-tab "$uri" ;;
+    image/gif) exec mpv --loop 0 "$uri" ;;
+    video/*)   exec mpv -cache 512 "$uri" ;;
+    image/*)   pipe "$uri" | img ;;
+    text/*)
+           if [ -n "$proto" ]; then
+            tmp=$(mktemp -p /tmp plumb.XXXXXXXX)
+            pipe "$uri" > $tmp
+            uri=$tmp
+           fi
+           tty -s && exec less "$uri" || exec st -e less "$uri"
+           ;;
+    *)         exec ${BROWSER:-firefox} "$uri" ;;
+esac
+

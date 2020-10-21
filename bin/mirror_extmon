@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+xrandr --output eDP1 --auto --primary --output HDMI1 --auto --same-as eDP1

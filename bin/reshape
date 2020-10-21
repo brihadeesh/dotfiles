@@ -1,0 +1,4 @@
+#!/bin/sh
+
+wid=$(slw)
+wtp $(xrectsel '%x %y %w %h') $wid

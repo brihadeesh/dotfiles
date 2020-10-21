@@ -1,0 +1,50 @@
+# bindings for wmutils
+
+# reload sxhkd config
+super + shift + r
+    pkill -USR1 sxhkd
+
+
+# terminals
+super + shift + Return
+      	alacritty
+
+super + ctrl + Return
+      	st
+
+# menu program;
+# TODO: replace with xmenu from z3bra
+# TODO: write/find dmenu wrapper for this
+super + p
+	dmenyou
+
+# cycle window focus
+super + {_,shift + }Tab
+      	~/my_gits/wmutils-contrib/focus.sh {next,prev}
+
+# move windows around
+super + {h,j,k,l}
+	wmv {-20 0, 0 20, 0 -20, 20 0} $(pfw)
+
+#resize windows
+super + shift + {h,j,k,l}
+	wrs {-20 0, 0 20, 0 -20, 20 0} $(pfw)
+
+# focus window after position
+# super + ctrl + {h,j,k,l}
+	# ~/.config/sxhkd/.scripts/focus $(~/.config/sxhkd/.scripts/vroum {h, j, k, l})
+
+# move window to center
+super + g
+	~/my_gits/wmutils-contrib/c
+# tile ?
+super + e
+      	~/my_gits/wmutils-contrib/tile.sh
+
+# fullscreen
+super + shift + e
+	~/.config/sxhkd/.scripts/fullscreen $(pfw)
+
+# close window
+super + shift + q
+	killwa $(pfw)

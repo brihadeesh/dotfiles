@@ -6,7 +6,7 @@
 #    startx ~/.xinitrc WM
 
 # session to run if none passed as first arg ($1)
-session="${1:-cwm}"
+session="${1:-wmutils}"
 
 # set environment wm for use in scripts
 export WM="$session"
@@ -92,6 +92,39 @@ case $session in
 	# LANG= xclock -strftime " %H:%M | %a %e %b " -geometry 120x18+5-5 -render \
 	    #     -face "Isonorm:size=8" -fg '#fffff0' -bg '#C1EAFE' & # '#14172E' &
 	exec cwm ;;
+
+    wmutils)
+	wal -R
+
+	xsetroot -cursor_name Left_ptr
+
+	xbanish -i mod4 &
+
+	# hsetroot -solid '#a8d0a9' &
+	hsetroot -extend ~/Pictures/Wallpapers/really_minimal/light/Fondo_iconoaperture.png &
+	# hsetroot -extend Pictures/Wallpapers/really_minimal/dark/TriCircle-Blues.png &
+
+	numlockx on &
+
+	# pkill -x picom
+	# picom -b &
+
+	# rdshft &
+
+	# pkill -x xclock; xclock -strftime "%a %e %b  %H%M h" -geometry 130x18+5+5 -render \
+	    # 			-face  "Spleen:pixelsize=12" -fg SandyBrown -bg
+
+	# # Terminate already running bar instances
+	pkill -x polybar
+	# # Wait until the processes have been shut down
+	while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+	# # Launch bar
+	polybar -qc cwm &
+	glazier &
+	rootmenu &
+	./my_gits/wmutils-contrib/focus_watcher.sh &
+	alacritty &
+	exec sxhkd -c ~/.config/wmutils/sxhkdrc ;;
 
     e16)
         exec e16 ;;

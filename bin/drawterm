@@ -1,0 +1,13 @@
+#!/bin/sh
+
+wf=8
+hf=19
+ib=2
+ob=8
+
+xrectsel | tr 'x+' ' ' | {
+    read w h x y
+    w=$(( ( w - (ib + ob)*2 ) / wf ))
+    h=$(( ( h - (ib + ob)*2 ) / hf ))
+    exec alacritty -d ${w} ${h} --position ${x} ${y}
+}
