@@ -9,15 +9,16 @@ command term "alacritty"
 sticky yes
 
 ## Fonts, Style, Color
-fontname        "vixus:pixelsize=11"
+fontname        "Isonorm:size=8"
 color menubg    "#d0d0d0"
+color menufg 	"#000000"
 color font      "#000000"
 color selfont   "#ffffaf"
 
 borderwidth 2
 color activeborder      "#ed6a43"
 color inactiveborder    "#d0d0d0"
-gap 18 5 5 5 	        #[T,B,L,R]
+gap 5 28 5 5 	        #[T,B,L,R]
 
 # application menu
 command alacritty alacritty
@@ -47,9 +48,9 @@ sticky yes
 
 # Ignore programs by that name by not drawing borders around them.
 ignore xclock
-ignore xload
+# ignore xload
 ignore dunst
-ignore polybar
+# ignore polybar
 
 # Keybinds
 unbind-key all

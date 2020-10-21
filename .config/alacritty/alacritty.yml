@@ -17,18 +17,18 @@ scrolling:
 draw_bold_text_with_bright_colors: false
 font:
   normal:
-    family: Anonymous Pro Minus
-    style:  Light
+    family: Anka/Coder Condensed
+    style:  Regular
   bold:
-    family: Anonymous Pro Minus
-    style:  Regular
+    family: Anka/Coder Condensed
+    style:  Bold
   italic:
-    family: Anonymous Pro Minus
-    style:  Light
-  bold-italic:
-    family: Anonymous Pro Minus
+    family: Anka/Coder Condensed
     style:  Regular
-  size: 8.5
+  bold-italic:
+    family: Anka/Coder Condensed
+    style:  Bold
+  size: 8
   offset:
     x: 0
     y: 0

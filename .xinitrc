@@ -62,8 +62,40 @@ case $session in
         exec herbstluftwm --locked ;;
 
     cwm)
-	~/.config/cwm/autostart &
+	wal -R
+
+	xbanish -i mod4 &
+
+	# hsetroot -solid '#a8d0a9' &
+	feh --bg-fill ~/Pictures/Wallpapers/really_minimal/light/Fondo_iconoaperture.png &
+	# feh --bg-fill Pictures/Wallpapers/really_minimal/dark/TriCircle-Blues.png &
+
+	numlockx on &
+
+	# pkill -x picom
+	# picom -b &
+
+	# rdshft &
+
+	# pkill -x xclock; xclock -strftime "%a %e %b  %H%M h" -geometry 130x18+5+5 -render \
+	    # 			-face  "Spleen:pixelsize=12" -fg SandyBrown -bg
+
+	# # Terminate already running bar instances
+	pkill -x polybar
+	# # Wait until the processes have been shut down
+	while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+	# # Launch bar
+	polybar -qc cwm &
+
+	# xclock???
+	# pkill -9 xclock
+	# LANG= xclock -strftime " %H:%M | %a %e %b " -geometry 120x18+5-5 -render \
+	    #     -face "Isonorm:size=8" -fg '#fffff0' -bg '#C1EAFE' & # '#14172E' &
 	exec cwm ;;
+
+    glazier)
+	~/.config/cwm/autostart &
+	exec glazier ;;
 
     e16)
         exec e16 ;;
