@@ -94,15 +94,22 @@ case $session in
 	exec cwm ;;
 
     wmutils)
+	# focus.sh border settings
+	export BW=2
+	export ACTIVE='#ed6a43'
+	export INACTIVE='#d0d0d0'
+
+
 	wal -R
 
-	xsetroot -cursor_name Left_ptr
+	xsetroot -cursor_name Left_ptr &
 
 	xbanish -i mod4 &
 
 	# hsetroot -solid '#a8d0a9' &
-	hsetroot -extend ~/Pictures/Wallpapers/really_minimal/light/Fondo_iconoaperture.png &
+	# hsetroot -extend ~/Pictures/Wallpapers/really_minimal/light/Fondo_iconoaperture.png &
 	# hsetroot -extend Pictures/Wallpapers/really_minimal/dark/TriCircle-Blues.png &
+	hsetroot -extend ~/Pictures/Wallpapers/really_minimal/light/triangles.png &
 
 	numlockx on &
 
@@ -122,7 +129,8 @@ case $session in
 	polybar -qc cwm &
 	glazier &
 	rootmenu &
-	./my_gits/wmutils-contrib/focus_watcher.sh &
+	focus_watcher.sh &
+	workspace.sh -i &
 	alacritty &
 	exec sxhkd -c ~/.config/wmutils/sxhkdrc ;;
 

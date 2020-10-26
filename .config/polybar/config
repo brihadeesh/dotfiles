@@ -22,14 +22,17 @@ green = #005f00
 gray = #a8a8a8
 gray2 = #d0d0d0
 
+cwm-bg-0 = #C1EAFE
+cwm-bg-1 = #909090
+
 
 ############################
 ######      FONTS     ######
 ############################
 
 [fonts]
-font-0 = "Fantasque Sans Mono:size=8;1"
-font-1 = "Fantasque Sans Mono:size-8;1"
+font-0 = "Isonorm:size=8;1"
+font-1 = "Isonorm:size-8;1"
 
 ############################
 ######    HLWM BAR    ######
@@ -91,14 +94,18 @@ modules-center = bspwm-ws
 
 [bar/cwm]
 inherit = bar/hlwm
+width = 20%
 modules-left = time date battery
 modules-center =
 modules-right =
 
-background-0 = ${colors.background-0}
-background-1 = ${colors.background-0}
-border-bottom-size = 0
+bottom = true
 
+background-0 = ${colors.cwm-bg-1}
+background-1 = ${colors.cwm-bg-1}
+foreground = ${colors.foreground}
+border-bottom-color = ${colors.cwm-bg-1}
+border-top-color = ${colors.cwm-bg-1}
 
 #######################################
 ######          MODULES          ######
@@ -173,10 +180,10 @@ label-full = "charged"
 type = internal/date
 date = "%H%M hrs"
 interval = 1
-label-padding = 1
+# label-padding = 1
 
 [module/date]
 type= internal/date
-date =  "%a %Y-%m-%d"
+date = "%a %d %b"
 interval = 60
 label-padding = 1
