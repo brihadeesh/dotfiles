@@ -6,7 +6,7 @@
 #    startx ~/.xinitrc WM
 
 # session to run if none passed as first arg ($1)
-session="${1:-wmutils}"
+session="${1:-exwm}"
 
 # set environment wm for use in scripts
 export WM="$session"
@@ -96,11 +96,11 @@ case $session in
     wmutils)
 	# focus.sh border settings
 	export BW=2
-	export ACTIVE='#ed6a43'
-	export INACTIVE='#d0d0d0'
+	export ACTIVE=${ACTIVE:-0xed6a43}
+	export INACTIVE=${INACTIVE:-0xd0d0d0}
 
 
-	wal -R
+	wal -R &
 
 	xsetroot -cursor_name Left_ptr &
 
@@ -109,7 +109,7 @@ case $session in
 	# hsetroot -solid '#a8d0a9' &
 	# hsetroot -extend ~/Pictures/Wallpapers/really_minimal/light/Fondo_iconoaperture.png &
 	# hsetroot -extend Pictures/Wallpapers/really_minimal/dark/TriCircle-Blues.png &
-	hsetroot -extend ~/Pictures/Wallpapers/really_minimal/light/triangles.png &
+	hsetroot -extend ~/Pictures/Wallpapers/really_minimal/dark/Lines_and_Lines.png &
 
 	numlockx on &
 
@@ -182,6 +182,9 @@ case $session in
 
     wmii)
 	exec wmii ;;
+
+    progman)
+	exec progman ;;
 
     *)        exec "$session" # Unknown, try running it
 esac

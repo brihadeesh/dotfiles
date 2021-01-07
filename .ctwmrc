@@ -1,0 +1,655 @@
+#################################
+#
+# GENERAL
+#
+##################################
+dnl Capitalised version of the window managers name, for use in Menus
+define(TWM_NAME, translit(TWM_TYPE, [cvt], [CVT]))dnl
+
+# No default titlebuttons and bindings
+NoDefaults
+
+# Use no titles on windows whatsoever.
+NoTitle
+
+# Ignore the follwoing EWMH hints
+EWMHIgnore
+{
+    # Window states
+    "STATE_MAXIMIZED_VERT"
+    "STATE_MAXIMIZED_HORZ"
+    "STATE_FULLSCREEN"
+    "STATE_SHADED"
+    "STATE_ABOVE"
+    "STATE_BELOW"
+}
+
+# Temporary child windows also get decorations.
+DecorateTransients
+
+# Permit X events to update server
+NoGrabServer
+
+# Honour window's own idea of placement when opening
+UsePPosition "on"
+
+# Move cursor to middle of window when unhiding.
+WarpCursor
+
+# Keep things on the physical screen.
+DontMoveOff
+
+# Prevent ctwm from resetting backgrounds
+DontPaintRootWindow
+
+# Go directly to the menu entry if the user taps
+# the corresponding key, ignoring case.
+IgnoreCaseInMenuSelection
+
+# Dynamic Focus
+#SloppyFocus
+
+# Raise windows by clicking (LMB) on them
+RaiseOnClick
+RaiseOnClickButton 1
+
+# Show window contents while moving or resizing
+OpaqueMove
+OpaqueResize
+
+# Size of windows (in percentage of the screen estate) where ctwm
+# will show windows' contents while moving or resizing.
+# If any above, show grid
+OpaqueMoveThreshold 70
+OpaqueResizeThreshold 50
+
+# When moving around windows, if we pass another window by this many
+# pixels, moving is resumed.
+MovePackResistance 20
+
+# Start resizing right away, even without crossing a border.
+AutoRelativeResize
+
+# Transient windows get focus automatically when created
+AutoFocusToTransients
+
+# Try not to overlap existing windows when mapping a new window.
+PackNewWindows
+
+# Place new windows wherever. Not very random, however.
+RandomPlacement "on"
+
+# Don't show icon managers or workspaces in windows or icon menus.
+ShortAllWindowsMenus
+
+# But let the menus stay up on screen.
+StayUpMenus
+
+
+#################################
+#
+# APPEARANCE
+#
+##################################
+# Colors
+define(`color1',`#151515')
+define(`color2',`#D7D0C7')
+define(`color3',`#42717B')
+define(`color4',`#9B64FB')
+define(`color5',`#E1AA5D')
+define(`color6',`#E84F4F')
+
+Color
+{
+    DefaultBackground "color1"
+    DefaultForeground "color2"
+
+    # Border of focused windows
+    BorderColor "color5"
+
+    # Border of unfocused windows
+    # If we define both of these to
+    #the same colour, we get a solid
+    # border. Otherwise stippled.
+    BorderTileBackground "color3"
+    BorderTileForeground "color3"
+
+    # Menus
+    MenuBackground "color1"
+    MenuForeground "color2"
+    MenuTitleBackground "color3"
+    MenuTitleForeground "white"
+
+    # IconManager
+    IconManagerBackground "color1"
+    IconManagerForeground "color2"
+    IconManagerHighlight "color5"
+
+    # WorkSpaceManager
+    MapWindowBackground "color1"
+    MapWindowForeground "color2"
+    MapWindowForeground "color2"
+    MapWindowCurrentWorkSpace { "rgb:c/c/c" "grey50" "color2" }
+    MapWindowDefaultWorkSpace { "color1" "grey40" "color2" }
+}
+
+# Avoid 'technicolor effect' on decorations
+SaveColor
+{
+    BorderColor
+    BorderTileBackground
+    BorderTileForeground
+    TitleBackground
+    TitleForeground
+}
+
+# Pointer glyphs
+Cursors
+{
+    Frame       "top_left_arrow"
+    Title       "top_left_arrow"
+    Icon        "top_left_arrow"
+    IconMgr     "sb_left_arrow"
+    Move        "top_left_arrow"
+    Resize      "top_left_arrow"
+    Menu        "sb_left_arrow"
+    Button      "top_left_arrow"
+    Wait        "watch"
+    Select      "dot"
+    Destroy     "pirate"
+}
+
+# Fonts
+define(`font_8',`-*-helvetica-medium-r-normal--*-80-*-*-*-*-*-*')
+define(`font_6',`-*-helvetica-medium-r-normal--*-60-*-*-*-*-*-*')
+
+ResizeFont		"font_8"
+MenuFont                "font_8"
+MenuTitleFont           "font_8"
+IconFont                "font_8"
+IconManagerFont         "font_8"
+WorkSpaceFont	        "font_6"
+
+
+#################################
+#
+# FUNCTIONS
+#
+##################################
+# Threshold in pixel for f.move to activate
+MoveDelta 3
+
+# Define some useful functions for motion-based actions.
+Function "move-or-lower"     { f.movepack f.deltastop f.lower   }
+Function "move-or-raise"     { f.movepack f.deltastop f.raise   }
+Function "resize-or-lower"   { f.resize f.deltastop f.lower }
+
+# For multiple workspaces these l macros define multiple functions...
+define(`forloop',
+       `pushdef(`$1', `$2')_forloop(`$1', `$2', `$3', `$4')popdef(`$1')')
+define(`_forloop',
+       `$4`'ifelse($1, `$3', ,
+       `define(`$1', incr($1))_forloop(`$1', `$2', `$3', `$4')')')
+
+forloop(`N', 1, 9,
+  `Function "move-to-workspace-N" {
+      f.addtoworkspace	"N"
+      forloop(`I', 1, 9, `ifelse(N, I, , `  f.removefromworkspace  "I"')')
+   }')
+
+forloop(`N', 1, 9,
+  `Function "move-and-goto-workspace-N" {
+      f.addtoworkspace "N"
+      forloop(`I', 1, 9, `ifelse(N, I, , `  f.removefromworkspace  "I"')')
+      f.gotoworkspace "N"
+   }')
+
+
+#################################
+#
+# WORKSPACE MANAGER
+#
+##################################
+# Always show WorksSpace Manager
+ShowWorkSpaceManager
+
+#Set up 6 workspaces. We don't define the root background colour,
+#because we use the same colour on every workspace
+WorkSpaces
+{
+    "1" { "color1" "color2" }
+    "2" { "color1" "color2" }
+    "3" { "color1" "color2" }
+    "4" { "color1" "color2" }
+    "5" { "color1" "color2" }
+    "6" { "color1" "color2" }
+}
+
+# When changing workspace, restore the focus to the window in this
+# workspace which last had it.
+SaveWorkspaceFocus
+
+# Placement
+define(WRegion, translit(eval(WIDTH/3)*eval(HEIGHT/2)+eval(WIDTH-WIDTH/3)-0, *, x))
+WorkSpaceManagerGeometry "WRegion" SOUTH EAST 4 14
+WorkSpaceManagerGeometry "80x270-0-0" 1 3
+StartInMapState # Show little windows...
+
+# Uncomment if you want reverse colours to mark current workspace.
+ReverseCurrentWorkSpace
+
+# Buttons
+WMgrButtonStyle style3
+WMgrButtonShadowDepth 0
+WMgrHorizButtonIndent 0
+WMgrVertButtonIndent 0
+
+# Don't show windows that occupies all workspaces
+NoShowOccupyAll
+
+
+#################################
+#
+# ICON MANAGER
+#
+##################################
+# Always show IconManager
+ShowIconManager
+# No icons, just make the windows disappear.
+IconifyByUnmapping
+# Placement
+IconManagerGeometry "128x512+0+92"
+# Sort alphabetically
+SortIconManager
+# Ignore case
+NoCaseSensitive
+# Truncate window titles larger than 78 columns
+MaxIconTitleWidth 78
+# Number of outlines to be drawn when (de-)iconnifying a window
+Zoom 0
+
+
+#################################
+#
+# WINDOW-LISTS
+#
+##################################
+NoBorder
+{
+    "WorkSpaceManager"
+    "IconManager"
+    "xbiff"
+    "xsm"
+	"xclock"
+	"xload"
+    "xlogo"
+	"xman"
+    "xneko"
+    "xosview"
+}
+
+IconManagerDontShow
+{
+    "WorkSpaceManager"
+    "IconManager"
+    "xclock"
+    "xlogo"
+    "xbiff"
+    "xsm"
+    "xman"
+    "xneko"
+    "xload"
+    "xosview"
+}
+
+IconMenuDontShow
+{
+    "WorkSpaceManager"
+    "IconManager"
+    "xclock"
+    "xlogo"
+    "xbiff"
+    "xsm"
+    "xman"
+    "xneko"
+    "xload"
+    "xosview"
+}
+
+# Exclude these windows from the warp ring
+WindowRingExclude
+{
+    "WorkSpaceManager"
+    "IconManager"
+    "xclock"
+    "xlogo"
+    "xbiff"
+    "xsm"
+    "xman"
+    "xneko"
+    "xload"
+    "xosview"
+}
+
+# Put these windows on all workspaces.
+OccupyAll
+{
+    "WorkSpaceManager"
+    "IconManager"
+    "xlogo"
+    "xclock"
+    "xload"
+    "xneko"
+    "xclipboard"
+    "xbiff"
+    "xsm"
+	"xosview"
+}
+
+StartIconified {
+  "Download"
+  "Save file"
+}
+
+
+#################################
+#
+# WINDOW-RING
+#
+##################################
+# This variable specifies a list of windows
+# along which the f.warpring function cycles.
+# If no argument is given, all the windows are in the ring.
+
+WindowRing {
+#        "AppsClassName"
+}
+# f.wrapring warps only to windows visible in the current space
+WarpRingOnScreen
+
+# Don't raise windows when pointer is wraped to them
+NoRaiseOnWarp
+
+# Deiconify any iconified windows it encounters.
+WarpUnmapped
+
+
+#################################
+#
+# MOUSE BINDINGS
+#
+##################################
+# X root
+Button1 = : root : f.menu "apps"
+Button2 = : root : f.refresh
+Button3 = : root : f.menu "wm-ops"
+
+# Frames
+Button1 = : frame : f.raise
+Button3 = : frame : f.resize
+
+# Windows
+Button1 = mod1 	    : window : f.function "move-or-raise"
+Button1 = s 	: window : f.raiselower
+Button1 = mod1 | l : window : f.menu "zoom"
+Button1 = mod1 | c  : window : f.iconify
+Button2 = mod1 		: window : f.iconify
+Button2 = s		: window : f.identify
+Button3 = mod1   	: window : f.function "resize-or-lower"
+Button3 = s  	: window : f.menu "windowmenu"
+Button3 = mod1 | l : window : f.menu "kill"
+Button3 = mod1 | c	: window : f.fullzoom
+
+# Iconmgr
+Button1 = : iconmgr : f.iconify
+Button2 = : iconmgr : f.identify
+Button3 = : iconmgr : f.menu "iconmgrmenu"
+
+
+##################################
+#
+# KEYBOARD BINDINGS
+#
+##################################
+# Switch to workspace N
+"1" = c : all : f.gotoworkspace "1"
+"2" = c : all : f.gotoworkspace "2"
+"3" = c : all : f.gotoworkspace "3"
+"4" = c : all : f.gotoworkspace "4"
+"5" = c : all : f.gotoworkspace "5"
+"6" = c : all : f.gotoworkspace "6"
+
+# Send window to workspace  N
+"1" = mod1 | s : all : f.function "move-to-workspace-1"
+"2" = mod1 | s : all : f.function "move-to-workspace-2"
+"3" = mod1 | s : all : f.function "move-to-workspace-3"
+"4" = mod1 | s : all : f.function "move-to-workspace-4"
+"5" = mod1 | s : all : f.function "move-to-workspace-5"
+"6" = mod1 | s : all : f.function "move-to-workspace-6"
+
+# Send window to workspace  N & follow
+"1" = mod1 | s | c : all : f.function "move-and-goto-workspace-1"
+"2" = mod1 | s | c : all : f.function "move-and-goto-workspace-2"
+"3" = mod1 | s | c : all : f.function "move-and-goto-workspace-3"
+"4" = mod1 | s | c : all : f.function "move-and-goto-workspace-4"
+"5" = mod1 | s | c : all : f.function "move-and-goto-workspace-5"
+"6" = mod1 | s | c : all : f.function "move-and-goto-workspace-6"
+
+# Occupy all workspaces
+"f" = mod1 : all : f.occupyall
+
+# Move windows 20 pixel with alt + vi-like binds or arrow keys.
+"Up"    = mod1 : all : f.jumpup "20"
+"Left"  = mod1 : all : f.jumpleft "20"
+"Right" = mod1 : all : f.jumpright "20"
+"Down"  = mod1 : all : f.jumpdown "20"
+
+"k" 	= mod1 : all : f.jumpup "20"
+"j" 	= mod1 : all : f.jumpleft "20"
+"l" 	= mod1 : all : f.jumpright "20"
+"h" 	= mod1 : all : f.jumpdown "20"
+
+# Resize windows 10 pixel with alt + vi-like binds or arrow keys.
+"Right" = mod1 | c : all : f.changesize "right +10"
+"Left"  = mod1 | c : all : f.changesize "right -10"
+"Down"  = mod1 | c : all : f.changesize "bottom +10"
+"Up"    = mod1 | c : all : f.changesize "bottom -10"
+
+"k" 	= mod1 | c : all : f.changesize "right +10"
+"j" 	= mod1 | c : all : f.changesize "right -10"
+"l" 	= mod1 | c : all : f.changesize "bottom +10"
+"h" 	= mod1 | c : all : f.changesize "bottom -10"
+
+# Maximize windows
+"b" = mod1 : all: f.zoom
+"v" = mod1 : all : f.hzoom
+"m" = mod1 : all: f.fullzoom
+
+# Kill a window.
+"x" = mod1 : all: f.delete
+
+# Spawn a terminal
+"Return" = mod1 : all: f.exec "LANG=en_US.UTF-8;urxvtc &"
+
+# Restart the wm.
+"r" = mod1: all: f.restart
+
+# Alt(S)+Tab cyclewarp windows
+"Tab" = mod1	     : all : f.warpring "next"
+"Tab" = mod1 | s : all : f.warpring "prev"
+
+
+##################################
+#
+# MENUS
+#
+##################################
+
+menu "apps"
+{
+	"  Programs "		f.title
+	""			        f.separator
+        "Pin menu"		        f.pin
+        ""			        f.separator
+	"dmenu"				("white":"#42717B")f.exec "dmenu_run &"
+	""				f.separator
+	"Editors"			f.menu "editors"
+	"Terminals" 			f.menu "terminals"
+	"FMs"				f.menu "fms"
+	"Network"			f.menu "network"
+	"Graphics"			f.menu "graphics"
+	"Office"			f.menu "office"
+	"Utils"				f.menu "utils"
+}
+
+menu "terminals"
+{
+	"  Terminals  "		f.title
+	"URXVT"				f.exec "urxvtc &"
+	"XTerm"				f.exec "xterm &"
+}
+
+
+menu "editors"
+{
+	"  Editors  "		f.title
+	"vi"				f.exec "urxvtc -e vi &"
+	"vim"				f.exec "urxvtc -e vim &"
+	"jed"				f.exec "urxvtc -e jed &"
+	"emacs"				f.exec "emacs  &"
+	"xedit"				f.exec "xedit &"
+	"xnedit"			f.exec "xnedit &"
+}
+
+menu "fms"
+{
+	"  File Managers  "	f.title
+	"mc"				f.exec "urxvtc -e mc &"
+	"nnn"				f.exec "urxvtc -e nnn &"
+	"spacefm"			f.exec "spacefm &"
+	"moxfm"				f.exec "moxfm &"
+}
+
+menu "network"
+{
+	"  Network  "		f.title
+	"lynx"				f.exec "urxvtc -e lynx https://www.duckduckgo.com &"
+	"lftp"				f.exec "urxvtc -e lftp &"
+	"xmftp"				f.exec "xmftp &"
+	"mutt"				f.exec "urxvtc -e mutt &"
+	"elm"				f.exec "urxvtc -e elm &"
+	"irssi"				f.exec "urxvtc -e irssi &"
+	"slrn"				f.exec "urxvtc -e slrn &"
+}
+
+menu "graphics"
+{
+	"  Graphics  "		f.title
+	"xv"				f.exec "xv &"
+	"xres"				f.exec "editres &"
+	"xfontsel"			f.exec "xfontsel &"
+	"xbmbrowser"			f.exec "xbmbrowser &"
+	"xpaint"			f.exec "xpaint &"
+}
+
+menu "office"
+{
+	"  Office  "		f.title
+	"xvdi"				f.exec "xdvi &"
+	"xfig"				f.exec "xfig &"
+	"xpdf"				f.exec "xpdf &"
+	"gv"				f.exec "gv &"
+}
+
+menu "utils"
+{
+	"  Utils  "		f.title
+	"xclock"			f.exec "xclock &"
+	"xmdiary"			f.exec "xmdiary &"
+	"xcalc"				f.exec "xcalc &"
+	"xclipboard"			f.exec "xclipboard"
+	"xconsole"			f.exec "xconsole &"
+	"xev"				f.exec "xev &"
+	"xkill"				f.exec "xkill &"
+	"xload"				f.exec "xload &"
+	"htop"				f.exec "urxvtc -e htop &"
+	"xsm"				f.exec "xsm &"
+	"xbiff"				f.exec "xbiff &"
+}
+
+menu "wm-ops" {
+    "CTWM"			f.title
+    ""					f.separator
+    "Pin menu"				f.pin
+    ""					f.separator
+    "Version"				f.version
+    "Sort icons"			f.sorticonmgr
+    "Hide icon mgr"			f.hideiconmgr
+    "Show icon mgr"			f.showiconmgr
+    "Hide pager"			f.hideworkspacemgr
+    "Show pager"			f.showworkspacemgr
+    "Prev Workspace"    		f.prevworkspace
+    "Next Workspace"    		f.nextworkspace
+    "Session"				f.title
+    "Refresh"				f.refresh
+    "Restart"				f.restart
+    "Exit"				f.quit
+}
+
+menu "windowmenu" {
+    "Identify"				f.identify
+    "Iconify"				f.iconify
+    "Expand"                            f.menu "zoom"
+    "Raise"				f.raise
+    "Toggle autoraise"			f.autoraise
+    "Lower"		           	f.lower
+    "Refresh"				f.winrefresh
+    "Focus"				f.focus
+    "Unfocus"				f.unfocus
+    "Occupy ..."			f.occupy
+    "Occupy All"			f.occupyall
+    "Vanish"				f.vanish
+    ""					f.separator
+    "Kill"				f.menu "kill"
+}
+
+menu "zoom" {
+    "Pin menu"				f.pin
+    ""					f.separator
+    "Full"				f.fullzoom
+    "Horizontal"			f.horizoom
+    "Vertical"				f.zoom
+    "Left"				f.leftzoom
+    "Top"				f.topzoom
+    "Right"				f.rightzoom
+    "Bottom"				f.bottomzoom
+}
+
+menu "kill" {
+    "Kill Window"			f.destroy
+    "Send Delete"			f.delete
+}
+
+
+menu "iconmenu" {
+    "Actions"			f.title
+    ""					f.separator
+    "Restore"				f.iconify
+    "Move"				f.move
+    "Occupy ..."			f.occupy
+    "Occupy All"			f.occupyall
+    ""					f.separator
+    "Send Delete"			f.delete
+    "Kill Window"			f.destroy
+}
+
+menu "iconmgrmenu" {
+    "Actions"			f.title
+    ""					f.separator
+    "Restore"				f.iconify
+    "Occupy ..."			f.occupy
+    "Occupy All"			f.occupyall
+    ""					f.separator
+    "Send Delete"			f.delete
+    "Kill Window"			f.destroy
+}
