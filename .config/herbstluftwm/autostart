@@ -30,7 +30,7 @@ hc keybind $Mod-Shift-q close
 hc keybind $Mod-Shift-Return spawn alacritty
 hc keybind $Mod-Control-Return spawn st
 # hc keybind $Mod-d spawn rofi -show run -theme ~/.config/rofi/curvature.rasi
-hc keybind $Mod-p spawn dmenu_run -m 0 -fn "vixus:weight=Regular" -nb gray42 -nf \
+hc keybind $Mod-p spawn dmenu_run -m 0 -fn "Anka/Coder:size=7.5" -nb gray42 -nf \
    white -sb gray82 -sf "#870000" -h 14 -x 70 -y 2 -w 1296 -l 0 -p ">"
 
 # Brightness and volume controls
@@ -128,6 +128,9 @@ hc set smart_frame_surroundings 1
 hc set mouse_recenter_gap 0
 hc set focus_follows_mouse 0
 hc set focus_stealing_prevention 0
+
+# titlebar????
+hc attr theme.title_height 15
 
 # borders
 hc attr theme.inner_width 2

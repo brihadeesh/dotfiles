@@ -31,8 +31,8 @@ cwm-bg-1 = #909090
 ############################
 
 [fonts]
-font-0 = "Isonorm:size=8;1"
-font-1 = "Isonorm:size-8;1"
+font-0 = "Anka/Coder:size=7.5;1"
+font-1 = "Anka/Coder:weight=Bold:size-7.5;1"
 
 ############################
 ######    HLWM BAR    ######
@@ -103,7 +103,7 @@ bottom = true
 
 background-0 = ${colors.cwm-bg-1}
 background-1 = ${colors.cwm-bg-1}
-foreground = ${colors.foreground}
+foreground = ${colors.background-0}
 border-bottom-color = ${colors.cwm-bg-1}
 border-top-color = ${colors.cwm-bg-1}
 
@@ -153,6 +153,10 @@ label-active = "%name%"
 label-active-padding = 2
 label-active-foreground = ${colors.foreground}
 label-active-background = ${colors.gray2}
+
+label-occupied = "%name%"
+label-occupied-padding = 2
+label-occupied-foreground = ${colors.gray}
 
 label-empty = *
 label-empty-padding = 2
