@@ -2,7 +2,7 @@
     frame_width = 0
     frame_color = "#878787"
 
-    font = Isonorm 10
+    font = Anka/Coder 10
 
     # Allow a small subset of html markup:
     #   <b>bold</b>
