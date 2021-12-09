@@ -1,0 +1,25 @@
+#+TITLE: Portable dotfile setup
+#+AUTHOR: Brihadeesh S (They/Them)
+#+EMAIL: brihadeesh@protonmail.com
+#+STARTUP: showall
+
+
+* ~Fancy title~
+A reasonably simple and portable (I think) setup for my dotfiles
+managed using [[https://www.gnu.org/software/stow/][GNU Stow]]. Provided you have everything necessary, you
+should be able to run ~stow~ from the root directory after cloning
+to create symlinks for all necessary files. Of course, I don't
+recommend doing this because setups vary and it'd be a lot more useful
+to find stuff you'd like to incorporate into your own system and copy
+just those relevant files.
+
+* What this includes at the moment
+Aside from a lot of stale configs I no longer use, this is meant for
+running [[https://swaywm.org][sway]], a wayland compositor that's a lot more extensible than
+i3, and my Emacs setup. Although this might be up for debate, I live
+in Emacs and so I've given a lot more attention to it.
+
+* Always in beta
+This is and will perpetually be a WIP because my setup keeps
+changing. I'm also relatively new to git and I'm fairly certain I'm
+using it in the worst possible way.

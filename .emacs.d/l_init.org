@@ -562,7 +562,7 @@ Finally figured this out from a [[https://redd.it/ahysvb][reddit post from 2019]
   ;; hook for text mode
   (add-hook 'text-mode-hook 'flyspell-mode)
   ;; and for org-journal
-  (add-hook 'org-journal-mode-hook 'flyspell-mode)
+  ;; (add-hook 'org-journal-mode-hook 'flyspell-mode)
   ;; hook to check spelling for comments in code
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
   #+END_SRC
@@ -1104,7 +1104,7 @@ completion list.
     ;; :ensure t
     :init (setq projectile-completion-system 'default)
     :bind ("C-c p"    . projectile-command-map))
-  (setq projectile-project-search-path '("~/my_gits/" "~/dled_gits/" "~/Journal/personal" "~/Journal/gitJournal/"))
+  (setq projectile-project-search-path '("~/my_gits/" "~/dled_gits/" "~/Journal/"))
   (projectile-mode +1)
 
   ;; (use-package ibuffer-projectile
@@ -1246,7 +1246,7 @@ just make this workable with the termux version of Emacs.
 
     :config
     ;; Journal directory and files
-    (setq org-journal-dir "~/Journal/"
+    (setq org-journal-dir "~/Journal/entries/"
           org-journal-file-format "%Y/%m/%Y%m%d"
           org-journal-file-type 'daily
           org-journal-find-file 'find-file)
@@ -1255,8 +1255,8 @@ just make this workable with the termux version of Emacs.
     (setq org-journal-date-format "%e %b %Y (%A)"
           org-journal-time-format "(%R)"
           org-journal-file-header "#+TITLE: Daily Journal\n#+STARTUP: showeverything")
-
-    (org-journal-after-entry-create-hook . flyspell-mode)))
+    )
+    ;;    (org-journal-after-entry-create-hook . flyspell-mode)))
 #+END_SRC
 
 
