@@ -19,11 +19,6 @@ PS1='\n  \e[0;37m $(pp="$PWD/~" q=${pp/#"$HOME/"/} p=${q%?};((${#p}>19))&&echo "
 
 # [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-# dotbare/bare git dotfiles
-# alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-# dotbare completions for bash
-source ~/.dotbare/dotbare.plugin.bash
-
 # bash completion for herbstclient
 _herbstclient_complete() {
     local IFS=$'\n'
@@ -69,7 +64,7 @@ complete -F _bspc bspc
 # Import colorscheme from 'wal' asynchronously
 # &   # Run the process in the background.
 # ( ) # Hide shell job control messages.
-(cat ~/.cache/wal/sequences &)
+# (cat ~/.cache/wal/sequences &)
 
 # vterm shell-side config, see: https://github.com/akermu/emacs-libvterm/tree/797357bf65952337627f2d0c594c2fef600aafae#shell-side-configuration
 vterm_printf(){

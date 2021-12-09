@@ -3,14 +3,9 @@
 
 # sourced at boot by xinit
 
-[ -d /sbin ] && PATH="$PATH:/sbin"
-[ -d /usr/sbin ] && PATH="$PATH:/usr/sbin"
 [ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
 # [ -d "$HOME/bin/polybar" ] && PATH="$HOME/bin/polybar:$PATH"
 # [ -d "$HOME/bin/bspwm" ] && PATH="$HOME/bin/bspwm:$PATH"
-# [ -d "$HOME/bin/i3" ] && PATH="$HOME/bin/i3:$PATH"
-# [ -d "$HOME/Downloads/Gits/squash" ] && PATH="$HOME/bin/squash:$PATH"
-[ -d "$HOME/.emacs.d/bin" ] && PATH="$HOME/.emacs.d/bin:$PATH"
 export XDG_CONFIG_HOME="$HOME/.config"
 
 # MPD daemon start (if no other user instance exists)
