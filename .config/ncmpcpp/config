@@ -1,0 +1,78 @@
+% egrep -v '^#' .ncmpcpp/config
+mpd_music_dir = "/home/peregrinator/Music"
+
+mpd_host = "127.0.0.1"
+mpd_port = "6600"
+mouse_list_scroll_whole_page = "yes"
+lines_scrolled = "1"
+
+visualizer_in_stereo = "no"
+visualizer_fifo_path = "/tmp/mpd.fifo"
+visualizer_output_name = "my_fifo"
+visualizer_sync_interval = "30"
+visualizer_type = "wave_filled"
+
+#visualizer_look = "+|"`
+visualizer_look = "▌▌"
+
+message_delay_time = "3"
+#playlist_shorten_total_times = "yes"
+playlist_display_mode = "classic"
+browser_display_mode = "classic"
+search_engine_display_mode = "columns"
+playlist_editor_display_mode = "columns"
+autocenter_mode = "yes"
+centered_cursor = "yes"
+user_interface = "classic"
+follow_now_playing_lyrics = "yes"
+display_bitrate = "no"
+external_editor = "vim"
+main_window_color = "default"
+
+# execute_on_song_change="~/.ncmpcpp/mpdnotify"
+#execute_on_player_state_change=""
+
+progressbar_elapsed_color = "yellow"
+progressbar_color = "red"
+progressbar_boldness = yes
+#progressbar_look = "▃▃"
+progressbar_look = "─╼─"
+#progressbar_look = "─⊙ "
+
+mouse_support = "no"
+header_visibility = "no"
+statusbar_visibility = "yes"
+
+statusbar_color = "white"
+#visualizer_color = red, green, yellow, blue, magenta, cyan, white
+visualizer_color = yellow
+#visualizer_color = "white"
+
+titles_visibility = "no"
+enable_window_title = "no"
+
+now_playing_prefix = ">>  $b"
+
+current_item_prefix = " >> "
+
+song_columns_list_format = "(2)[]{} (10f)[blue]{l} (26f)[cyan]{a} (50f)[red]{t|f} (5)[]{}"
+
+color1 = "cyan"
+color2 = "red"
+
+song_list_format = "%t (%a) $R$5%l"
+song_status_format = "$0%a $7%t $0%b"
+
+header_text_scrolling = "yes"
+
+active_column_color = "yellow"
+window_border_color = "yellow"
+active_window_border = "4"
+main_window_highlight_color = "green"
+#startup_slave_screen = "visualizer"
+playlist_shorten_total_times = "yes"
+playlist_show_remaining_time = "no"
+discard_colors_if_item_is_selected = "yes"
+ask_for_locked_screen_width_part = "no"
+locked_screen_width_part = "50"
+player_state_color = "blue"

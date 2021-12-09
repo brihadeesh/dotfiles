@@ -1,0 +1,44 @@
+/// -*- mode: js -*-
+    {
+	// "layer": "top", // Waybar at top layer
+
+	// "position": "bottom", // Waybar position (top|bottom|left|right)
+
+	"height": 20, // Waybar height (to be removed for auto height)
+
+	// Choose the order of the modules
+	"modules-left": ["custom/time", "custom/bat"],
+	"modules-center": ["sway/window"],
+	"modules-right": ["sway/mode", "sway/workspaces"],
+
+	// Modules configuration
+
+	// sway workspaces
+	"sway/mode": {
+            "format": "<span style=\"italic\">{}</span>"
+	},
+
+	// custom battery script
+	"custom/bat": {
+    	    "exec": "bash ~/.config/waybar/batt",
+    	    "format": "{}",
+	    "interval": 30
+	},
+
+	// custom time
+	// TODO still needs work
+	"custom/time": {
+    	    "exec": "date +'%b %d | %H:%M'",
+	    "format": "  {} · ",
+	    "interval": 60
+	},
+
+	"sway/window": {
+	    "max-length": 30,
+	    "rewrite": {
+	    "(.*) - Mozilla Firefox": "$1"
+	    }
+	},
+        "escape": true,
+    }
+}

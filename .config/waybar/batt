@@ -1,0 +1,14 @@
+#!/usr/local/bin/bash
+
+# outputs battery percentage
+battery_perc="$(apm -l)"
+
+# outputs battery status
+if [ $(apm -a) -lt 1 ]; then
+    battery_stat="Bat"
+else
+    battery_stat="Chr"
+fi
+
+# print output
+echo "$battery_stat" "$battery_perc%"
