@@ -480,7 +480,7 @@ RMarkdown and org-mode is generally better (see next bit for RMarkdown)
 
 #+BEGIN_SRC emacs-lisp
   (use-package ess)
-  ;; :ensure t)
+  ;; :ensure t
   (require `ess-r-mode)
 #+END_SRC
 
@@ -489,7 +489,7 @@ RMarkdown and org-mode is generally better (see next bit for RMarkdown)
 
 #+BEGIN_SRC emacs-lisp
   (use-package poly-R)
-  ;; :ensure t)
+  ;; :ensure t
   (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
   (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-ess-help+R-mode))
 #+END_SRC
@@ -547,25 +547,22 @@ Like really?
 Finally figured this out from a [[https://redd.it/ahysvb][reddit post from 2019]].
 
 #+BEGIN_SRC emacs-lisp
-   ;; flyspell + aspell??
-   (setq ispell-dictionary "en_GB")
-   (setq ispell-program-name "hunspell")
-   ;; below two lines reset the the hunspell to it STOPS querying locale!
-   ;; (setq ispell-local-dictionary "en_GB") ; "en_GB" is key to lookup in `ispell-local-dictionary-alist`
+  ;; flyspell + aspell??
+  (setq ispell-dictionary "en_GB")
+  (setq ispell-program-name "hunspell")
+  ;; below two lines reset the the hunspell to it STOPS querying locale!
+  ;; (setq ispell-local-dictionary "en_GB") ; "en_GB" is key to lookup in `ispell-local-dictionary-alist`
 
-   ;; tell ispell that apostrophes are part of words
-   ;; and select Bristish dictionary
-   (add-to-list 'ispell-local-dictionary-alist
-                (quote ("UK_English" "[[:alpha:]]" "[^[:alpha:]]" "['’]" t ("-d" "en_GB") nil utf-8)))
-
+  ;; tell ispell that apostrophes are part of words
+  ;; and select Bristish dictionary
+  (setq ispell-local-dictionary-alist
+               (quote ("UK_English" "[[:alpha:]]" "[^[:alpha:]]" "['’]" t ("-d" "en_GB") nil utf-8)))
 
   ;; hook for text mode
   (add-hook 'text-mode-hook 'flyspell-mode)
-  ;; and for org-journal
-  ;; (add-hook 'org-journal-mode-hook 'flyspell-mode)
   ;; hook to check spelling for comments in code
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-  #+END_SRC
+#+END_SRC
 
 
 *** Something like scrivener from Mac
@@ -786,6 +783,25 @@ wonder why. Essentiall a battery & time display/mode in minibuffer
     ;; 				     ))))))
 #+END_SRC
 
+
+
+** TODO Workspaces with perspective-el
+
+Independent workspaces for different projects like profiles on RStudio
+but perhaps a lot more dynamic. This might need more work hence adding
+[[https://github.com/nex3/perspective-el][a link]] here.
+
+#+BEGIN_SRC emacs-lisp
+    (use-package perspective
+      :bind
+      ;; these work with selectrum/vertico i.e. `completing-read'
+      ;; type completion systems that are appararently closer to
+      ;; base Emacs functioning.
+      (("C-x b" . persp-switch-to-buffer*)
+      ("C-x k" . persp-kill-buffer*))
+      :config
+      (persp-mode))
+#+END_SRC
 
 
 * Miscellaneous Utilities - reorganise
@@ -1045,7 +1061,7 @@ behaviour in Emacs.
            ;; ("M-s l" . consult-line)
            ;; Isearch integration
            ("C-s" . consult-isearch)
-           ;; ("M-s l" . consult-line))                 ;; required by consult-line to detect isearch
+           ;; ("M-s l" . consult-line)                 ;; required by consult-line to detect isearch
            ("C-c L" . consult-org-heading)
            ))
 
@@ -1166,6 +1182,7 @@ directory
 Todo-keywords are things like ~TODO~ and ~DONE~ and so on. Tags are for
 classifying stuff by the general theme of what's being talked about.
 
+
 **** todo-keywords
 #+BEGIN_SRC emacs-lisp
   (setq org-todo-keywords
@@ -1195,6 +1212,7 @@ this for entering entries into ~org-journal~, making it a whole deal
 easier. Perhaps to start off, [[https://orgmode.org/worg/org-tutorials/index.html][the org-mode tutorial]] might be a good
 place to start. I've also got a simple enough config from a reddit
 post in my [[file:person_el/sample-org-setup.el][unused local elisp libs]] too.
+
 
 *** Bullets for non ordered list
 
@@ -1256,7 +1274,6 @@ just make this workable with the termux version of Emacs.
           org-journal-time-format "(%R)"
           org-journal-file-header "#+TITLE: Daily Journal\n#+STARTUP: showeverything")
     )
-    ;;    (org-journal-after-entry-create-hook . flyspell-mode)))
 #+END_SRC
 
 
@@ -1429,7 +1446,7 @@ No fringe but nice glyphs for truncated and wrapped lines
   ;; (set-face-font 'default "Dina-8")
   ;; (set-face-font 'default "Droid Sans Mono-7.5")
   ;; (set-face-font 'default "Fira Code-7.5")
-  (set-face-font 'default "Inconsolata-8.5")
+  (set-face-font 'default "Inconsolata-9")
 #+END_SRC
 
 
@@ -1495,12 +1512,35 @@ within Emacs
     (set-face-attribute 'bold nil :weight 'semibold)
 
     ;; Load the theme files before enabling a theme
-    (modus-themes-load-themes)
+    ;; (modus-themes-load-themes)
     :config
     ;; Load the theme of your choice:
-    (modus-themes-load-operandi)
+    ;; (modus-themes-load-operandi)
     ;; (modus-themes-load-vivendi)
     )
+#+END_SRC
+
+
+**** TODO Elegant Emacs from Nicolas Rougier
+
+Somehow figure out how to incorporate my edits into this - they were
+definitely a lot better for my workflow (doh)
+
+#+BEGIN_SRC emacs-lisp
+  (use-package nano-theme
+    :straight (:host github :repo "rougier/nano-theme")
+
+    ;; load theme separately
+    ;; (nano-light)
+    )
+#+END_SRC
+
+This is my fork
+
+#+BEGIN_SRC emacs-lisp :tangle no
+;; I'll have to manually load the theme I guess because this shit is a mess.
+  (use-package elegant-emacs
+    :straight (elegant-emacs :type git :host github :repo "brihadeesh/elegant-emacs"))
 #+END_SRC
 
 
@@ -1714,20 +1754,10 @@ the macro, original themes from Thomas Letan, and some additional
 themes of my own that use this macro.
 
 #+BEGIN_SRC emacs-lisp
-;; (use-package colourless-themes
-  ;;   :straight (:host nil :repo "https://gitlab.com/peregrinator/colourless-themes"))
-#+END_SRC
-
-
-**** Mephistopheles
-
-
-Inspired by [[https://github.com/xdefrag/vim-beelzebub][Beelzebub for vim]]; and uses the colourless themes macro
-(see above)
-
-#+BEGIN_SRC emacs-lisp
-  ;; (use-package mephistopheles-theme
-  ;;   :straight (:host nil :repo "https://gitlab.com/peregrinator/mephistopheles.el" :includes colourless-themes))
+  (use-package colourless-themes
+    :straight (:host gitlab :repo "peregrinator/colourless-themes-el")
+    :config
+    (load-theme 'einkless t))
 #+END_SRC
 
 
