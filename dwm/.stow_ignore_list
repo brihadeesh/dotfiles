@@ -1,0 +1,49 @@
+# Comments and blank lines are allowed.
+
+RCS
+.+,v
+
+CVS
+# CVS conflict files / emacs lock files
+\.\#.+
+\.cvsignore
+
+\.svn
+_darcs
+\.hg
+
+\.git
+\.gitignore
+
+# emacs backup files
+.+~
+# emacs autosave files
+\#.*\#
+
+^/README.*
+^/readme.*
+^/LICENSE.*
+^/COPYING
+
+# files not in use
+\.cwmrc
+\.ctwmrc
+\.dwm
+\.tmux.conf
+\.vtwmrc
+\.xprofile
+\.xinitrc
+\.config/
+\.bspwd
+\.foot
+\.havoc.cfg
+\.config/foot
+\.config/herbstluftwm
+\.config/mpdnotify
+\.config/picom.conf
+\.config/polybar
+\.config/rofi
+\.config/redshift.conf
+\.config/spectrwm
+\.config/termite
+\.wmutils
