@@ -1120,7 +1120,7 @@ completion list.
     ;; :ensure t
     :init (setq projectile-completion-system 'default)
     :bind ("C-c p"    . projectile-command-map))
-  (setq projectile-project-search-path '("~/my_gits/" "~/dled_gits/" "~/Journal/"))
+  (setq projectile-project-search-path '("~/my_gits/" "~/dled_gits/" "~/Journal/" "~/.cfg"))
   (projectile-mode +1)
 
   ;; (use-package ibuffer-projectile
