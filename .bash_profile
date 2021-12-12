@@ -4,23 +4,41 @@
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-LC_ALL=C
+# LANG=en_GB.UTF-8
+# LC_ALL=C
+LC_ALL=C.UTF-8
+# export LANG
 export LC_ALL
 
-# if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-#   exec startx
-# fi
-# my shitty scripts + doomooomoom + pip executables
-export PATH=$PATH:$HOME/bin:$HOME/.local/bin
-# spicetify
-# export SPICETIFY_INSTALL="/home/peregrinator/spicetify-cli"
-# export PATH="$SPICETIFY_INSTALL:$PATH"
+# my shitty scripts + pip binaries
+export PATH=$PATH:$HOME/bin:$HOME/.dotbare
 
+# dotbare
+source ~/.dotbare/dotbare.plugin.bash
+# set environment variable so that dotbare knows where to look for git information.
+export DOTBARE_DIR="$HOME/.cfg/.git"
+export DOTBARE_TREE="$HOME/.cfg"
+
+# set a terminal so I don't have to do it each time for each wm
+export TERMINAL=alacritty
+
+# wayland native firefox?
+export MOZ_ENABLE_WAYLAND=1
+# export GDK_BACKEND=wayland
 
 # autostart X at login on TTY1
-# [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
-if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then exec startx; fi
+# if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/ttyv0 ]]; then exec startx; fi
 
-# set this directory fgs
-export XDG_CONFIG_HOME="$HOME/.config"
-
+# # autostart wayland?
+# this bit doesn't seem to be nexessary (was for sway I think)
+# if test -z "${XDG_RUNTIME_DIR}"; then
+#     export XDG_RUNTIME_DIR=/tmp/${UID}-runtime-dir
+#     if ! test -d "${XDG_RUNTIME_DIR}"; then
+# 	mkdir ${XDG_RUNTIME_DIR}
+# 	chmod 0700 "${XDG_RUNTIME_DIR}"
+#     fi
+# fi
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/ttyv0 ]]; then
+	exec sway;
+	# exec hikari;
+fi
