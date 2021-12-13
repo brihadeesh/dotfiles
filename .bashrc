@@ -5,8 +5,8 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls -F --color=auto -X'
-alias la='ls -FXa --color=auto'
+alias ls='ls -F --color=always'
+alias la='ls -FXa --color=always'
 # alias mocp='mocp -A -T transparent-background'
 alias ncmpcpp='ncmpcpp -q'
 alias scrot='scrot -q 100'
@@ -15,7 +15,7 @@ alias scrot='scrot -q 100'
 # PS1='${PWD##*/} $ '
 # PS1="\n  \w \n \\$\[$(tput sgr0)\] "
 
-PS1='\n  \e[0;37m $(pp="$PWD/~" q=${pp/#"$HOME/"/} p=${q%?};((${#p}>19))&&echo "${p::5}...${p:(-15)}"||echo "$p") \n \$ \e[0m'
+PS1='\n\e[0;36m $(pp="$PWD/~" q=${pp/#"$HOME/"/} p=${q%?};((${#p}>19))&&echo "${p::5}...${p:(-15)}"||echo "$p")\n \[\e[0;1m\]\$ \[\e[0m\]'
 
 # [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 

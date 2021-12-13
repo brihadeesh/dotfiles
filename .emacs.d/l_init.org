@@ -1,15 +1,16 @@
 #+TITLE: Literate Emacs Configuration
 #+AUTHOR: Brihadeesh S
-#+EMAIL: [[mailto:brihadeesh@protonmail.com][brihadeesh@protonmail.com]]
+#+EMAIL: brihadeesh@protonmail.com
+#+STARTUP: show4levels
 #+CREATED: <2021-12-04 Sat>
-#+MODIFIED: <2021-12-07 Tue>
-#+STARTUP: content
+#+MODIFIED: <2021-12-13 Mon>
+
 
 * Native compilation setup
 
 I think this has been moved to ~early-init.el~
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   ;; (setq comp-speed 3)
   ;; (when (fboundp 'native-compile-async)
   ;;   (setq comp-deferred-compilation t
@@ -26,6 +27,7 @@ I think this has been moved to ~early-init.el~
 
 Maybe I'll understand what this is about one day
 
+#+NAME: performance_enhancement
 #+BEGIN_SRC emacs-lisp
   ;;; For performance
   (setq gc-cons-threshold 100000000)
@@ -52,6 +54,7 @@ This keeps the init.el cleaner and without junk from =customize.el=
 API allows for an option to gitignore your =custom.el= cause it's
 junk.
 
+#+NAME: customize-disable
 #+BEGIN_SRC emacs-lisp
 ;;; Offload the custom-set-variables to a separate file
 
@@ -65,8 +68,8 @@ junk.
 
 ** from backups and autosaves(?)
 
+#+NAME: organise-junk
 #+BEGIN_SRC emacs-lisp
-
   ;;; Put Emacs auto-save and backup files to one folder
   (defconst emacs-tmp-dir (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
 
@@ -86,22 +89,74 @@ junk.
 
 
 
+* Package management
+
+** Setup ~straight.el~
+
+I'll be using ~use-package~ to organise and configure individual
+packages into neater code blocks although the download will be handled
+by ~straight.el~
+
+#+NAME: straight-setup
+#+BEGIN_SRC emacs-lisp
+  (setq straight-use-package-by-default t)
+  (setq straight-repository-branch "develop")
+
+  ;; Bootstrap straight.el
+  (defvar bootstrap-version)
+  (let ((bootstrap-file
+         (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+        (bootstrap-version 5))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+          (url-retrieve-synchronously
+           "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+           'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
+#+END_SRC
+
+
+** Install and configure =use-package=
+
+~use-package~ is installed and managed by =straight.el= and in turn
+packages used in this config are managed/organized by
+~use-package~. There's something to do with integration with
+~use-package~ on the [[https://github.com/raxod502/straight.el/blob/develop/README.md#integration-with-use-package][straight.el readme]]
+
+#+NAME: use-use-package
+#+BEGIN_SRC emacs-lisp
+  (straight-use-package 'use-package)
+  (setq straight-host-usernames
+        '((github . "brihadeesh")
+          (gitlab . "peregrinator")
+          (bitbucket . "peregrinator")))
+#+END_SRC
+
+
+** Minimal ~package.el~ setup only to browse packages
+
+- State "IGNORE"     from              [2021-12-13 Mon 15:20]
+Running =package-list-packages= includes them only for browsing
+
+#+BEGIN_SRC emacs-lisp
+  (require 'package)
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/"))
+#+END_SRC
+
+
+
 * Sane Defaults
 
 Primarily bootlegged from [[https://sanemacs.com][Sanemacs]] and changed when appropriate (and
 when I thought I understood what I was doing)
 
 
-** Line-style cursor similar to other text editors
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default cursor-type '(bar . 2)
-                cursor-in-non-selected-windows t)
-#+END_SRC
-
-
 ** Make *scratch* buffer and *minibuffer* blank
 
+#+NAME: blank-startup
 #+BEGIN_SRC emacs-lisp
   (setq initial-scratch-message "")
   (setq inhibit-startup-echo-area-message t)
@@ -112,6 +167,7 @@ when I thought I understood what I was doing)
 
 ** Make "Emacs" the *window title*
 
+#+NAME: set-window-title
 #+BEGIN_SRC emacs-lisp
   (setq-default frame-title-format '("Emacs"))
 #+END_SRC
@@ -119,6 +175,7 @@ when I thought I understood what I was doing)
 
 ** Org-mode as the *initial major mode*
 
+#+NAME: start-with-org
 #+BEGIN_SRC emacs-lisp
   (setq initial-major-mode 'org-mode)
 #+END_SRC
@@ -127,10 +184,12 @@ when I thought I understood what I was doing)
 ** TODO *misc settings to organize later*
 
 #+BEGIN_SRC emacs-lisp
-;; not sure what this is about
-;; (setq-default indent-tabs-mode nil)
-(setq pop-up-windows nil)
-(setq ring-bell-function 'ignore)         ; Disable bell sound
+  ;; not sure what this is about
+  ;; (setq-default indent-tabs-mode nil)
+  ;; disable popups?
+  (setq pop-up-windows nil)
+  ;; Disable bell sound
+  (setq ring-bell-function 'ignore)
 #+END_SRC
 
 
@@ -143,6 +202,7 @@ when I thought I understood what I was doing)
 
 ** Overwrite selected text
 
+#+NAME: overwrite-active-region
 #+BEGIN_SRC emacs-lisp
   (delete-selection-mode 1)
 #+END_SRC
@@ -156,6 +216,7 @@ to =M-^= which can be rather useful. From the help for the function
 (which you can always look up using =C-h k M-^= or =C-h f
 delete-indentation=)
 
+#+NAME: concatenate-following-line
 #+BEGIN_SRC emacs-lisp
   ;; join line to next line
   (global-set-key (kbd "C-j")
@@ -165,10 +226,11 @@ delete-indentation=)
 #+END_SRC
 
 
-** Delete blank lines and whitespace
+** Delete blank lines and whitespace interactively
 
 Plagiarised from [[https://pragmaticemacs.com/emacs/delete-blank-lines-and-shrink-whitespace/][pragmatic emacs]]
 
+#+NAME: shrink-whitespace
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "M-SPC") 'shrink-whitespace)
 #+END_SRC
@@ -179,6 +241,7 @@ Plagiarised from [[https://pragmaticemacs.com/emacs/delete-blank-lines-and-shrin
 This is like =C-v=, a visual mode in vim/neovim. I stole this from
 [[https://pragmaticemacs.com/emacs/multiple-cursors/][pragmatic emacs]].
 
+#+NAME: multiple-cursors
 #+BEGIN_SRC emacs-lisp :tangle no
   (global-set-key (kbd "C-c m c") 'peremacs/edit-lines)
 #+END_SRC
@@ -186,25 +249,24 @@ This is like =C-v=, a visual mode in vim/neovim. I stole this from
 
 ** Autoupdate buffer if files has changed on disk
 
+#+NAME: reload-buffer-on-modification
 #+BEGIN_SRC emacs-lisp
     (global-auto-revert-mode t)
 #+END_SRC
 
 
-** TODO unsorted & undocumented
+** Whitespace mopup
 
+#+NAME: del-whitespace
 #+BEGIN_SRC emacs-lisp
-(add-hook 'before-save-hook
-'delete-trailing-whitespace) ;; Delete trailing whitespace on save
-  (add-hook 'prog-mode-hook ;; Show line numbers in programming modes
-  (if (and (fboundp 'display-line-numbers-mode) (display-graphic-p))
-  #'display-line-numbers-mode
-  #'linum-mode))
+      (add-hook 'before-save-hook
+                'delete-trailing-whitespace) ;; Delete trailing whitespace on save
 #+END_SRC
 
 
 ** Simpler kill buffer behaviour
 
+#+NAME: buffer-killer
 #+BEGIN_SRC emacs-lisp
   (defun peremacs/kill-this-buffer ()
     (interactive) (kill-buffer (current-buffer)))
@@ -228,8 +290,9 @@ This is like =C-v=, a visual mode in vim/neovim. I stole this from
 
 ** Return to last position in buffer
 
-Something about this on [[https://www.emacswiki.org/emacs/SavePlace][Emacs Wiki]]
+Opens files at last position used. Something about this on [[https://www.emacswiki.org/emacs/SavePlace][Emacs Wiki]]
 
+#+NAME: save-place
 #+BEGIN_SRC emacs-lisp
   (save-place-mode 1)
 #+END_SRC
@@ -237,22 +300,14 @@ Something about this on [[https://www.emacswiki.org/emacs/SavePlace][Emacs Wiki]
 
 ** TODO Assorted keybindings - is this really necessary
 
+#+NAME: manual-indent
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C->") 'indent-rigidly-right-to-tab-stop) ; Indent selection by one tab length
   (global-set-key (kbd "C-<") 'indent-rigidly-left-to-tab-stop)  ; De-indent selection by one tab length
 #+END_SRC
 
 
-** Open shell files from =~/bin= in =sh-mode=
-
-Scope for adding more such shit?
-
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'auto-mode-alist '("/bin/" . sh-mode))
-#+END_SRC
-
-
-** Reload config?
+** Reload Emacs configuration
 
 I'm not sure I understand how this works entirely but [[https://github.com/joseph8th/literatemacs#tangle-and-reload][joseph8th's repo]]
 suggests using =M-: (load-file user-init-file) RET= or evaluating that
@@ -260,13 +315,7 @@ same function interactively. I've modified the sanemacs reload config
 function below hoping that it works but in that doesn't happen, this
 first code block can be evaluated using =C-c C-c=:
 
-#+BEGIN_SRC emacs-lisp :tangle no
-  (load-file user-init-file)
-#+END_SRC
-
-#+RESULTS:
-: t
-
+#+NAME: reload-emacs
 #+BEGIN_SRC emacs-lisp
   (defun reload-config ()
     (interactive)
@@ -275,65 +324,7 @@ first code block can be evaluated using =C-c C-c=:
 
 
 
-* Package management with =straight.el= and =use-package=
-
-
-** Bootstrap and setup =straight.el= first
-
-I'll be using =use-package= to organize and configure individual
-packages neater although the download will be handled by =straight.el=
-
-#+BEGIN_SRC emacs-lisp
-  (setq straight-use-package-by-default t)
-  (setq straight-repository-branch "develop")
-
-  ;; Bootstrap straight.el
-  (defvar bootstrap-version)
-  (let ((bootstrap-file
-         (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-        (bootstrap-version 5))
-    (unless (file-exists-p bootstrap-file)
-      (with-current-buffer
-          (url-retrieve-synchronously
-           "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-           'silent 'inhibit-cookies)
-        (goto-char (point-max))
-        (eval-print-last-sexp)))
-    (load bootstrap-file nil 'nomessage))
-#+END_SRC
-
-
-** Install and configure =use-package=
-
-=use-package= is installed and managed by =straight.el= and in turn
-packages used in this config are managed/organized by =use-package=.
-
-#+BEGIN_SRC emacs-lisp
-  ;;; https://github.com/raxod502/straight.el/blob/develop/README.md#integration-with-use-package
-  (straight-use-package 'use-package)
-  (setq straight-host-usernames
-        '((github . "brihadeesh")
-          (gitlab . "peregrinator")
-          (bitbucket . "peregrinator")))
-#+END_SRC
-
-
-** Minimal =package.el= setup only to browse packages
-
-Running =package-list-packages= includes them only for browsing
-
-#+BEGIN_SRC emacs-lisp
-  (require 'package)
-  (add-to-list 'package-archives
-               '("melpa" . "https://melpa.org/packages/"))
-#+END_SRC
-
-
-
-* Packages
-
-
-** TODO SSH for personal packages and magit
+* TODO SSH for personal packages and magit
 
 This needs a ton of work
 
@@ -350,7 +341,7 @@ This needs a ton of work
 #+END_SRC
 
 
-** Terminal
+* Terminal
 
 Vterm ftw
 
@@ -369,10 +360,9 @@ Vterm ftw
 #+END_SRC
 
 
-** Code utilities
+* Code utilities
 
-
-*** Snippets
+** Snippets
 
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
@@ -381,7 +371,7 @@ Vterm ftw
 #+END_SRC
 
 
-*** Autopaired parens
+** Autopaired parens
 
 #+BEGIN_SRC emacs-lisp
     ;; auto-pair parens
@@ -405,7 +395,7 @@ Vterm ftw
 #+END_SRC
 
 
-*** Don't add C-x,C-c,C-v; dont ask why though
+** Don't add C-x,C-c,C-v; dont ask why though
 
 
 #+BEGIN_SRC emacs-lisp
@@ -415,7 +405,7 @@ Vterm ftw
 #+END_SRC
 
 
-*** Aggressive *indentation* coz OCD
+** Aggressive *indentation* coz OCD
 
 ...and I hate doing it manually and Emacs usually refuses to do it by
 itself
@@ -427,7 +417,7 @@ itself
 #+END_SRC
 
 
-*** I hate arthropods
+** I hate arthropods
 
 ...except those that you can eat
 
@@ -436,22 +426,56 @@ itself
 #+END_SRC
 
 
-** Completions (non-minibuffer kind)
+** cl-libify
+
+Convert all (deperecated) =cl= symbols to =cl-lib=
 
 #+BEGIN_SRC emacs-lisp
-(use-package company
-      ;; :ensure t
-      :bind (("M-n"     . company-select-next)
-             ("M-p"     . company-select-previous)))
-    (setq company-idle-delay 0.0)
-    (add-hook 'after-init-hook #'global-company-mode)
+  (use-package cl-libify
+    :disabled)
 #+END_SRC
 
 
-** Languages I (allegedly) use
+** Iedit
+
+A more intuitive way to alter all the occurrences of a word/keyword at once
+
+#+BEGIN_SRC emacs-lisp
+  (use-package iedit)
+#+END_SRC
 
 
-*** Vimscript for editing neovim init
+** Show line numbers in programming modes
+
+#+NAME: linum-for-progmode
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'prog-mode-hook
+                  (if (and (fboundp 'display-line-numbers-mode) (display-graphic-p))
+                      #'display-line-numbers-mode
+                    #'linum-mode))
+#+END_SRC
+
+
+** Open shell files from =~/bin= in =sh-mode=
+
+Scope for adding more such shit?
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'auto-mode-alist '("/bin/" . sh-mode))
+#+END_SRC
+
+
+** Show matching parens
+
+#+BEGIN_SRC emacs-lisp
+  (show-paren-mode 1)
+#+END_SRC
+
+
+* Languages I (allegedly) use
+
+
+** Vimscript for editing neovim init
 
 ...cause neovim sucks and I don't like leaving Emacs in the ideal
 case. I might end up replacing this with a *lua config*
@@ -464,7 +488,7 @@ case. I might end up replacing this with a *lua config*
 #+END_SRC
 
 
-*** Lua mode?
+** Lua mode?
 
 I intend to learn and use lua for my neovim config.
 
@@ -473,7 +497,7 @@ I intend to learn and use lua for my neovim config.
 #+END_SRC
 
 
-*** Emacs Speaks Statistics for *R* and python(?)
+** Emacs Speaks Statistics for *R* and python(?)
 
 Figure out babel/org-tangle or whatever because Emacs sucks for
 RMarkdown and org-mode is generally better (see next bit for RMarkdown)
@@ -485,7 +509,7 @@ RMarkdown and org-mode is generally better (see next bit for RMarkdown)
 #+END_SRC
 
 
-*** Polymode for RMarkdown syntax
+** Polymode for RMarkdown syntax
 
 #+BEGIN_SRC emacs-lisp
   (use-package poly-R)
@@ -495,7 +519,7 @@ RMarkdown and org-mode is generally better (see next bit for RMarkdown)
 #+END_SRC
 
 
-*** C and C++ ???
+** C and C++ ???
 
 Like really?
 
@@ -504,7 +528,7 @@ Like really?
 #+END_SRC
 
 
-*** AUCTex for LaTex editing + completion
+** AUCTex for LaTex editing + completion
 
 #+BEGIN_SRC emacs-lisp
   ;; FIXME:
@@ -542,7 +566,7 @@ Like really?
 #+END_SRC
 
 
-*** Spellcheck
+** Spellcheck
 
 Finally figured this out from a [[https://redd.it/ahysvb][reddit post from 2019]].
 
@@ -565,7 +589,7 @@ Finally figured this out from a [[https://redd.it/ahysvb][reddit post from 2019]
 #+END_SRC
 
 
-*** Something like scrivener from Mac
+** Something like scrivener from Mac
 
 ...cause I'm gonna become a novelist and/or write large books in the
 near future
@@ -576,7 +600,7 @@ near future
   #+END_SRC
 
 
-** Git with Magit and gists with =gist.el=
+* Git with Magit and gists with =gist.el=
 
 #+BEGIN_SRC emacs-lisp
   (use-package magit  ;; :ensure t
@@ -587,7 +611,7 @@ near future
 #+END_SRC
 
 
-** View ePubs and PDFs in Emacs
+* View ePubs and PDFs in Emacs
 
 #+BEGIN_SRC emacs-lisp
   (use-package nov
@@ -615,14 +639,64 @@ near future
 
 
 
-* TODO idk where this should go
-
-
-** Convert all (deperecated) =cl= symbols to =cl-lib=
+* Completions (non-minibuffer kind)
 
 #+BEGIN_SRC emacs-lisp
-  (use-package cl-libify
-    :disabled)
+(use-package company
+      ;; :ensure t
+      :bind (("M-n"     . company-select-next)
+             ("M-p"     . company-select-previous)))
+    (setq company-idle-delay 0.0)
+    (add-hook 'after-init-hook #'global-company-mode)
+#+END_SRC
+
+
+
+* Undo tree
+
+
+
+Helps revert to older versions of files in case I fuck up something
+somewhere. Hmm.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-tree
+    :init (global-undo-tree-mode))
+#+END_SRC
+
+
+* Project management and navigation
+
+#+BEGIN_SRC emacs-lisp
+  ;; project management
+  (use-package projectile
+    ;; :ensure t
+    :init (setq projectile-completion-system 'default)
+    :bind ("C-c p"    . projectile-command-map))
+  (setq projectile-project-search-path '("~/my_gits/" "~/dled_gits/" "~/Journal/"))
+  (projectile-mode +1)
+
+  ;; (use-package ibuffer-projectile
+  ;;   :after ibuffer
+  ;;   :preface
+  ;;   (defun my/ibuffer-projectile ()
+  ;;     (ibuffer-projectile-set-filter-groups)
+  ;;     (unless (eq ibuffer-sorting-mode 'alphabetic)
+  ;;       (ibuffer-do-sort-by-alphabetic)))
+  ;;   :hook (ibuffer . my/ibuffer-projectile))
+#+END_SRC
+
+
+
+* Consistent and simpler keybinding assignment
+
+#+BEGIN_SRC emacs-lisp
+  (use-package general
+    ;; :ensure t
+    :config
+    (general-define-key
+     "M-/" 'hippie-expand
+     "M-z" 'zap-to-char))
 #+END_SRC
 
 
@@ -685,106 +759,6 @@ to wayland/wlroots or something?
 
 
 
-** TODO Modeline stuff: reorganize; Some more junk
-...for when I use EXWM which /somehow/ I've not cleared up yet, I
-wonder why. Essentiall a battery & time display/mode in minibuffer
-#+BEGIN_SRC emacs-lisp
-  ;; (use-package minibuffer-line
-  ;;   ;; Load this package eagerly.
-  ;;   :demand
-
-  ;;   ;; Evaluate the following code before loading this package.
-  ;;   :init
-  ;;   (defun format-time-string-minibuffer-line ()
-  ;;     "Print the current date and time in ISO 8601-like format."
-  ;;     (format-time-string "%a %e %b %R"))
-
-  ;;   (defun minibuffer-line-align (left right)
-  ;;     "Return a string containing LEFT and RIGHT aligned across the frame."
-  ;;     (let* ((width-total (frame-text-cols))
-  ;;            (width-space (- width-total
-  ;;                            (+ (string-width (format-mode-line left))
-  ;;                               (string-width (format-mode-line right))))))
-  ;;       (append left
-  ;;               (list (propertize
-  ;;                      (format (format "%%%ds" width-space) "")
-  ;;                      'face 'default))
-  ;;               right)))
-
-  ;;   (defvar minibuffer-line-battery-format
-  ;;     "%p%%"
-  ;;     "Control string formatting the battery status to display in the minibuffer.")
-
-
-  ;;   ;; Inform the bytecode compiler of the following non-autoloading functions.
-  ;;   :functions
-  ;;   (format-time-string-8601 minibuffer-line-align)
-
-  ;;   ;; Inform the bytecode compiler of the following autoloading functions.
-  ;;   :commands
-  ;;   minibuffer-line-mode
-
-  ;;   ;; Apply the following variable customizations.
-  ;;   :custom
-  ;;   (minibuffer-line-refresh-interval
-  ;;    30
-  ;;    "Refresh the minibuffer-line every half minute.")
-
-  ;;   (minibuffer-line-format
-  ;;    '((:eval
-  ;;       (minibuffer-line-align
-  ;;        '()
-  ;;        '((:eval (propertize
-  ;; 		 (battery-format
-  ;;                   minibuffer-line-battery-format
-  ;;                   (funcall battery-status-function))
-  ;; 		 'face 'default))
-  ;; 	 (:eval (propertize " | " 'face 'default))
-  ;; 	 (:eval (propertize system-name 'face 'default))
-  ;; 	 (:eval (propertize " | " 'face 'default))
-  ;; 	 (:eval (propertize (format-time-string-minibuffer-line) 'face 'default)))))))
-
-  ;;   ;; Evaluate the following code after loading this package.
-  ;;   :config
-  ;;   (minibuffer-line-mode))
-
-      ;; ;; time format for header-line
-    ;; (defun header-line-time-string ()
-    ;;   "Print the current date and time in ISO 8601-like format."
-    ;;   (format-time-string "%a %b %e %R"))
-
-    ;; ;; ;; battery format for headerline
-    ;; ;; (defvar header-line-battery-format
-    ;; ;;   "%p%%"
-    ;; ;;   "Control string formatting the battery status to display in the minibuffer.")
-
-
-    ;; (defun mode-line-render (left right)
-    ;;   (let* ((available-width (- (window-width) (length left) )))
-    ;;     (format (format "%%s %%%ds" available-width) left right)))
-    ;; (setq-default mode-line-format
-    ;;               '((:eval
-    ;;                  (mode-line-render
-    ;;                   (format-mode-line (list
-    ;;                                      ;; line & col number
-    ;;                                      (propertize "%3p%%%3 " 'face `(:inherit font-lock-comment-face))
-    ;;                                      ;; buffer name modified indicator
-    ;;                                      (if (and buffer-file-name (buffer-modified-p))
-    ;;                                          (propertize " %b [m]")
-    ;;                                        (propertize " %b "))))
-    ;;                   (format-mode-line (list
-    ;; 				     ;; time
-    ;; 				     (propertize (header-line-time-string))
-    ;; 				     ;; (propertize " | ")
-    ;; 				     ;; (propertize
-    ;; 				     ;;  (battery-format
-    ;; 				     ;;   headerline-battery-format
-    ;; 				     ;;   (funcall battery-status-function)))
-    ;; 				     ))))))
-#+END_SRC
-
-
-
 ** TODO Workspaces with perspective-el
 
 Independent workspaces for different projects like profiles on RStudio
@@ -804,76 +778,9 @@ but perhaps a lot more dynamic. This might need more work hence adding
 #+END_SRC
 
 
-* Miscellaneous Utilities - reorganise
-I'm fairly confident I have another section with the same heading
-somewhere (it's at the beginning). Miscellaneous packages and configs
-for making jerking around easier
+** Ace-window
 
-
-** Undo tree
-
-
-
-Helps revert to older versions of files in case I fuck up something
-somewhere. Hmm.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package undo-tree
-    :init (global-undo-tree-mode))
-#+END_SRC
-
-
-** TODO Iedit?
-
-#+BEGIN_SRC
-      (use-package iedit)
-#+END_SRC
-
-
-
-** Display keybinds following various prefixes such as =C-h=
-
-#+BEGIN_SRC emacs-lisp
-  (use-package which-key
-    :config
-    (which-key-mode))
-#+END_SRC
-
-
-
-** Editing root files & privelege escalation for TRAMP if I ever use it
-
-#+BEGIN_SRC emacs-lisp
-    (use-package su
-      ;; :config
-      ;; (su-mode +1)
-      )
-#+END_SRC
-
-
-
-** Access a list of recently edited files
-
-Helps jump back into whatever I was doing before closing Emacs. Or my
-laptop more like it.
-
-#+BEGIN_SRC emacs-lisp
-    (use-package recentf
-      :init
-      (setq recentf-max-menu-items 25
-            recentf-auto-cleanup 'never
-            recentf-keep '(file-remote-p file-readable-p))
-      (recentf-mode 1)
-
-      :bind ("C-c f r" . recentf-open-files))
-  #+END_SRC
-
-
-
-** Simpler navigation between open Emacs windows
-
-
-*** Ace-window
+Simpler navigation between open Emacs windows
 
 #+BEGIN_SRC emacs-lisp
   (use-package ace-window
@@ -884,7 +791,7 @@ laptop more like it.
 #+END_SRC
 
 
-*** TODO Sane native window management - needs work
+** TODO Sane native window management - needs work
 
 Focuses new windows when created.
 
@@ -911,13 +818,33 @@ Focuses new windows when created.
 
 
 
-* Minibuffer
+* Display keybinds following various prefixes such as =C-h=
 
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :config
+    (which-key-mode))
+#+END_SRC
+
+
+
+* Editing root files & privelege escalation for TRAMP if I ever use it
+
+#+BEGIN_SRC emacs-lisp
+    (use-package su
+      ;; :config
+      ;; (su-mode +1)
+      )
+#+END_SRC
+
+
+
+* Minibuffer completions
 
 ** TODO Completion - is [[https://gitlab.com/protesilaos/mct][mct]] worth using?
 
 
-** Prescient command history with =M-x=
+** IGNORE Prescient command history with =M-x=
 
 #+BEGIN_SRC emacs-lisp :tangle no
   (use-package prescient
@@ -927,7 +854,23 @@ Focuses new windows when created.
 #+END_SRC
 
 
-** Selectrum for completions finally
+** Access a list of recently edited files
+
+Helps jump back into whatever I was doing before closing Emacs. Or my
+laptop more like it.
+
+#+BEGIN_SRC emacs-lisp
+    (use-package recentf
+      :init
+      (setq recentf-max-menu-items 25
+            recentf-auto-cleanup 'never
+            recentf-keep '(file-remote-p file-readable-p))
+      (recentf-mode 1))
+  #+END_SRC
+
+
+
+** IGNORE Selectrum for completions UI
 
 If I rememeber right, this is closer to the default completion
 behaviour in Emacs.
@@ -947,7 +890,7 @@ behaviour in Emacs.
 #+END_SRC
 
 
-** Vertico for completions?
+** Vertico for completions UI
 
 #+BEGIN_SRC emacs-lisp
   ;; Enable vertico
@@ -974,22 +917,114 @@ behaviour in Emacs.
   ;; expansion. `partial-completion' is important for wildcard support.
   ;; Multiple files can be opened at once with `find-file' if you enter a
   ;; wildcard. You may also give the `initials' completion style a try.
+#+END_SRC
 
+
+** Orderless completion
+
+Search for commands, buffers, etc with vertico without having to match
+the order of words in the command. Adding spaces between keywords can
+match commands with those words anywhere in them. This config was
+bootlegged from [[https://github.com/minad/consult/wiki#minads-orderless-configuration][minad's config at the consult wiki]].
+
+#+BEGIN_SRC emacs-lisp
   (use-package orderless
-    :init
-    ;; Configure a custom style dispatcher (see the Consult wiki)
-    ;; (setq orderless-style-dispatchers '(+orderless-dispatch)
-    ;;       orderless-component-separator #'orderless-escapable-split-on-space)
-    (setq completion-styles '(orderless)
-          completion-category-defaults nil
-          completion-category-overrides '((file (styles partial-completion)))))
+    :config
+  (defvar +orderless-dispatch-alist
+    '((?% . char-fold-to-regexp)
+      (?! . orderless-without-literal)
+      (?`. orderless-initialism)
+      (?= . orderless-literal)
+      (?~ . orderless-flex)))
 
-  ;; Persist history over Emacs restarts. Vertico sorts by history position.
-  (use-package savehist
+  ;; Recognizes the following patterns:
+  ;; * ~flex flex~
+  ;; * =literal literal=
+  ;; * %char-fold char-fold%
+  ;; * `initialism initialism`
+  ;; * !without-literal without-literal!
+  ;; * .ext (file extension)
+  ;; * regexp$ (regexp matching at end)
+  (defun +orderless-dispatch (pattern index _total)
+    (cond
+     ;; Ensure that $ works with Consult commands, which add disambiguation suffixes
+     ((string-suffix-p "$" pattern)
+      `(orderless-regexp . ,(concat (substring pattern 0 -1) "[\x100000-\x10FFFD]*$")))
+     ;; File extensions
+     ((and
+       ;; Completing filename or eshell
+       (or minibuffer-completing-file-name
+           (derived-mode-p 'eshell-mode))
+       ;; File extension
+       (string-match-p "\\`\\.." pattern))
+      `(orderless-regexp . ,(concat "\\." (substring pattern 1) "[\x100000-\x10FFFD]*$")))
+     ;; Ignore single !
+     ((string= "!" pattern) `(orderless-literal . ""))
+     ;; Prefix and suffix
+     ((if-let (x (assq (aref pattern 0) +orderless-dispatch-alist))
+          (cons (cdr x) (substring pattern 1))
+        (when-let (x (assq (aref pattern (1- (length pattern))) +orderless-dispatch-alist))
+          (cons (cdr x) (substring pattern 0 -1)))))))
+
+  ;; Define orderless style with initialism by default
+  (orderless-define-completion-style +orderless-with-initialism
+    (orderless-matching-styles '(orderless-initialism orderless-literal orderless-regexp)))
+
+  ;; You may want to combine the `orderless` style with `substring` and/or `basic`.
+  ;; There are many details to consider, but the following configurations all work well.
+  ;; Personally I (@minad) use option 3 currently. Also note that you may want to configure
+  ;; special styles for special completion categories, e.g., partial-completion for files.
+  ;;
+  ;; 1. (setq completion-styles '(orderless))
+  ;; This configuration results in a very coherent completion experience,
+  ;; since orderless is used always and exclusively. But it may not work
+  ;; in all scenarios. Prefix expansion with TAB is not possible.
+  ;;
+  ;; 2. (setq completion-styles '(substring orderless))
+  ;; By trying substring before orderless, TAB expansion is possible.
+  ;; The downside is that you can observe the switch from substring to orderless
+  ;; during completion, less coherent.
+  ;;
+  ;; 3. (setq completion-styles '(orderless basic))
+  ;; Certain dynamic completion tables (completion-table-dynamic)
+  ;; do not work properly with orderless. One can add basic as a fallback.
+  ;; Basic will only be used when orderless fails, which happens only for
+  ;; these special tables.
+  ;;
+  ;; 4. (setq completion-styles '(substring orderless basic))
+  ;; Combine substring, orderless and basic.
+  ;;
+  (setq completion-styles '(orderless)
+        completion-category-defaults nil
+        ;;; Enable partial-completion for files.
+        ;;; Either give orderless precedence or partial-completion.
+        ;;; Note that completion-category-overrides is not really an override,
+        ;;; but rather prepended to the default completion-styles.
+        ;; completion-category-overrides '((file (styles orderless partial-completion))) ;; orderless is tried first
+        completion-category-overrides '((file (styles partial-completion)) ;; partial-completion is tried first
+                                        ;; enable initialism by default for symbols
+                                        (command (styles +orderless-with-initialism))
+                                        (variable (styles +orderless-with-initialism))
+                                        (symbol (styles +orderless-with-initialism)))
+        orderless-component-separator #'orderless-escapable-split-on-space ;; allow escaping space with backslash!
+        orderless-style-dispatchers '(+orderless-dispatch)))
+#+END_SRC
+
+
+** Persistent command history
+
+Persist history over Emacs restarts. Vertico sorts by history position.
+
+#+BEGIN_SRC emacs-lisp
+(use-package savehist
     :init
     (savehist-mode))
+#+END_SRC
 
-  ;; A few more useful configurations...
+
+** A few more useful configurations
+
+#+BEGIN_SRC emacs-lisp
   ;; (use-package emacs
     ;; :init
     ;; Add prompt indicator to `completing-read-multiple'.
@@ -1012,8 +1047,6 @@ behaviour in Emacs.
     (setq enable-recursive-minibuffers t)
     ;; )
 #+END_SRC
-
-#+RESULTS:
 
 
 ** Richer annotations in minubuffer
@@ -1043,27 +1076,60 @@ behaviour in Emacs.
 #+END_SRC
 
 
-** Consult enhances minibuffer completions?
+** Consult adds more minibuffer functionality
 
 #+BEGIN_SRC emacs-lisp
   (use-package consult
     ;; Replace bindings. Lazily loaded due by `use-package'.
-    :bind (("C-x B" . consult-buffer)                ;; orig. switch-to-buffer
-           ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
-           ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
-           ("M-g i" . consult-imenu)
-           ("M-g I" . consult-project-imenu)
-           ;; search-map
-           ("M-s f" . consult-find)
-           ("M-s L" . consult-locate)
-           ("M-s g" . consult-grep)
-           ("M-s r" . consult-ripgrep)
-           ;; ("M-s l" . consult-line)
-           ;; Isearch integration
-           ("C-s" . consult-isearch)
-           ;; ("M-s l" . consult-line)                 ;; required by consult-line to detect isearch
-           ("C-c L" . consult-org-heading)
-           ))
+    :bind
+    (("C-x B" . consult-buffer)
+     ("C-x 4 b" . consult-buffer-other-window)
+     ("C-x 5 b" . consult-buffer-other-frame)
+     ("M-g i" . consult-imenu)
+     ("M-g I" . consult-project-imenu)
+     ;; searching for files
+     ("M-s f" . consult-find)
+     ("M-s F" . consult-git-grep)
+     ("M-s g" . consult-grep)
+     ("M-s r" . consult-ripgrep)
+     ("C-c f r" . consult-recent-file)
+     ;; Isearch integration
+     ("C-s" . consult-isearch)
+     ("C-c L" . consult-outline)
+     ("C-c L" . consult-org-heading)
+     ;; yank from kill-ring
+     ("M-y" . consult-yank-pop)
+     )
+
+    ;; Enable automatic preview at point in the *Completions* buffer. This is
+    ;; relevant when you use the default completion UI. You may want to also
+    ;; enable `consult-preview-at-point-mode` in Embark Collect buffers.
+    :hook (completion-list-mode . consult-preview-at-point-mode)
+
+    :config
+    ;; Optionally configure the narrowing key.
+    ;; Both < and C-+ work reasonably well.
+    (setq consult-narrow-key "<") ;; (kbd "C-+")
+
+    ;; Configure a function which returns the project
+    ;; root directory - projectile.el (projectile-project-root)
+    (autoload 'projectile-project-root "projectile")
+    (setq consult-project-root-function #'projectile-project-root)
+
+    ;; use consult with perspective.el
+    (consult-customize consult--source-buffer :hidden t :default nil)
+
+    (defvar consult--source-perspective
+      (list :name     "Perspective"
+            :narrow   ?s
+            :category 'buffer
+            :state    #'consult--buffer-state
+            :default  t
+            :items    #'persp-get-buffer-names))
+
+    (push consult--source-perspective consult-buffer-sources)
+
+    )
 
   ;; Optionally add the `consult-flycheck' command.
   (use-package consult-flycheck
@@ -1112,51 +1178,14 @@ completion list.
 
 
 
-* Project management and navigation
-
-#+BEGIN_SRC emacs-lisp
-  ;; project management
-  (use-package projectile
-    ;; :ensure t
-    :init (setq projectile-completion-system 'default)
-    :bind ("C-c p"    . projectile-command-map))
-  (setq projectile-project-search-path '("~/my_gits/" "~/dled_gits/" "~/Journal/" "~/.cfg"))
-  (projectile-mode +1)
-
-  ;; (use-package ibuffer-projectile
-  ;;   :after ibuffer
-  ;;   :preface
-  ;;   (defun my/ibuffer-projectile ()
-  ;;     (ibuffer-projectile-set-filter-groups)
-  ;;     (unless (eq ibuffer-sorting-mode 'alphabetic)
-  ;;       (ibuffer-do-sort-by-alphabetic)))
-  ;;   :hook (ibuffer . my/ibuffer-projectile))
-#+END_SRC
-
-
-
-* Consistent and simpler keybinding assignment
-
-#+BEGIN_SRC emacs-lisp
-  (use-package general
-    ;; :ensure t
-    :config
-    (general-define-key
-     "M-/" 'hippie-expand
-     "M-z" 'zap-to-char))
-#+END_SRC
-
-
-
 * org-mode setup
-
 
 ** Sources for agenda tasks
 
 Generates an agenda from wildcarded org files from the specified
 directory
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   ;; (setq org-agenda-files
   ;;       (file-expand-wildcards "~/org/*.org"))
 #+END_SRC
@@ -1306,19 +1335,16 @@ simpler/. [[https://www.youtube.com/watch?v=2t925KRBbFc][Introduction to org-ref
 
 * UI configuration
 
+** highlighted line-mode
 
-** Minor mods
-
-
-*** TODO cursorline
-
+#+NAME: cursorline
 #+BEGIN_SRC emacs-lisp
   ;; cursorline
   (global-hl-line-mode 1)
 #+END_SRC
 
 
-*** Solid window dividers
+** Solid window dividers
 
 #+BEGIN_SRC emacs-lisp
   ;; (setq window-divider-default-right-width 1)
@@ -1332,7 +1358,7 @@ simpler/. [[https://www.youtube.com/watch?v=2t925KRBbFc][Introduction to org-ref
 #+END_SRC
 
 
-*** TODO figure out what this is about
+** TODO figure out what this is about
 
 Underline line at descent position, not baseline position
 
@@ -1341,14 +1367,14 @@ Underline line at descent position, not baseline position
 #+END_SRC
 
 
-*** TODO figure this out too - No ugly button for checkboxes
+** TODO figure this out too - No ugly button for checkboxes
 
 #+BEGIN_SRC emacs-lisp
   (setq widget-image-enable nil)
 #+END_SRC
 
 
-*** Cursor configuration
+** Cursor configuration
 
 #+BEGIN_SRC emacs-lisp
   (set-default 'cursor-type  '(bar . 2))
@@ -1356,21 +1382,14 @@ Underline line at descent position, not baseline position
 #+END_SRC
 
 
-*** Show matching parens
-
-#+BEGIN_SRC emacs-lisp
-  (show-paren-mode 1)
-#+END_SRC
-
-
-*** line-number format
+** Line-number format
 
 #+BEGIN_SRC emacs-lisp
         (setq linum-format "%4d ")
   #+END_SRC
 
 
-*** Visual not audible bell
+** Visual not audible bell
 
 Flashes modeline for warnings
 
@@ -1381,21 +1400,14 @@ Flashes modeline for warnings
 #+END_SRC
 
 
-*** No Tooltips
+** No Tooltips
 
 #+BEGIN_SRC emacs-lisp
   (tooltip-mode 0)
 #+END_SRC
 
 
-*** Paren mode is part of the theme
-
-#+BEGIN_SRC emacs-lisp
-  (show-paren-mode t)
-#+END_SRC
-
-
-*** Fringe
+** Fringe
 
 No fringe but nice glyphs for truncated and wrapped lines
 
@@ -1404,7 +1416,23 @@ No fringe but nice glyphs for truncated and wrapped lines
 #+END_SRC
 
 
-*** Better popups
+** TODO battery on modeline
+
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package battery
+  ;;   :straight (:type built-in)
+  ;;   ;; :type built-in
+  ;;   :config
+  ;;   (setq battery-mode-line-format " [%b%p%%]"
+  ;;         battery-mode-line-limit 95
+  ;;         battery-update-interval 180
+  ;;         battery-load-low 20
+  ;;         battery-load-critical 10)
+  ;;   :hook after-init)
+#+END_SRC
+
+
+** Better popups
 
 #+BEGIN_SRC emacs-lisp
   (use-package popper
@@ -1554,34 +1582,6 @@ This is my fork
 #+END_SRC
 
 
-**** TODO Doom themes collection
-
-This might just be superfluous because I dont use them. Maybe replace
-with just =wilmersdof= and whatever else I need.
-
-#+BEGIN_SRC emacs-lisp :tangle no
-  ;; (use-package doom-themes
-  ;; :config
-  ;; Global settings (defaults)
-  ;; (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-  ;;       doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  ;; (load-theme 'doom-plain t)
-
-  ;; Enable flashing mode-line on errors
-  ;; (doom-themes-visual-bell-config)
-
-  ;; Enable custom neotree theme (all-the-icons must be installed!)
-  ;; (doom-themes-neotree-config)
-  ;; ;; or for treemacs users
-  ;; (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
-  ;; (doom-themes-treemacs-config)
-
-  ;; Corrects (and improves) org-mode's native fontification.
-  ;; (doom-themes-org-config))
-  ;; )
-#+END_SRC
-
-
 **** Zenburn
 
 Needs no introduction
@@ -1607,96 +1607,12 @@ Needs no introduction
 #+END_SRC
 
 
-**** TODO Northcode
-
-Some funky dark theme I encountered somewhere
-
-#+BEGIN_SRC emacs-lisp :tangle no
-;; (use-package northcode-theme
-  ;;   :config
-  ;;   (load-theme 'northcode t)
-  ;;   (let ((line (face-attribute 'mode-line :underline)))
-  ;;     (set-face-attribute 'mode-line          nil :overline line)
-  ;;     (set-face-attribute 'mode-line-inactive nil :overline line)
-  ;;     (set-face-attribute 'mode-line-inactive nil :underline line)
-  ;;     (set-face-attribute 'mode-line          nil :box nil)
-  ;;     (set-face-attribute 'mode-line-inactive nil :box nil)
-  ;;     (set-face-attribute 'mode-line-inactive nil :box nil)))
-#+END_SRC
-
-
-**** TODO Base16
-
-Again needs work - I only need like 1 or 2 themes from here
-
-#+BEGIN_SRC emacs-lisp :tangle no
-  ;; TODO: Fork it
-  ;; (use-package base16-theme
-  ;;   :config
-  ;;   (load-theme 'base16-github) ;; light
-  ;;   (load-theme 'base16-grayscale-dark t)
-  ;;   (load-theme 'base16-grayscale-light t)
-  ;;   (load-theme 'base16-summerfruit-dark t)
-  ;;   (load-theme 'base16-tomorrow-night t')
-  ;;   (load-theme 'base16-twilight t')
-  ;;   )
-#+END_SRC
-
-
-**** Ubuntu-terminal like theme
-
-#+BEGIN_SRC emacs-lisp :tangle no
-  ;; (use-package ubuntu-theme
-  ;; :config
-  ;; (load-theme 'ubuntu t)
-  ;; )
-#+END_SRC
-
-
 **** Badwolf
 #+BEGIN_SRC emacs-lisp
   ;; (use-package badwolf-theme
   ;; :config
   ;; (load-theme 'badwolf t)
   ;; )
-#+END_SRC
-
-
-**** TODO Monochrome light theme
-
-Somthing needs to be done about the modeline [[https://github.com/fgeller/basic-theme.el#details][basic-theme additional
-config]]
-
-#+BEGIN_SRC emacs-lisp
-  (use-package basic-theme
-    ;; :config
-    ;; (load-theme 'basic t)
-    ;; something to do with the modeline being lame
-    ;; (defun mode-line-visual-toggle ()
-    ;;   (interactive)
-    ;;   (let ((faces-to-toggle '(mode-line mode-line-inactive))
-    ;;         (invisible-color "#e8e8e8")
-    ;;         (visible-color "#a1b56c"))
-    ;;     (cond ((string= visible-color (face-attribute 'mode-line :background))
-    ;;            (mapcar (lambda (face)
-    ;;                      (set-face-background face invisible-color)
-    ;;                      (set-face-attribute face nil :height 20))
-    ;;                    faces-to-toggle))
-    ;;           (t
-    ;;            (mapcar (lambda (face)
-    ;;                      (set-face-background face visible-color)
-    ;;                      (set-face-attribute face nil :height (face-attribute 'default :height)))
-    ;;                    faces-to-toggle)))))
-    ;; (mode-line-visual-toggle)
-    )
-#+END_SRC
-
-
-**** TODO another theme collection
-
-#+BEGIN_SRC emacs-lisp :tangle no
-  ;; figure out some good themes from this
-  ;; (use-package color-theme-modern)
 #+END_SRC
 
 
@@ -1707,37 +1623,9 @@ An elegant theme highlighting comments only
 #+BEGIN_SRC emacs-lisp
   (use-package commentary-theme
     :config
-    ;; (load-theme 'commentary t)
+    (load-theme 'commentary t)
     )
 #+END_SRC
-
-
-**** Moe
-
-Another collection but IDK if it really works for me. It also has too
-many configuration options.
-
-#+BEGIN_SRC emacs-lisp :tangle no
-  ;; (use-package moe-theme
-  ;; :config
-  ;; (moe-light)
-  ;; )
-#+END_SRC
-
-
-**** Faff
-
-A little like default but cooler but appears to need a shitload of
-work.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package faff-theme
-    ;; :config (load-theme 'faff t)
-    )
-#+END_SRC
-
-#+RESULTS:
-: t
 
 
 *** TODO My themes (LOL)
@@ -1745,9 +1633,6 @@ work.
 Neither of these work using =straight.el= or =use-package=, together
 or separately (afaik). If these work, I could maybe add some more of
 my own.
-
-
-**** Colourless themes
 
 Forked from the [[https://github.com/lthms/colorless-themes][colorless-themes macro]]. This includes my version of
 the macro, original themes from Thomas Letan, and some additional
@@ -1757,38 +1642,6 @@ themes of my own that use this macro.
   (use-package colourless-themes
     :straight (:host gitlab :repo "peregrinator/colourless-themes-el")
     :config
-    (load-theme 'einkless t))
-#+END_SRC
-
-
-** Modeline
-
-
-*** TODO Fancy modeline reminiscent of spacemacs
-
-Needs some work??
-
-#+BEGIN_SRC emacs-lisp
-  ;; (use-package moody
-  ;;   :config
-  ;;   (setq x-underline-at-descent-line t)
-  ;;   (moody-replace-mode-line-buffer-identification)
-  ;;   (moody-replace-vc-mode)
-  ;;   (moody-replace-eldoc-minibuffer-message-function))
-#+END_SRC
-
-
-*** TODO battery on modeline
-
-#+BEGIN_SRC emacs-lisp
-  ;; (use-package battery
-  ;;   :straight (:type built-in)
-  ;;   ;; :type built-in
-  ;;   :config
-  ;;   (setq battery-mode-line-format " [%b%p%%]"
-  ;;         battery-mode-line-limit 95
-  ;;         battery-update-interval 180
-  ;;         battery-load-low 20
-  ;;         battery-load-critical 10)
-  ;;   :hook after-init)
+    ;; (load-theme 'einkless t)
+    )
 #+END_SRC
