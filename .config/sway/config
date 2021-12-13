@@ -20,7 +20,7 @@ set $term alacritty
 # on the original workspace that the command was run on.
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
 # set $menu wofi --show run | xargs swaymsg exec --
-set $menu fuzzel
+set $menu "fuzzel -f 'Anka/Coder Condensed:size=12' -P '*>  '"
 
 ### Output configuration
 #
@@ -271,5 +271,6 @@ client.urgent            	#ffff00  #ffff00     #ffffff  #ffff00
 
 exec backlight 25% &
 exec fnott &
+exec rdshft &
 
 include /usr/local/etc/sway/config.d/*

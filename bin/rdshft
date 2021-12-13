@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
 # This resets redshift (which I turn off for movies so I need it to be rerun on reload)
-pkill redshift
-while pgrep -u $UID -x redshift >/dev/null; do sleep 1; done
-redshift -c ~/.config/redshift.conf &
+# pkill redshift
+# while pgrep -u $UID -x redshift >/dev/null; do sleep 1; done
+# redshift -c ~/.config/redshift.conf &
+
+pkill -9 wlsunset
+while pgrep -f wlsunset; do sleep 1; done
+wlsunset -l 26.9 -L 70.9 &

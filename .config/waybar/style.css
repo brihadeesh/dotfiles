@@ -2,8 +2,8 @@
     border: none;
     border-radius: 0;
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: Droid Sans Mono;
-    font-size: 12px;
+    font-family: "Anka/Coder Condensed";
+    font-size: 14px;
     min-height: 0;
 }
 

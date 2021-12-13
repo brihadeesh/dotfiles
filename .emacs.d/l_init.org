@@ -5,6 +5,14 @@
 #+CREATED: <2021-12-04 Sat>
 #+MODIFIED: <2021-12-13 Mon>
 
+* Prerequisites
+
+Lexical binding is required for a lot of stuff here
+
+#+BEGIN_SRC emacs-lisp :comments no :tangle yes
+  ;; -*- lexical-binding: t -*-
+#+END_SRC
+
 
 * Native compilation setup
 
@@ -602,11 +610,16 @@ near future
 
 * Git with Magit and gists with =gist.el=
 
+#+NAME: magit-config
 #+BEGIN_SRC emacs-lisp
-  (use-package magit  ;; :ensure t
+  (use-package magit
     :bind ("C-x g"    . magit-status))
+#+END_SRC
 
-  ;; gist.el to manage github gists from here
+~gist.el~ to manage github gists from here
+
+#+NAME: gists-config
+#+BEGIN_SRC emacs-lisp
   (use-package gist)
 #+END_SRC
 
@@ -639,15 +652,42 @@ near future
 
 
 
-* Completions (non-minibuffer kind)
+* Corfu for completion (non-minibuffer kind)
 
+This might need some more work - integration with [[https://github.com/minad/cape][minad's ~cape~]] for
+various kinds of completions although he alleges this works well with
+base Emacs.
+
+#+NAME: corfu-competions
 #+BEGIN_SRC emacs-lisp
-(use-package company
-      ;; :ensure t
-      :bind (("M-n"     . company-select-next)
-             ("M-p"     . company-select-previous)))
-    (setq company-idle-delay 0.0)
-    (add-hook 'after-init-hook #'global-company-mode)
+  (use-package corfu
+    ;; TAB-and-Go customizations
+    :custom
+    ;; Enable cycling for `corfu-next/previous'
+    (corfu-cycle t)
+    ;; Disable candidate preselection
+    (corfu-preselect-first nil)
+
+    ;; Use TAB for cycling, default is `corfu-complete'.
+    :bind
+    (:map corfu-map
+          ("TAB" . corfu-next)
+          ([tab] . corfu-next)
+          ("S-TAB" . corfu-previous)
+          ([backtab] . corfu-previous))
+
+    :init
+    (corfu-global-mode))
+#+END_SRC
+
+
+#+BEGIN_SRC emacs-lisp :tangle no
+  (use-package company
+        ;; :ensure t
+        :bind (("M-n"     . company-select-next)
+               ("M-p"     . company-select-previous)))
+      (setq company-idle-delay 0.0)
+      (add-hook 'after-init-hook #'global-company-mode)
 #+END_SRC
 
 
