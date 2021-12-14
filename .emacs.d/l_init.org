@@ -519,7 +519,7 @@ RMarkdown and org-mode is generally better (see next bit for RMarkdown)
 
 ** Polymode for RMarkdown syntax
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package poly-R)
   ;; :ensure t
   (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
@@ -1219,6 +1219,51 @@ completion list.
 
 
 * org-mode setup
+
+Get the damn thing first
+
+#+BEGIN_SRC emacs-lisp
+(use-package org
+  ;;:defer t
+  ;;:hook (org-mode . dw/org-mode-setup)
+  :config
+  (setq org-ellipsis " ▾"
+        org-hide-emphasis-markers t
+        org-src-fontify-natively t
+        org-fontify-quote-and-verse-blocks t
+        org-src-tab-acts-natively t
+        org-edit-src-content-indentation 2
+        org-hide-block-startup nil
+        org-src-preserve-indentation nil
+        ;; org-startup-folded 'content
+        org-cycle-separator-lines 2
+        org-capture-bookmark nil)
+
+  ;;(setq org-modules
+  ;;  '(org-crypt
+  ;;      org-habit
+  ;;      org-bookmark
+  ;;      org-eshell
+  ;;      org-irc))
+
+  (setq org-refile-targets '((nil :maxlevel . 1)
+                             (org-agenda-files :maxlevel . 1)))
+
+  (setq org-outline-path-complete-in-steps nil)
+  (setq org-refile-use-outline-path t)
+
+  ;; get something like this for regular emacs bindings
+  ;;(evil-define-key '(normal insert visual) org-mode-map (kbd "C-j") 'org-next-visible-heading)
+  ;;(evil-define-key '(normal insert visual) org-mode-map (kbd "C-k") 'org-previous-visible-heading)
+  ;;(evil-define-key '(normal insert visual) org-mode-map (kbd "M-j") 'org-metadown)
+  ;;(evil-define-key '(normal insert visual) org-mode-map (kbd "M-k") 'org-metaup)
+
+  (org-babel-do-load-languages
+    'org-babel-load-languages
+    '((emacs-lisp . t)
+      (R . t)))
+#+END_SRC
+
 
 ** Sources for agenda tasks
 
