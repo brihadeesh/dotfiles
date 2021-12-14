@@ -31,6 +31,15 @@ I think this has been moved to ~early-init.el~
 
 
 
+* whoami
+
+Doh
+
+#+begin_src emacs-lisp
+  (setq user-full-name "Brihadeesh S (They/Them)"
+        user-mail-address "brihadeesh@protonmail.com")
+#+end_src
+
 * Performance enhancements
 
 Maybe I'll understand what this is about one day
