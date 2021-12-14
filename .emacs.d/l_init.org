@@ -1360,16 +1360,16 @@ Also perhaps check out [[https://github.com/jkitchin/org-ref][org-ref]] - it /se
 simpler/. [[https://www.youtube.com/watch?v=2t925KRBbFc][Introduction to org-ref]] - a video ontroduction
 
 #+BEGIN_SRC emacs-lisp :tangle no
-  (use-package citar
-    :no-require
-    :custom
-    (org-cite-global-bibliography '("~/bib/references.bib"))
-    (org-cite-insert-processor 'citar)
-    (org-cite-follow-processor 'citar)
-    (org-cite-activate-processor 'citar)
+  ;;(use-package citar
+    ;;:no-require
+    ;;:custom
+    ;;(org-cite-global-bibliography '("~/bib/references.bib"))
+    ;;(org-cite-insert-processor 'citar)
+    ;;(org-cite-follow-processor 'citar)
+    ;;(org-cite-activate-processor 'citar)
     ;; optional: org-cite-insert is also bound to C-c C-x C-@
-    :bind
-    (:map org-mode-map :package org ("C-c b" . #'org-cite-insert)))
+    ;;:bind
+    ;;(:map org-mode-map :package org ("C-c b" . #'org-cite-insert)))
 #+END_SRC
 
 

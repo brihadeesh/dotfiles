@@ -6,7 +6,7 @@
 [[ $- != *i* ]] && return
 
 alias ls='ls -F --color=always'
-alias la='ls -FXa --color=always'
+alias la='ls -Fa --color=always'
 # alias mocp='mocp -A -T transparent-background'
 alias ncmpcpp='ncmpcpp -q'
 alias scrot='scrot -q 100'
