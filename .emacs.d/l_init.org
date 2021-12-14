@@ -99,6 +99,7 @@ junk.
 
 * Package management
 
+
 ** Setup ~straight.el~
 
 I'll be using ~use-package~ to organise and configure individual
@@ -332,6 +333,12 @@ first code block can be evaluated using =C-c C-c=:
 
 
 
+** Diminish for a cleaner modeline
+
+#+begin_src emacs-lisp
+(use-package diminish)
+#+end_src>
+
 * TODO SSH for personal packages and magit
 
 This needs a ton of work
@@ -369,6 +376,7 @@ Vterm ftw
 
 
 * Code utilities
+
 
 ** Snippets
 
@@ -1147,8 +1155,7 @@ Persist history over Emacs restarts. Vertico sorts by history position.
     :hook (completion-list-mode . consult-preview-at-point-mode)
 
     :config
-    ;; Optionally configure the narrowing key.
-    ;; Both < and C-+ work reasonably well.
+    ;; Configure the narrowing key.
     (setq consult-narrow-key "<") ;; (kbd "C-+")
 
     ;; Configure a function which returns the project
@@ -1161,20 +1168,19 @@ Persist history over Emacs restarts. Vertico sorts by history position.
 
     (defvar consult--source-perspective
       (list :name     "Perspective"
-            :narrow   ?s
-            :category 'buffer
-            :state    #'consult--buffer-state
-            :default  t
-            :items    #'persp-get-buffer-names))
+	    :narrow   ?s
+	    :category 'buffer
+	    :state    #'consult--buffer-state
+	    :default  t
+	    :items    #'persp-get-buffer-names))
 
     (push consult--source-perspective consult-buffer-sources)
-
     )
 
   ;; Optionally add the `consult-flycheck' command.
   (use-package consult-flycheck
     :bind (:map flycheck-command-map
-                ("!" . consult-flycheck)))
+		("!" . consult-flycheck)))
 #+END_SRC
 
 
@@ -1218,50 +1224,94 @@ completion list.
 
 
 
-* org-mode setup
+* TODO org-mode setup
 
-Get the damn thing first
+- [X] Get the damn thing first
+- [ ] Organise the thing - needs splitting into multiple code blocks.
 
 #+BEGIN_SRC emacs-lisp
-(use-package org
-  ;;:defer t
-  ;;:hook (org-mode . dw/org-mode-setup)
-  :config
-  (setq org-ellipsis " ▾"
-        org-hide-emphasis-markers t
-        org-src-fontify-natively t
-        org-fontify-quote-and-verse-blocks t
-        org-src-tab-acts-natively t
-        org-edit-src-content-indentation 2
-        org-hide-block-startup nil
-        org-src-preserve-indentation nil
-        ;; org-startup-folded 'content
-        org-cycle-separator-lines 2
-        org-capture-bookmark nil)
+        (use-package org
+          ;;:defer t
+          ;;:hook (org-mode . dw/org-mode-setup)
+          :config
+          (setq org-ellipsis " ▾"
+                org-hide-emphasis-markers t
+                org-src-fontify-natively t
+                org-fontify-quote-and-verse-blocks t
+                org-src-tab-acts-natively t
+                ;; org-edit-src-content-indentation 2
+                org-hide-block-startup nil
+                org-src-preserve-indentation nil
+                ;; org-startup-folded 'content
+                org-cycle-separator-lines 2
+                org-capture-bookmark nil)
 
-  ;;(setq org-modules
-  ;;  '(org-crypt
-  ;;      org-habit
-  ;;      org-bookmark
-  ;;      org-eshell
-  ;;      org-irc))
+          ;;(setq org-modules
+          ;;  '(org-crypt
+          ;;      org-habit
+          ;;      org-bookmark
+          ;;      org-eshell
+          ;;      org-irc))
 
-  (setq org-refile-targets '((nil :maxlevel . 1)
-                             (org-agenda-files :maxlevel . 1)))
+          (setq org-refile-targets '((nil :maxlevel . 1)
+                                     (org-agenda-files :maxlevel . 1)))
 
-  (setq org-outline-path-complete-in-steps nil)
-  (setq org-refile-use-outline-path t)
+          (setq org-outline-path-complete-in-steps nil)
+          (setq org-refile-use-outline-path t)
 
-  ;; get something like this for regular emacs bindings
-  ;;(evil-define-key '(normal insert visual) org-mode-map (kbd "C-j") 'org-next-visible-heading)
-  ;;(evil-define-key '(normal insert visual) org-mode-map (kbd "C-k") 'org-previous-visible-heading)
-  ;;(evil-define-key '(normal insert visual) org-mode-map (kbd "M-j") 'org-metadown)
-  ;;(evil-define-key '(normal insert visual) org-mode-map (kbd "M-k") 'org-metaup)
+          ;; get something like this for regular emacs bindings
+          ;;(evil-define-key '(normal insert visual) org-mode-map (kbd "C-j") 'org-next-visible-heading)
+          ;;(evil-define-key '(normal insert visual) org-mode-map (kbd "C-k") 'org-previous-visible-heading)
+          ;;(evil-define-key '(normal insert visual) org-mode-map (kbd "M-j") 'org-metadown)
+          ;;(evil-define-key '(normal insert visual) org-mode-map (kbd "M-k") 'org-metaup)
 
-  (org-babel-do-load-languages
-    'org-babel-load-languages
-    '((emacs-lisp . t)
-      (R . t)))
+          (org-babel-do-load-languages
+           'org-babel-load-languages
+           '((emacs-lisp . t)
+             (R . t)))
+
+          (use-package org-superstar
+            :after org
+            :hook (org-mode . org-superstar-mode)
+            :custom
+            (org-superstar-remove-leading-stars t)
+            (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+          ;; Replace list hyphen with dot
+       (font-lock-add-keywords 'org-mode
+                               '(("^ *\\([-]\\) "
+                                  (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+       ;; Make sure org-indent face is available
+       (require 'org-indent)
+
+       ;; Ensure that anything that should be fixed-pitch in Org files appears that way
+       (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
+       (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
+       (set-face-attribute 'org-formula nil :inherit 'fixed-pitch)
+       (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
+       (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
+       (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+       (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+       (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+       (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+
+
+       ;; block templates
+       ;; This is needed as of Org 9.2
+       (require 'org-tempo)
+
+       (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+       (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+       (add-to-list 'org-structure-template-alist '("li" . "src lisp"))
+       (add-to-list 'org-structure-template-alist '("sc" . "src scheme"))
+       (add-to-list 'org-structure-template-alist '("rr" . "src R"))
+       (add-to-list 'org-structure-template-alist '("py" . "src python"))
+       (add-to-list 'org-structure-template-alist '("lua" . "src lua"))
+       (add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
+       (add-to-list 'org-structure-template-alist '("json" . "src json"))
+
+  )
 #+END_SRC
 
 
@@ -1347,12 +1397,18 @@ post in my [[file:person_el/sample-org-setup.el][unused local elisp libs]] too.
 
 *** =Table of contents= for org-mode files
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package toc-org
       :after org
       :hook (org-mode . toc-org-enable))
 #+END_SRC
 
+Alternatively
+
+#+begin_src emacs-lisp
+(use-package org-make-toc
+  :hook (org-mode . org-make-toc-mode))
+#+end_src
 
 ** TODO Org-Babel for literate programming
 
@@ -1419,6 +1475,7 @@ simpler/. [[https://www.youtube.com/watch?v=2t925KRBbFc][Introduction to org-ref
 
 
 * UI configuration
+
 
 ** highlighted line-mode
 
