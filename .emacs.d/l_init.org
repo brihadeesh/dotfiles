@@ -40,6 +40,7 @@ Doh
         user-mail-address "brihadeesh@protonmail.com")
 #+end_src
 
+
 * Performance enhancements
 
 Maybe I'll understand what this is about one day
@@ -199,7 +200,7 @@ when I thought I understood what I was doing)
 #+END_SRC
 
 
-** TODO *misc settings to organize later*
+** Disable native popups and bell
 
 #+BEGIN_SRC emacs-lisp
   ;; not sure what this is about
@@ -347,6 +348,7 @@ first code block can be evaluated using =C-c C-c=:
 #+begin_src emacs-lisp
 (use-package diminish)
 #+end_src>
+
 
 * TODO SSH for personal packages and magit
 
@@ -823,15 +825,16 @@ but perhaps a lot more dynamic. This might need more work hence adding
 [[https://github.com/nex3/perspective-el][a link]] here.
 
 #+BEGIN_SRC emacs-lisp
-    (use-package perspective
-      :bind
-      ;; these work with selectrum/vertico i.e. `completing-read'
-      ;; type completion systems that are appararently closer to
-      ;; base Emacs functioning.
-      (("C-x b" . persp-switch-to-buffer*)
-      ("C-x k" . persp-kill-buffer*))
-      :config
-      (persp-mode))
+      (use-package perspective
+        :bind
+        ;; these work with selectrum/vertico i.e. `completing-read'
+        ;; type completion systems that are appararently closer to
+        ;; base Emacs functioning.
+        (("C-x b" . persp-switch-to-buffer*)
+        ;;("C-x k" . persp-kill-buffer*)
+        )
+        :config
+        (persp-mode))
 #+END_SRC
 
 
@@ -1542,13 +1545,17 @@ Underline line at descent position, not baseline position
 
 ** Visual not audible bell
 
-Flashes modeline for warnings
+Flashes modeline for warnings from [[https://github.com/purcell/mode-line-bell][purcell]]
 
 #+BEGIN_SRC emacs-lisp
-  ;; No sound
-  (setq visible-bell t)
-  (setq ring-bell-function 'ignore)
+    ;; No sound
+    (setq ring-bell-function 'ignore)
+
+    (use-package mode-line-bell
+      :config
+      (mode-line-bell-mode))
 #+END_SRC
+
 
 
 ** No Tooltips
