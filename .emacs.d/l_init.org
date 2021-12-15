@@ -3,7 +3,7 @@
 #+EMAIL: brihadeesh@protonmail.com
 #+STARTUP: show4levels
 #+CREATED: <2021-12-04 Sat>
-#+MODIFIED: <2021-12-13 Mon>
+#+MODIFIED: <2021-12-14 Tue>
 
 * Prerequisites
 
@@ -589,7 +589,7 @@ Like really?
     (add-hook 'TeX-after-compilation-finished-functions
               #'TeX-revert-document-buffer))
 
-  (use-package company-auctex)
+  ;; (use-package company-auctex)
 #+END_SRC
 
 
@@ -677,6 +677,16 @@ This might need some more work - integration with [[https://github.com/minad/cap
 various kinds of completions although he alleges this works well with
 base Emacs.
 
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+        ;; :ensure t
+        ;;:bind (("M-n"     . company-select-next)
+        ;;       ("M-p"     . company-select-previous))
+    )
+  (setq company-idle-delay 0.0)
+  (add-hook 'after-init-hook #'global-company-mode)
+#+END_SRC
+
 #+NAME: corfu-competions
 #+BEGIN_SRC emacs-lisp
   (use-package corfu
@@ -698,17 +708,6 @@ base Emacs.
     :init
     (corfu-global-mode))
 #+END_SRC
-
-
-#+BEGIN_SRC emacs-lisp :tangle no
-  (use-package company
-        ;; :ensure t
-        :bind (("M-n"     . company-select-next)
-               ("M-p"     . company-select-previous)))
-      (setq company-idle-delay 0.0)
-      (add-hook 'after-init-hook #'global-company-mode)
-#+END_SRC
-
 
 
 * Undo tree
@@ -1422,6 +1421,7 @@ Alternatively
   :hook (org-mode . org-make-toc-mode))
 #+end_src
 
+
 ** TODO Org-Babel for literate programming
 
 Org-mode needs org-babel, ob-tangle, live pdf/html preview within
@@ -1780,8 +1780,8 @@ An elegant theme highlighting comments only
 
 #+BEGIN_SRC emacs-lisp
   (use-package commentary-theme
-    :config
-    (load-theme 'commentary t)
+    ;;:config
+    ;;(load-theme 'commentary t)
     )
 #+END_SRC
 
@@ -1800,6 +1800,6 @@ themes of my own that use this macro.
   (use-package colourless-themes
     :straight (:host gitlab :repo "peregrinator/colourless-themes-el")
     :config
-    ;; (load-theme 'einkless t)
+    (load-theme 'beelzebub t)
     )
 #+END_SRC
