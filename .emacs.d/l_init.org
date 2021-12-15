@@ -420,6 +420,17 @@ own.
 #+END_SRC
 
 
+** TODO Syntax checking with Flycheck
+
+#+begin_src emacs-lisp
+  (use-package flycheck
+    :defer t
+    :hook
+    (prog-mode . flycheck-mode)
+    (org-mode . flycheck-mode))
+#+end_src
+
+
 ** Autopaired parens
 
 #+BEGIN_SRC emacs-lisp
@@ -763,8 +774,9 @@ Helps revert to older versions of files in case I fuck up something
 somewhere. Hmm.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package undo-tree
-    :init (global-undo-tree-mode))
+    (use-package undo-tree
+      :init (global-undo-tree-mode)
+      :diminish global-undo-tree-mode)
 #+END_SRC
 
 
@@ -869,16 +881,18 @@ but perhaps a lot more dynamic. This might need more work hence adding
 [[https://github.com/nex3/perspective-el][a link]] here.
 
 #+BEGIN_SRC emacs-lisp
-      (use-package perspective
-        :bind
-        ;; these work with selectrum/vertico i.e. `completing-read'
-        ;; type completion systems that are appararently closer to
-        ;; base Emacs functioning.
-        (("C-x b" . persp-switch-to-buffer*)
-        ;;("C-x k" . persp-kill-buffer*)
-        )
-        :config
-        (persp-mode))
+  (use-package perspective
+    :bind
+    ;; these work with selectrum/vertico i.e. `completing-read'
+    ;; type completion systems that are appararently closer to
+    ;; base Emacs functioning.
+    (("C-x b" . persp-switch-to-buffer*)
+    ;;("C-x k" . persp-kill-buffer*)
+    )
+    :config
+    ;; Running `persp-mode' multiple times resets the perspective list...
+  (unless (equal persp-mode t)
+    (persp-mode)))
 #+END_SRC
 
 
@@ -888,11 +902,32 @@ Simpler navigation between open Emacs windows
 
 #+BEGIN_SRC emacs-lisp
   (use-package ace-window
+    ;; :bind ((M-o . ace-window))
     :init
     (setq aw-keys '(?a ?s ?d ?f ?j ?k ?l ?o))
-    (global-set-key (kbd "C-x o") 'ace-window)
+    (global-set-key (kbd "M-o") 'ace-window)
     :diminish ace-window-mode)
 #+END_SRC
+
+
+Other actions that ~ace-window~ handles:
+
+#+begin_src emacs-lisp :tangle no
+  (defvar aw-dispatch-alist
+  '((?x aw-delete-window "Delete Window")
+	(?m aw-swap-window "Swap Windows")
+	(?M aw-move-window "Move Window")
+	(?c aw-copy-window "Copy Window")
+	(?j aw-switch-buffer-in-window "Select Buffer")
+	(?n aw-flip-window)
+	(?u aw-switch-buffer-other-window "Switch Buffer Other Window")
+	(?c aw-split-window-fair "Split Fair Window")
+	(?v aw-split-window-vert "Split Vert Window")
+	(?b aw-split-window-horz "Split Horz Window")
+	(?o delete-other-windows "Delete Other Windows")
+	(?? aw-show-dispatch-help))
+  "List of actions for `aw-dispatch-default'.")
+#+end_src
 
 
 ** TODO Sane native window management - needs work
@@ -1282,7 +1317,7 @@ completion list.
 
 
 
-* TODO org-mode setup
+* IN-PROGRESS org-mode setup
 
 - [X] Get the damn thing first
 - [ ] Organise the thing - needs splitting into multiple code blocks.
@@ -1370,6 +1405,20 @@ completion list.
        (add-to-list 'org-structure-template-alist '("json" . "src json"))
 
   )
+#+END_SRC
+
+
+** Display emphasis markers on hover
+
+This package makes it much easier to edit Org documents when
+org-hide-emphasis-markers is turned on. It temporarily shows the
+emphasis markers around certain markup elements when you place your
+cursor inside of them. No more fumbling around with = and *
+characters!
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-appear
+    :hook (org-mode . org-appear-mode))
 #+END_SRC
 
 
@@ -1533,6 +1582,169 @@ simpler/. [[https://www.youtube.com/watch?v=2t925KRBbFc][Introduction to org-ref
 #+END_SRC
 
 
+
+** org-present for presentations
+
+See [[https://github.com/daviwil/dotfiles/blob/9776d65c4486f2fa08ec60a06e86ecb6d2c40085/Emacs.org#presentations][dawiwil's section on this]] from his literate init for more about
+this.
+
+
+* Multimedia
+
+
+** EMMS for music
+
+#+begin_src emacs-lisp
+  (use-package emms
+    :commands emms
+    :config
+    (require 'emms-setup)
+    (emms-standard)
+    (emms-default-players)
+    (emms-mode-line-disable)
+    (setq emms-source-file-default-directory "~/Music/")
+    ;;(dw/leader-key-def
+      ;;"am"  '(:ignore t :which-key "media")
+      ;;"amp" '(emms-pause :which-key "play / pause")
+      ;;"amf" '(emms-play-file :which-key "play file"))
+    )
+#+end_src
+
+
+** mpv for video
+
+#+begin_src emacs-lisp
+  (use-package mpv)
+#+end_src
+
+
+* Web surfing and more
+
+Got most of these from [[https://github.com/daviwil/dotfiles/blob/9776d65c4486f2fa08ec60a06e86ecb6d2c40085/Emacs.org][daviwil]]'s literate configuration
+
+
+** Gemini
+
+#+begin_src emacs-lisp
+  (use-package elpher)
+#+end_src
+
+
+** TODO mail with mu4e
+
+see [[https://github.com/daviwil/dotfiles/blob/9776d65c4486f2fa08ec60a06e86ecb6d2c40085/Mail.org][daviwil's mail.org]] and the configuration in his [[https://github.com/daviwil/dotfiles/blob/9776d65c4486f2fa08ec60a06e86ecb6d2c40085/Emacs.org#mail][literate config]].
+
+
+** TODO Browser
+
+
+** Elfeed for RSS
+
+#+begin_src emacs-lisp
+(use-package elfeed
+  :commands elfeed
+  :config
+  (setq elfeed-feeds
+    '("https://nullprogram.com/feed/"
+      "https://guix.gnu.org/feeds/blog.atom"
+      "https://valdyas.org/fading/feed/"
+      "https://www.reddit.com/r/emacs/.rss")))
+#+end_src
+
+
+** IN-PROGRESS ERC for IRC
+#+begin_src emacs-lisp :tangle no
+  (use-package erc-hl-nicks
+    :after erc)
+
+  (use-package erc-image
+    :after erc)
+
+  (use-package erc
+    :commands erc
+    :hook (erc-track-list-changed . dw/on-erc-track-list-changed)
+    :config
+    (setq
+        erc-nick "peregrinator"
+        erc-user-full-name "Brihadeesh"
+        erc-prompt-for-password nil
+        erc-auto-query 'bury
+        erc-join-buffer 'bury
+        erc-track-shorten-start 8
+        erc-interpret-mirc-color t
+        erc-rename-buffers t
+        erc-kill-buffer-on-part t
+  ;;      erc-track-exclude '("#twitter_daviwil")
+        erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE" "AWAY")
+        erc-track-enable-keybindings nil
+        erc-track-visibility nil ; Only use the selected frame for visibility
+        erc-track-exclude-server-buffer t
+        erc-fill-column 120
+        erc-fill-function 'erc-fill-static
+        erc-fill-static-center 20
+        erc-image-inline-rescale 400
+        erc-server-reconnect-timeout 10
+        erc-server-reconnect-attempts 5
+        erc-autojoin-channels-alist '(("irc.libera.chat" "#systemcrafters" "#emacs" "#guix"))
+        erc-quit-reason (lambda (s) (or s "Ejecting from cyberspace"))
+        erc-modules
+        '(autoaway autojoin button completion fill irccontrols keep-place
+            list match menu move-to-prompt netsplit networks noncommands
+            readonly ring stamp track image hl-nicks notify notifications))
+
+    (add-hook 'erc-join-hook 'bitlbee-identify)
+    (defun bitlbee-identify ()
+      "If we're on the bitlbee server, send the identify command to the &bitlbee channel."
+      (when (and (string= "127.0.0.1" erc-session-server)
+                 (string= "&bitlbee" (buffer-name)))
+        (erc-message "PRIVMSG" (format "%s identify %s"
+                                       (erc-default-target)
+                                       (password-store-get "IRC/Bitlbee"))))))
+
+  ;; TODO: idk how this works
+  (defun peremacs/connect-irc ()
+    (interactive)
+    (erc-tls :server "irc.libera.chat" :port 3110 :nick "peregrinator"))
+    ;; (erc
+    ;;    :server "127.0.0.1" :port 6667
+    ;;    :nick "daviwil" :password (password-store-get "IRC/Bitlbee")))
+
+  ;; Thanks karthik!
+  (defun erc-image-create-image (file-name)
+    "Create an image suitably scaled according to the setting of
+  'ERC-IMAGE-RESCALE."
+    (let* ((positions (window-inside-absolute-pixel-edges))
+          (width (- (nth 2 positions) (nth 0 positions)))
+          (height (- (nth 3 positions) (nth 1 positions)))
+          (image (create-image file-name))
+          (dimensions (image-size image t))
+          (imagemagick-p (and (fboundp 'imagemagick-types) 'imagemagick)))
+                                          ; See if we want to rescale the image
+      (if (and erc-image-inline-rescale
+              (not (image-multi-frame-p image)))
+          ;; Rescale based on erc-image-rescale
+          (cond (;; Numeric: scale down to that size
+                (numberp erc-image-inline-rescale)
+                (if (> (cdr dimensions) erc-image-inline-rescale)
+                    (create-image file-name imagemagick-p nil :height erc-image-inline-rescale)
+                  image))
+                (;; 'window: scale down to window size, if bigger
+                (eq erc-image-inline-rescale 'window)
+                ;; But only if the image is greater than the window size
+                (if (or (> (car dimensions) width)
+                        (> (cdr dimensions) height))
+                    ;; Figure out in which direction we need to scale
+                    (if (> width height)
+                        (create-image file-name imagemagick-p nil :height  height)
+                      (create-image file-name imagemagick-p nil :width width))
+                  ;; Image is smaller than window, just give that back
+                  image))
+                (t (progn (message "Error: none of the rescaling options matched") image)))
+        ;; No rescale
+        image)))
+#+end_src
+
+
 * UI configuration
 
 
@@ -1648,6 +1860,8 @@ No fringe but nice glyphs for truncated and wrapped lines
       (setq popper-reference-buffers
             '("\\*Messages\\*"
               "Output\\*$"
+              "^\\*eshell\\*"
+              "^vterm"
               help-mode
               compilation-mode))
       (popper-mode +1))
