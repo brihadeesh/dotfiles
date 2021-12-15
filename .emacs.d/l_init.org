@@ -346,8 +346,14 @@ first code block can be evaluated using =C-c C-c=:
 ** Diminish for a cleaner modeline
 
 #+begin_src emacs-lisp
-(use-package diminish)
-#+end_src>
+  (use-package diminish
+    :config
+    ;;(diminish auto-fill-mode)
+    (diminish undo-tree-mode)
+    (diminish org-indent-mode)
+    (diminish undo-tree-mode)
+    )
+#+end_src
 
 
 * TODO SSH for personal packages and magit
@@ -439,7 +445,6 @@ itself
 
 #+BEGIN_SRC emacs-lisp
   (use-package aggressive-indent
-    ;; :ensure t
     :config (global-aggressive-indent-mode 1))
 #+END_SRC
 
@@ -606,8 +611,8 @@ Finally figured this out from a [[https://redd.it/ahysvb][reddit post from 2019]
 
   ;; tell ispell that apostrophes are part of words
   ;; and select Bristish dictionary
-  (setq ispell-local-dictionary-alist
-               (quote ("UK_English" "[[:alpha:]]" "[^[:alpha:]]" "['’]" t ("-d" "en_GB") nil utf-8)))
+  ;; (setq ispell-local-dictionary-alist
+  ;;             (quote ("UK_English" "[[:alpha:]]" "[^[:alpha:]]" "['’]" t ("-d" "en_GB") nil utf-8)))
 
   ;; hook for text mode
   (add-hook 'text-mode-hook 'flyspell-mode)
@@ -671,13 +676,13 @@ near future
 
 
 
-* Corfu for completion (non-minibuffer kind)
+* Corfu for completion-at-point (non-minibuffer kind)
 
 This might need some more work - integration with [[https://github.com/minad/cape][minad's ~cape~]] for
 various kinds of completions although he alleges this works well with
 base Emacs.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package company
         ;; :ensure t
         ;;:bind (("M-n"     . company-select-next)
@@ -706,8 +711,32 @@ base Emacs.
           ([backtab] . corfu-previous))
 
     :init
-    (corfu-global-mode))
+    (corfu-global-mode 1))
 #+END_SRC
+
+Corfu needs ~cape~ to provide completion backends because it's extremely
+stripped down. Will have to check what other backends I'll need to
+enable.
+
+#+begin_src emacs-lisp
+  (use-package cape
+      :config
+      (setq cape-dabbrev-min-length 2)
+
+      :init
+      ;; Add `completion-at-point-functions', used by `completion-at-point'.
+      (add-to-list 'completion-at-point-functions #'cape-file)
+      ;;  (add-to-list 'completion-at-point-functions #'cape-tex)
+      (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+      (add-to-list 'completion-at-point-functions #'cape-keyword)
+      ;;(add-to-list 'completion-at-point-functions #'cape-sgml)
+      ;;(add-to-list 'completion-at-point-functions #'cape-rfc1345)
+      (add-to-list 'completion-at-point-functions #'cape-abbrev)
+      (add-to-list 'completion-at-point-functions #'cape-ispell)
+      (add-to-list 'completion-at-point-functions #'cape-dict)
+      (add-to-list 'completion-at-point-functions #'cape-symbol)
+      (add-to-list 'completion-at-point-functions #'cape-line))
+#+end_src
 
 
 * Undo tree
@@ -881,6 +910,7 @@ Focuses new windows when created.
 
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
+    :diminish which-key-mode
     :config
     (which-key-mode))
 #+END_SRC
@@ -899,6 +929,7 @@ Focuses new windows when created.
 
 
 * Minibuffer completions
+
 
 ** TODO Completion - is [[https://gitlab.com/protesilaos/mct][mct]] worth using?
 
@@ -1408,7 +1439,7 @@ post in my [[file:person_el/sample-org-setup.el][unused local elisp libs]] too.
 
 *** =Table of contents= for org-mode files
 
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
   (use-package toc-org
       :after org
       :hook (org-mode . toc-org-enable))
@@ -1416,7 +1447,7 @@ post in my [[file:person_el/sample-org-setup.el][unused local elisp libs]] too.
 
 Alternatively
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 (use-package org-make-toc
   :hook (org-mode . org-make-toc-mode))
 #+end_src
@@ -1674,36 +1705,36 @@ This might need additional setting since modus themes are now included
 within Emacs
 
 #+BEGIN_SRC emacs-lisp
-    (use-package modus-themes
-    :init
-    (setq modus-themes-bold-constructs t
-          modus-themes-italic-constructs t
-          modus-themes-region 'no-extend
-          modus-themes-mode-line '(borderless 2)
-          modus-themes-prompts '(italic background)
-          modus-themes-completions 'opinionated
-          modus-themes-hl-line 'accented
-          modus-themes-intense-markup t
-          modus-themes-region '(no-extend bg-only)
-          modus-themes-org-block 'gray-background)
+  (use-package modus-themes
+  :init
+  (setq modus-themes-bold-constructs t
+        modus-themes-italic-constructs t
+        modus-themes-region 'no-extend
+        modus-themes-mode-line '(borderless 2)
+        modus-themes-prompts '(italic background)
+        modus-themes-completions 'opinionated
+        modus-themes-hl-line 'accented
+        modus-themes-intense-markup t
+        modus-themes-region '(no-extend bg-only)
+        modus-themes-org-block 'gray-background)
 
-    (setq modus-themes-headings
-          '((1 . (overline background semibold))
-            (2 . (overline background semibold))
-            (3 . (overline background semibold))
-            (4 . (background semibold))
-            (t . (regular))))
+  (setq modus-themes-headings
+        '((1 . (overline background semibold))
+          (2 . (overline background semibold))
+          (3 . (overline background semibold))
+          (4 . (background semibold))
+          (t . (regular))))
 
-    ;; set semibold as the bold face
-    (set-face-attribute 'bold nil :weight 'semibold)
+  ;; set semibold as the bold face
+  (set-face-attribute 'bold nil :weight 'semibold)
 
-    ;; Load the theme files before enabling a theme
-    ;; (modus-themes-load-themes)
-    :config
-    ;; Load the theme of your choice:
-    ;; (modus-themes-load-operandi)
-    ;; (modus-themes-load-vivendi)
-    )
+  ;; Load the theme files before enabling a theme
+  (modus-themes-load-themes)
+  :config
+  ;; Load the theme of your choice:
+  (modus-themes-load-operandi)
+  ;; (modus-themes-load-vivendi)
+  )
 #+END_SRC
 
 
@@ -1765,15 +1796,6 @@ Needs no introduction
 #+END_SRC
 
 
-**** Badwolf
-#+BEGIN_SRC emacs-lisp
-  ;; (use-package badwolf-theme
-  ;; :config
-  ;; (load-theme 'badwolf t)
-  ;; )
-#+END_SRC
-
-
 **** Commentary
 
 An elegant theme highlighting comments only
@@ -1799,7 +1821,7 @@ themes of my own that use this macro.
 #+BEGIN_SRC emacs-lisp
   (use-package colourless-themes
     :straight (:host gitlab :repo "peregrinator/colourless-themes-el")
-    :config
-    (load-theme 'beelzebub t)
+    ;;:config
+    ;;(load-theme 'beelzebub t)
     )
 #+END_SRC
