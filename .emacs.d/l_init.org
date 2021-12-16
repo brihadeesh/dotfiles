@@ -12,8 +12,8 @@ Lexical binding is required for a lot of stuff here
 #+BEGIN_SRC emacs-lisp :comments no :tangle yes
   ;; -*- lexical-binding: t -*-
 
-  ;; don't follow symlinks? hopefully this solves the 
-  ;; `symbols function definition is void: org-file-name-concat' error 
+  ;; don't follow symlinks? hopefully this solves the
+  ;; `symbols function definition is void: org-file-name-concat' error
   (setq vc-follow-symlinks nil)
 #+END_SRC
 
@@ -173,12 +173,19 @@ Running =package-list-packages= includes them only for browsing
 
 ** Diminish for a cleaner modeline
 
+~org-indent-mode~ doesn't get disabled by the default method.
+
 #+begin_src emacs-lisp
-  (use-package diminish
-    :config
-    (diminish 'auto-fill-function)
-    (diminish 'org-indent-mode)
-    (diminish 'flyspell-mode))
+    (use-package diminish
+      :diminish auto-fill-function
+      :diminish flyspell-mode
+    )
+
+  (defun peremacs/diminish-org-indent ()
+      (interactive)
+      (diminish 'org-indent-mode ""))
+  (add-hook 'org-indent-mode-hook 'sk/diminish-org-indent)
+
 #+end_src
 
 
@@ -776,10 +783,10 @@ enable.
 Helps revert to older versions of files in case I fuck up something
 somewhere. Hmm. I doubt I ever use it so disabling it now.
 
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
     (use-package undo-tree
       :init (global-undo-tree-mode)
-      :diminish global-undo-tree-mode)
+      :diminish undo-tree-mode)
 #+END_SRC
 
 
@@ -896,7 +903,7 @@ but perhaps a lot more dynamic. This might need more work hence adding
     :config
     ;; Running `persp-mode' multiple times resets the perspective list...
   (unless (equal persp-mode t)
-    (persp-mode)))
+    (persp-mode 1)))
 #+END_SRC
 
 
@@ -1527,6 +1534,24 @@ Alternatively
 Org-mode needs org-babel, ob-tangle, live pdf/html preview within
 Emacs, hooks to enable auto-fill, linum-mode (?)
 
+
+** Better commenting in org-mode code-blocks
+
+Got this from a [[https://emacs.stackexchange.com/a/19741/23936][Stack Exchange answer]] to work around messed up
+commenting using the default ~C-x C-;~ command. The older/default
+command messes up lines, undos, and sometimes comment syntax as well.
+
+#+begin_src emacs-lisp
+;; allow comment region in the code edit buffer (according to language)
+(defun my-org-comment-dwim (&optional arg)
+  (interactive "P")
+  (or (org-babel-do-key-sequence-in-edit-buffer (kbd "M-;"))
+      (comment-dwim arg)))
+
+;; make `C-c C-v C-x M-;' more convenient
+(define-key org-mode-map
+  (kbd "M-;") 'my-org-comment-dwim)
+#+end_src
 
 ** TODO Journaling requirements
 
