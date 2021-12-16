@@ -184,7 +184,7 @@ Running =package-list-packages= includes them only for browsing
   (defun peremacs/diminish-org-indent ()
       (interactive)
       (diminish 'org-indent-mode ""))
-  (add-hook 'org-indent-mode-hook 'sk/diminish-org-indent)
+  (add-hook 'org-indent-mode-hook 'peremacs/diminish-org-indent)
 
 #+end_src
 
