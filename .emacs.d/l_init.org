@@ -11,6 +11,10 @@ Lexical binding is required for a lot of stuff here
 
 #+BEGIN_SRC emacs-lisp :comments no :tangle yes
   ;; -*- lexical-binding: t -*-
+
+  ;; don't follow symlinks? hopefully this solves the 
+  ;; `symbols function definition is void: org-file-name-concat' error 
+  (setq vc-follow-symlinks nil)
 #+END_SRC
 
 
