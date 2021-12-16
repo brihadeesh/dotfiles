@@ -179,6 +179,7 @@ Running =package-list-packages= includes them only for browsing
     (use-package diminish
       :diminish auto-fill-function
       :diminish flyspell-mode
+      :diminish visual-line-mode
     )
 
   (defun peremacs/diminish-org-indent ()
