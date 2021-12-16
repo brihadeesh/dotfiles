@@ -1,0 +1,29 @@
+# readme
+^/readme.*
+
+# files not in use
+\.cwmrc
+\.e16
+\.dwm
+\.wmii
+\.xprofile
+\.xinitrc
+\.config/bspwm
+\.config/foot
+\.config/herbstluftwm
+\.config/mpdnotify
+\.config/picom.conf
+\.config/polybar
+\.config/rofi
+\.config/redshift.conf
+\.config/spectrwm
+\.config/wmutils
+
+# temporarily disabling nvim init (the vimscript one)
+\.config/nvim/init_old.vim
+
+# something about Emacs init?
+\.emacs.d/l_init.el
+
+# this file?
+\.stow-ignore-list

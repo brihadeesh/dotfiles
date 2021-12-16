@@ -167,6 +167,17 @@ Running =package-list-packages= includes them only for browsing
 
 
 
+** Diminish for a cleaner modeline
+
+#+begin_src emacs-lisp
+  (use-package diminish
+    :config
+    (diminish 'auto-fill-function)
+    (diminish 'org-indent-mode)
+    (diminish 'flyspell-mode))
+#+end_src
+
+
 * Sane Defaults
 
 Primarily bootlegged from [[https://sanemacs.com][Sanemacs]] and changed when appropriate (and
@@ -343,19 +354,6 @@ first code block can be evaluated using =C-c C-c=:
 
 
 
-** Diminish for a cleaner modeline
-
-#+begin_src emacs-lisp
-  (use-package diminish
-    :config
-    ;;(diminish auto-fill-mode)
-    (diminish undo-tree-mode)
-    (diminish org-indent-mode)
-    (diminish undo-tree-mode)
-    )
-#+end_src
-
-
 * TODO SSH for personal packages and magit
 
 This needs a ton of work
@@ -416,7 +414,8 @@ own.
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
     :config
-    (yas-global-mode 1))
+    (yas-global-mode 1)
+    :diminish yas-minor-mode)
 #+END_SRC
 
 
@@ -427,7 +426,9 @@ own.
     :defer t
     :hook
     (prog-mode . flycheck-mode)
-    (org-mode . flycheck-mode))
+    (org-mode . flycheck-mode)
+    :diminish flycheck-mode
+    )
 #+end_src
 
 
@@ -768,12 +769,10 @@ enable.
 
 * Undo tree
 
-
-
 Helps revert to older versions of files in case I fuck up something
-somewhere. Hmm.
+somewhere. Hmm. I doubt I ever use it so disabling it now.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
     (use-package undo-tree
       :init (global-undo-tree-mode)
       :diminish global-undo-tree-mode)
@@ -787,7 +786,8 @@ somewhere. Hmm.
   (use-package projectile
     ;; :ensure t
     :init (setq projectile-completion-system 'default)
-    :bind ("C-c p"    . projectile-command-map))
+    :bind ("C-c p"    . projectile-command-map)
+    :diminish projectile-mode)
   (setq projectile-project-search-path '("~/my_gits/" "~/dled_gits/" "~/Journal/"))
   (projectile-mode +1)
 
