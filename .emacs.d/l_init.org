@@ -429,6 +429,7 @@ buffer to vterm so it sticks to the window it was launched with.
     )
 #+end_src
 
+
 ** Eshell configuration
 
 Make eshell pop under the main window and not create a window of it's
@@ -1563,6 +1564,19 @@ Org-mode needs org-babel, ob-tangle, live pdf/html preview within
 Emacs, hooks to enable auto-fill, linum-mode (?)
 
 
+** IN-PROGRESS org-roam
+
+Start off with networked note-taking in the hope that this *GTD* thing
+really works for me. I'll still have to find something to schedule
+tasks and organise time with maybe /pomodoro/? Not loading this until
+I'm sure this reaches some tangible stage of completion.
+
+#+begin_src emacs-lisp :tangle no
+(use-package org-roam
+  :straight t)
+#+end_src
+
+
 ** Better commenting in org-mode code-blocks
 
 Got this from a [[https://emacs.stackexchange.com/a/19741/23936][Stack Exchange answer]] to work around messed up
@@ -1580,6 +1594,7 @@ command messes up lines, undos, and sometimes comment syntax as well.
 (define-key org-mode-map
   (kbd "M-;") 'my-org-comment-dwim)
 #+end_src
+
 
 ** TODO Journaling requirements
 
@@ -1932,25 +1947,22 @@ No fringe but nice glyphs for truncated and wrapped lines
 
 #+BEGIN_SRC emacs-lisp
   ;; (set-face-font 'default "Input:size=10")
-  ;; (set-face-font 'default "Victor Mono:size=11")
   ;; (set-face-font 'default "Unifont Medium 8")
   ;; (set-face-font 'default "Sudo Light 9")
   ;; (set-face-font 'default "Roboto Mono-7.5")
   ;; (set-face-font 'default "Anka/Coder:pixelsize=10")
   ;; (set-face-font 'default "Cascadia Mono:style=Light:size=10")
   ;; (set-face-font 'default "Monoid-7")
-  ;; (set-face-font 'default "DejaVu Sans Mono \- Bront-7")
   ;; (set-face-font 'default "Iosevka-8")
   ;; (set-face-font 'default "mononoki-7.5")
   ;; (set-face-font 'default "Consolas-8")
-  ;; (set-face-font 'default "Hack-7.5")
+  (set-face-font 'default "Hack-7.5")
   ;; (set-face-font 'default "Liga SFMono Nerd Font-7.5")
   ;; (set-face-font 'default "xos4 Terminus-9")
   ;; (set-face-font 'default "Anonymous Pro Minus-8.5")
   ;; (set-face-font 'default "Dina-8")
   ;; (set-face-font 'default "Droid Sans Mono-7.5")
-  ;; (set-face-font 'default "Fira Code-7.5")
-  (set-face-font 'default "Inconsolata-9")
+  ;; (set-face-font 'default "Inconsolata-9")
 #+END_SRC
 
 
