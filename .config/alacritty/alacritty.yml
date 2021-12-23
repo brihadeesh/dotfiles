@@ -124,7 +124,7 @@ modus-operandi: &operandi
     cyan:    '#205b93'
     white:   '#dddddd'
 
-colors: *operandi
+colors: *vivendi
 
 # opacity for
 background_opacity: 1.0

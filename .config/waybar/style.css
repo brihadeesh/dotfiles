@@ -2,14 +2,14 @@
     border: none;
     border-radius: 0;
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: "Anka/Coder Condensed";
-    font-size: 14px;
+    font-family: "Input Mono Condensed";
+    font-size: 12px;
     min-height: 0;
 }
 
 window#waybar {
     background-color: rgba(0, 0, 0, 0.3);
-    border-bottom: 3px solid rgba(100, 114, 125, 0.5);
+    /* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
     color: #ffffff;
     transition-property: background-color;
     transition-duration: .3s;
@@ -29,12 +29,12 @@ window#waybar.solo {
 */
 
 window#waybar.emacs {
-    background-color: #dc3545;
+    background-color: #444444;
     border: none;
 }
 
 window#waybar.alacritty {
-    background-color: #666666;
+    background-color: #1d214f;
 }
 
 window#waybar.firefox {

@@ -25,7 +25,8 @@ set $menu "fuzzel -f 'Anka/Coder Condensed:size=12' -P '*>  '"
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/local/share/backgrounds/sway/)
-output * bg /usr/local/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+# output * bg /usr/local/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg #212121 solid_color
 #
 # Example configuration:
 #
@@ -250,19 +251,18 @@ bar {
 # Appearance
 #
 
-default_border pixel 2
-default_floating_border pixel 2
-font "xos4 Terminus 9"
-gaps inner 5px
-gaps outer 5px
+default_border pixel 1
+default_floating_border pixel 1
+gaps inner 3px
+gaps outer 3px
 smart_gaps on
 smart_borders on
 
 # colours
 # class       		 	border   background  text     indicator
-client.focused 			#000000  #000000     #ffffff  #000000
-client.focused_inactive  	#666666  #666666     #ffffff  #666666
-client.unfocused         	#ffffff  #ffffff     #888888  #ffffff
+client.focused 			#ffffff  #ffffff     #000000  #ffffff
+client.focused_inactive  	#ffffff  #ffffff     #666666  #ffffff
+client.unfocused         	#888888  #888888     #ffffff  #888888
 client.urgent            	#ffff00  #ffff00     #ffffff  #ffff00
 
 #
