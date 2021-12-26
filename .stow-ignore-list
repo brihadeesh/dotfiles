@@ -2,20 +2,20 @@
 ^/readme.*
 
 # files not in use
-\.cwmrc
+# \.cwmrc
 \.e16
 \.dwm
 \.wmii
-\.xprofile
-\.xinitrc
+# \.xprofile
+# \.xinitrc
 \.config/bspwm
 \.config/foot
 \.config/herbstluftwm
 \.config/mpdnotify
-\.config/picom.conf
+# \.config/picom.conf
 \.config/polybar
 \.config/rofi
-\.config/redshift.conf
+# \.config/redshift.conf
 \.config/spectrwm
 \.config/wmutils
 
