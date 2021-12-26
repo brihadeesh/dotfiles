@@ -25,6 +25,7 @@ Lexical binding is required for a lot of stuff here
   ;; (prefer-coding-system "UTF-8")
 #+end_src
 
+
 * Native compilation setup
 
 I think this has been moved to ~early-init.el~
@@ -291,7 +292,7 @@ This is like =C-v=, a visual mode in vim/neovim. I stole this from
 [[https://pragmaticemacs.com/emacs/multiple-cursors/][pragmatic emacs]].
 
 #+NAME: multiple-cursors
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c m c") 'peremacs/edit-lines)
 #+END_SRC
 
@@ -771,23 +772,22 @@ base Emacs.
 #+NAME: corfu-competions
 #+BEGIN_SRC emacs-lisp
   (use-package corfu
-    ;; TAB-and-Go customizations
-    :custom
-    ;; Enable cycling for `corfu-next/previous'
-    (corfu-cycle t)
-    ;; Disable candidate preselection
-    (corfu-preselect-first nil)
-
-    ;; Use TAB for cycling, default is `corfu-complete'.
     :bind
+    ;; Use TAB for cycling, default is `corfu-complete'.
     (:map corfu-map
           ("TAB" . corfu-next)
           ([tab] . corfu-next)
           ("S-TAB" . corfu-previous)
           ([backtab] . corfu-previous))
 
-    :init
-    (corfu-global-mode 1))
+    :config
+    ;; TAB-and-Go customizations
+    ;; Enable cycling for `corfu-next/previous'
+    (setq corfu-cycle t)
+    ;; Disable candidate preselection
+    (setq corfu-preselect-first nil)
+
+    (corfu-global-mode +1))
 #+END_SRC
 
 Corfu needs ~cape~ to provide completion backends because it's extremely
@@ -801,17 +801,19 @@ enable.
 
       :init
       ;; Add `completion-at-point-functions', used by `completion-at-point'.
-      (add-to-list 'completion-at-point-functions #'cape-file)
-      ;;  (add-to-list 'completion-at-point-functions #'cape-tex)
-      (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-      (add-to-list 'completion-at-point-functions #'cape-keyword)
-      ;;(add-to-list 'completion-at-point-functions #'cape-sgml)
-      ;;(add-to-list 'completion-at-point-functions #'cape-rfc1345)
-      (add-to-list 'completion-at-point-functions #'cape-abbrev)
-      (add-to-list 'completion-at-point-functions #'cape-ispell)
-      (add-to-list 'completion-at-point-functions #'cape-dict)
-      (add-to-list 'completion-at-point-functions #'cape-symbol)
-      (add-to-list 'completion-at-point-functions #'cape-line))
+
+      (dolist (backend '( cape-file cape-dabbrev cape-keyword cape-abbrev
+                          cape-ispell cape-dict cape-symbol cape-line ))
+                       (add-to-list 'completion-at-point-functions backend)))
+
+      ;; (add-to-list 'completion-at-point-functions #'cape-file)
+      ;; (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+      ;; (add-to-list 'completion-at-point-functions #'cape-keyword)
+      ;; (add-to-list 'completion-at-point-functions #'cape-abbrev)
+      ;; (add-to-list 'completion-at-point-functions #'cape-ispell)
+      ;; (add-to-list 'completion-at-point-functions #'cape-dict)
+      ;; (add-to-list 'completion-at-point-functions #'cape-symbol)
+      ;; (add-to-list 'completion-at-point-functions #'cape-line))
 #+end_src
 
 
