@@ -21,8 +21,8 @@ Lexical binding is required for a lot of stuff here
 * Ensure UTF-8
 
 #+begin_src emacs-lisp
-  (set-language-environment "UTF-8")
-  ;; (prefer-coding-system "UTF-8")
+  (set-language-environment 'utf-8)
+  (prefer-coding-system 'utf-8)
 #+end_src
 
 
