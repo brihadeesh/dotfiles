@@ -20,7 +20,7 @@ set $term alacritty
 # on the original workspace that the command was run on.
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
 # set $menu wofi --show run | xargs swaymsg exec --
-set $menu "fuzzel -f 'Anka/Coder Condensed:size=12' -P '*>  '"
+set $menu "fuzzel -f 'M+ 1mn:size=10' -P '*>  '"
 
 ### Output configuration
 #

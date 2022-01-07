@@ -231,13 +231,13 @@ when I thought I understood what I was doing)
 #+END_SRC
 
 
-** Disable native popups and bell
+** TODO Disable native popups(?) and bell
 
 #+BEGIN_SRC emacs-lisp
   ;; not sure what this is about
   ;; (setq-default indent-tabs-mode nil)
   ;; disable popups?
-  (setq pop-up-windows nil)
+  ;; (setq pop-up-windows nil)
   ;; Disable bell sound
   (setq ring-bell-function 'ignore)
 #+END_SRC
@@ -752,6 +752,31 @@ near future
 #+END_SRC
 
 
+
+* Ledger for finance
+
+I'm not entirely sure I can start with this yet but I think I've gotta
+start working on paying of whatever debt I've accumulated.
+
+#+NAME: pers_ledger
+#+begin_src emacs-lisp
+  (use-package ledger-mode
+    :mode "\\.lgr\\'"
+    :bind (:map ledger-mode-map
+                ("TAB" . completion-at-point))
+    :config
+    (ledger-reports '(("bal" "%(binary) -f %(ledger-file) bal")
+                      ;; ("bal this quarter" "%(binary) -f %(ledger-file) --period \"this quarter\" bal")
+                      ;; ("bal last quarter" "%(binary) -f %(ledger-file) --period \"last quarter\" bal")
+                      ;; ("reg" "%(binary) -f %(ledger-file) reg")
+                      ;; ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
+                      ("account" "%(binary) -f %(ledger-file) reg %(account)"))))
+
+  (use-package hledger-mode
+    ;; :straight t
+    :bind (:map hledger-mode-map
+                ("TAB" . completion-at-point)))
+#+end_src
 
 * Corfu for completion-at-point (non-minibuffer kind)
 
@@ -1411,7 +1436,9 @@ completion list.
           (org-babel-do-load-languages
            'org-babel-load-languages
            '((emacs-lisp . t)
-             (R . t)))
+             (R . t)
+             ;;(ledger . t)
+             ))
 
           (use-package org-superstar
             :after org
@@ -1625,7 +1652,7 @@ just make this workable with the termux version of Emacs.
     :config
     ;; Journal directory and files
     (setq org-journal-dir "~/Journal/entries/"
-          org-journal-file-format "%Y/%m/%Y%m%d"
+          org-journal-file-format "%Y/%m/%Y%m%d.org"
           org-journal-file-type 'daily
           org-journal-find-file 'find-file)
 
@@ -1906,6 +1933,29 @@ Flashes modeline for warnings from [[https://github.com/purcell/mode-line-bell][
 #+END_SRC
 
 
+** Minibuffer appearance?
+
+As per [[https://www.reddit.com/r/emacs/comments/rxa29k/is_it_possible_to_have_a_window_which_is_just_the/hrhvrqw/][Hamilton9508's comment]] he makes a single minibuffer-only frame
+across the bottom of the Emacs window and so the rest of the frames
+have only a single buffer (i.e. the buffer being edited/used) and no
+minubuffer of it's own. Not sure if this will work for me but I'll
+perhaps give it a shot.
+
+#+begin_src emacs-lisp
+  (setq minibuffer-frame-alist '(
+              (name . "minibuf")
+              (menu-bar-lines . 0)
+              (vertical-scroll-bars . nil)
+              (auto-raise . t)
+              (sticky . t)
+              (left . 0)
+              (top . -1)
+              (height . 1)
+              (internal-border-width . 0)
+              (minibuffer . only)))
+#+end_src
+
+
 ** Fringe
 
 No fringe but nice glyphs for truncated and wrapped lines
@@ -1915,7 +1965,60 @@ No fringe but nice glyphs for truncated and wrapped lines
 #+END_SRC
 
 
-** TODO battery on modeline
+** Minimalist and ordered modeline
+
+People seem to use packages for this. I've considered using the
+[[https://github.com/seagle0128/doom-modeline][doom-modeline]] but it seems to be pretty heavy in terms of dependencies
+and I'd like a modeline with a much more fundamental interface
+although it's still a good contender considering it's very simple to
+configure. I'm also considering [[https://github.com/gexplorer/simple-modeline][simple-modeline]]. For now I'll stick to
+using a set of functions shared by [[https://www.reddit.com/r/emacs/comments/mmqjjw/how_rightalign_items_in_modeline/gttjpc4/][pkkm]] /on right aligning items on
+modeline/. I still need to figure out how to use this properly.
+
+#+begin_src emacs-lisp :tangle no
+    ;;; Alignment.
+  ;; Fill functions are from <https://github.com/milkypostman/powerline>.
+
+  (defvar ml-text-scale-factor 1.0
+    "Scale of mode-line font size to default font size, as a float.
+    This is needed to make sure that text is properly aligned.")
+
+  (defun ml-fill-to-center (reserve face)
+    "Return empty space to the center, leaving RESERVE space on the right."
+    (when ml-text-scale-factor
+      (setq reserve (* ml-text-scale-factor reserve)))
+    (propertize " "
+                'display `((space :align-to (- (+ center (.5 . right-margin))
+                                               ,reserve
+                                               (.5 . left-margin))))
+                'face face))
+
+  (defun ml-fill-to-right (reserve face)
+    "Return empty space, leaving RESERVE space on the right."
+    (when ml-text-scale-factor
+      (setq reserve (* ml-text-scale-factor reserve)))
+    (when (and window-system (eq 'right (get-scroll-bar-mode)))
+      (setq reserve (- reserve 2))) ; Powerline uses 3 here, but my scrollbars are narrower.
+    (propertize " "
+                'display `((space :align-to (- (+ right right-fringe right-margin)
+                                               ,reserve)))
+                'face face))
+
+  (defun ml-render-2-part (left right &optional fill-face)
+    (concat left
+            (ml-fill-to-right (string-width (format-mode-line right)) fill-face)
+            right))
+
+  (defun ml-render-3-part (left center right &optional fill-face)
+    (concat left
+            (ml-fill-to-center (/ (string-width (format-mode-line center)) 2.0) fill-face)
+            center
+            (ml-fill-to-right (string-width (format-mode-line right)) fill-face)
+            right))
+
+#+end_src
+
+*** TODO battery on modeline
 
 #+BEGIN_SRC emacs-lisp
   ;; (use-package battery
@@ -1994,7 +2097,7 @@ Usually 0, less if possible but Emacs doesn't allow for that.
 Something to do with cleaner modeline for =moody.el= although I'm not
 sure it works this way.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (let ((line (face-attribute 'mode-line :underline)))
     (set-face-attribute 'mode-line          nil :overline line)
     (set-face-attribute 'mode-line-inactive nil :overline line)
