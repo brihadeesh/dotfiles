@@ -762,8 +762,10 @@ start working on paying of whatever debt I've accumulated.
 #+begin_src emacs-lisp
   (use-package ledger-mode
     :mode "\\.lgr\\'"
+
     :bind (:map ledger-mode-map
                 ("TAB" . completion-at-point))
+
     :config
     (ledger-reports '(("bal" "%(binary) -f %(ledger-file) bal")
                       ;; ("bal this quarter" "%(binary) -f %(ledger-file) --period \"this quarter\" bal")
@@ -771,12 +773,112 @@ start working on paying of whatever debt I've accumulated.
                       ;; ("reg" "%(binary) -f %(ledger-file) reg")
                       ;; ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
                       ("account" "%(binary) -f %(ledger-file) reg %(account)"))))
+#+END_SRC
 
+
+** IN-PROGRESS Prettier journaling for expenses
+
+This is more like an ~org-mode~-like journal for personal expenses. I've
+stolen this configuration from the author under the [[https://github.com/narendraj9/hledger-mode#usage][usage header]] of
+the readme. It will need a lot more work to understand and I'm really
+doing here so I've disabled it for now.
+
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package hledger-mode
     ;; :straight t
-    :bind (:map hledger-mode-map
-                ("TAB" . completion-at-point)))
+
+    :mode ("\\.journal\\'" "\\.hledger\\'")
+
+    ;; :commands hledger-enable-reporting
+
+    :preface
+    (defun hledger/next-entry ()
+      "Move to next entry and pulse."
+      (interactive)
+      (hledger-next-or-new-entry)
+      (hledger-pulse-momentary-current-entry))
+
+    (defface hledger-warning-face
+      '((((background dark))
+         :background "Red" :foreground "White")
+        (((background light))
+         :background "Red" :foreground "White")
+        (t :inverse-video t))
+      "Face for warning"
+      :group 'hledger)
+
+    (defun hledger/prev-entry ()
+      "Move to last entry and pulse."
+      (interactive)
+      (hledger-backward-entry)
+      (hledger-pulse-momentary-current-entry))
+
+    :bind (("C-c j" . hledger-run-command)
+           :map hledger-mode-map
+           ("TAB" . completion-at-point)
+           ("C-c e" . hledger-jentry)
+           ("M-p" . hledger/prev-entry)
+           ("M-n" . hledger/next-entry))
+
+    :init
+    (setq hledger-jfile
+          (expand-file-name "~/miscellany/personal/finance/accounting.journal")
+          hledger-email-secrets-file (expand-file-name "secrets.el"
+                                                       emacs-assets-directory))
+    ;; Expanded account balances in the overall monthly report are
+    ;; mostly noise for me and do not convey any meaningful information.
+    (setq hledger-show-expanded-report nil)
+
+    (when (boundp 'my-hledger-service-fetch-url)
+      (setq hledger-service-fetch-url
+            my-hledger-service-fetch-url))
+
+    :config
+    (add-hook 'hledger-view-mode-hook #'hl-line-mode)
+    (add-hook 'hledger-view-mode-hook #'center-text-for-reading)
+
+    (add-hook 'hledger-view-mode-hook
+              (lambda ()
+                (run-with-timer 1
+                                nil
+                                (lambda ()
+                                  (when (equal hledger-last-run-command
+                                               "balancesheet")
+                                    ;; highlight frequently changing accounts
+                                    (highlight-regexp "^.*\\(savings\\|cash\\).*$")
+                                    (highlight-regexp "^.*credit-card.*$"
+                                                      'hledger-warning-face))))))
+
+    (add-hook 'hledger-mode-hook
+              (lambda ()
+                (make-local-variable 'company-backends)
+                (add-to-list 'company-backends 'hledger-company)))))
+
+  (use-package hledger-input
+    :bind (("C-c e" . hledger-capture)
+           :map hledger-input-mode-map
+           ("C-c C-b" . popup-balance-at-point))
+
+    :preface
+    (defun popup-balance-at-point ()
+      "Show balance for account at point in a popup."
+      (interactive)
+      (if-let ((account (thing-at-point 'hledger-account)))
+          (message (hledger-shell-command-to-string (format " balance -N %s "
+                                                            account)))
+        (message "No account at point")))
+
+    :config
+    (setq hledger-input-buffer-height 20)
+    (add-hook 'hledger-input-post-commit-hook #'hledger-show-new-balances)
+    (add-hook 'hledger-input-mode-hook #'auto-fill-mode)
+    (add-hook 'hledger-input-mode-hook
+              (lambda ()
+                (make-local-variable 'company-idle-delay)
+                (setq-local company-idle-delay 0.1)))
+    )
 #+end_src
+
 
 * Corfu for completion-at-point (non-minibuffer kind)
 
@@ -861,10 +963,11 @@ somewhere. Hmm. I doubt I ever use it so disabling it now.
   (use-package projectile
     ;; :ensure t
     :init (setq projectile-completion-system 'default)
-    :bind ("C-c p"    . projectile-command-map)
-    :diminish projectile-mode)
-  (setq projectile-project-search-path '("~/my_gits/" "~/dled_gits/" "~/Journal/"))
-  (projectile-mode +1)
+    :bind ("C-c p" . projectile-command-map)
+    :diminish projectile-mode
+    :config
+    (setq projectile-project-search-path '("~/my_gits/" "~/dled_gits/" "~/Journal/" "~/Ledger"))
+    (projectile-mode +1))
 
   ;; (use-package ibuffer-projectile
   ;;   :after ibuffer
@@ -966,7 +1069,7 @@ but perhaps a lot more dynamic. This might need more work hence adding
     )
     :config
     ;; Running `persp-mode' multiple times resets the perspective list...
-  (unless (equal persp-mode t)
+  (unless (equal (default-value 'persp-mode) t)
     (persp-mode 1)))
 #+END_SRC
 
@@ -2041,15 +2144,33 @@ modeline/. I still need to figure out how to use this properly.
       :bind (("C-`"   . popper-toggle-latest)
              ("M-`"   . popper-cycle)
              ("C-M-`" . popper-toggle-type))
+
       :init
+      ;; assign windows to popper (to appear as popups)
       (setq popper-reference-buffers
             '("\\*Messages\\*"
               "Output\\*$"
-              "^\\*eshell\\*"
-              "^vterm"
+              "\\*Backtrace\\*"
+              "\\*Warnings\\*"
+              ;; terminals as popups
+              "^\\*eshell.*\\*$" eshell-mode
+                "^\\*shell.*\\*$"  shell-mode
+                "^\\*term.*\\*$"   term-mode
+                "^\\*vterm.*\\*$"  vterm-mode
               help-mode
               compilation-mode))
-      (popper-mode +1))
+
+      ;;grouping popups by projectile groups
+      (setq popper-group-function #'popper-group-by-projectile)
+
+      ;; popper UI configguration
+      (setq popper-modeline nil)
+
+      :config
+      (popper-mode +1)
+      ;; echo area hints?
+      (popper-echo-mode +1)
+      )
 #+END_SRC
 
 
@@ -2092,7 +2213,7 @@ Usually 0, less if possible but Emacs doesn't allow for that.
 ** Editor theme
 
 
-*** TODO Initial config for moody I guess
+*** IGNORE Initial config for moody I guess
 
 Something to do with cleaner modeline for =moody.el= although I'm not
 sure it works this way.
@@ -2163,10 +2284,26 @@ within Emacs
 
       ;; Load the theme of your choice:
       ;; (peremacs/call-modus-operandi)
-      (peremacs/call-modus-vivendi)
+      ;; (peremacs/call-modus-vivendi)
       )
 #+END_SRC
 
+
+**** Wilmersdorf for dark theme
+
+I saw this on [[https://github.com/hlissner/emacs-doom-themes][doom-themes]] but I don't want to pull all of those just
+for this, so installing from it's [[https://github.com/ianyepan/wilmersdorf-emacs-theme][GitHub]] using ~straight.el~
+
+#+begin_src emacs-lisp
+  (use-package wilmersdorf
+    :straight(:type git :host github
+                    :repo "ianyepan/wilmersdorf-emacs-theme"
+                    ;; :files ("*.el")
+                    )
+
+    :config
+    (load-theme 'wilmersdorf t))
+#+end_src
 
 **** TODO Elegant Emacs from Nicolas Rougier
 
@@ -2191,7 +2328,7 @@ This is my fork
 #+END_SRC
 
 
-**** Expresso like Alessandro Yorba's vim theme =breve=
+**** Expresso like Alessandro Yorba's vim theme ~breve~
 
 #+BEGIN_SRC emacs-lisp
 ;; (use-package expresso-theme
