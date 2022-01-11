@@ -2121,6 +2121,7 @@ modeline/. I still need to figure out how to use this properly.
 
 #+end_src
 
+
 *** TODO battery on modeline
 
 #+BEGIN_SRC emacs-lisp
@@ -2280,7 +2281,7 @@ within Emacs
       ;; (set-face-attribute 'bold nil :weight 'semibold)
 
       ;; Load the theme files before enabling a theme
-      (modus-themes-load-themes)
+      ;; (modus-themes-load-themes)
 
       ;; Load the theme of your choice:
       ;; (peremacs/call-modus-operandi)
@@ -2292,9 +2293,10 @@ within Emacs
 **** Wilmersdorf for dark theme
 
 I saw this on [[https://github.com/hlissner/emacs-doom-themes][doom-themes]] but I don't want to pull all of those just
-for this, so installing from it's [[https://github.com/ianyepan/wilmersdorf-emacs-theme][GitHub]] using ~straight.el~
+for this, so installing from it's [[https://github.com/ianyepan/wilmersdorf-emacs-theme][GitHub]] using ~straight.el~. But it
+fails to load with ~use-package~ so I'm going to have to do it manually.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (use-package wilmersdorf
     :straight(:type git :host github
                     :repo "ianyepan/wilmersdorf-emacs-theme"
@@ -2303,6 +2305,20 @@ for this, so installing from it's [[https://github.com/ianyepan/wilmersdorf-emac
 
     :config
     (load-theme 'wilmersdorf t))
+#+end_src
+
+The download/setup process should look like this but it'll need some
+work before I can full automate it (since this is a repo that uses
+stow and I'd prefer it be under version control)
+#+begin_src sh :tangle no
+  mkdir ~/.emacs.d/themes
+  cd ~/.emacs.d/themes
+  wget https://raw.githubusercontent.com/ianyepan/wilmersdorf-emacs-theme/master/wilmersdorf-theme.el
+#+end_src
+
+#+begin_src emacs-lisp
+  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+  (load-theme 'wilmersdorf t)
 #+end_src
 
 **** TODO Elegant Emacs from Nicolas Rougier
