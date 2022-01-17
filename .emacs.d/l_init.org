@@ -438,12 +438,12 @@ buffer to vterm so it sticks to the window it was launched with.
 #+end_src
 
 
-** Eshell configuration
+** IGNORE Eshell configuration
 
 Make eshell pop under the main window and not create a window of it's
 own.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (use-package eshell-toggle
     :after eshell
     :bind ("C-M-'" . eshell-toggle)
@@ -962,9 +962,11 @@ somewhere. Hmm. I doubt I ever use it so disabling it now.
   ;; project management
   (use-package projectile
     ;; :ensure t
+    :demand t
     :init (setq projectile-completion-system 'default)
-    :bind ("C-c p" . projectile-command-map)
-    :diminish projectile-mode
+    :bind-keymap
+    ("C-c p" . projectile-command-map)
+    ;; :diminish projectile-mode
     :config
     (setq projectile-project-search-path '("~/my_gits/" "~/dled_gits/" "~/Journal/" "~/Ledger"))
     (projectile-mode +1))
@@ -1056,10 +1058,11 @@ to wayland/wlroots or something?
 
 Independent workspaces for different projects like profiles on RStudio
 but perhaps a lot more dynamic. This might need more work hence adding
-[[https://github.com/nex3/perspective-el][a link]] here.
+[[https://github.com/nex3/perspective-el][a link to the project page]] here.
 
 #+BEGIN_SRC emacs-lisp
   (use-package perspective
+    :demand t
     :bind
     ;; these work with selectrum/vertico i.e. `completing-read'
     ;; type completion systems that are appararently closer to
@@ -2075,50 +2078,92 @@ People seem to use packages for this. I've considered using the
 and I'd like a modeline with a much more fundamental interface
 although it's still a good contender considering it's very simple to
 configure. I'm also considering [[https://github.com/gexplorer/simple-modeline][simple-modeline]]. For now I'll stick to
-using a set of functions shared by [[https://www.reddit.com/r/emacs/comments/mmqjjw/how_rightalign_items_in_modeline/gttjpc4/][pkkm]] /on right aligning items on
+using a set of functions shared by [[https://www.reddit.com/r/emacs/comments/mmqjjw/how_rightalign_items_in_modeline/gttjpc4/][u/pkkm]] /on right aligning items on
 modeline/. I still need to figure out how to use this properly.
 
 #+begin_src emacs-lisp :tangle no
-    ;;; Alignment.
-  ;; Fill functions are from <https://github.com/milkypostman/powerline>.
+        ;;; Alignment.
+      ;; Fill functions are from <https://github.com/milkypostman/powerline>.
 
-  (defvar ml-text-scale-factor 1.0
-    "Scale of mode-line font size to default font size, as a float.
-    This is needed to make sure that text is properly aligned.")
+      (defvar ml-text-scale-factor 1.0
+        "Scale of mode-line font size to default font size, as a float.
+        This is needed to make sure that text is properly aligned.")
 
-  (defun ml-fill-to-center (reserve face)
-    "Return empty space to the center, leaving RESERVE space on the right."
-    (when ml-text-scale-factor
-      (setq reserve (* ml-text-scale-factor reserve)))
-    (propertize " "
-                'display `((space :align-to (- (+ center (.5 . right-margin))
-                                               ,reserve
-                                               (.5 . left-margin))))
-                'face face))
+      (defun ml-fill-to-center (reserve face)
+        "Return empty space to the center, leaving RESERVE space on the right."
+        (when ml-text-scale-factor
+          (setq reserve (* ml-text-scale-factor reserve)))
+        (propertize " "
+                    'display `((space :align-to (- (+ center (.5 . right-margin))
+                                                   ,reserve
+                                                   (.5 . left-margin))))
+                    'face face))
 
-  (defun ml-fill-to-right (reserve face)
-    "Return empty space, leaving RESERVE space on the right."
-    (when ml-text-scale-factor
-      (setq reserve (* ml-text-scale-factor reserve)))
-    (when (and window-system (eq 'right (get-scroll-bar-mode)))
-      (setq reserve (- reserve 2))) ; Powerline uses 3 here, but my scrollbars are narrower.
-    (propertize " "
-                'display `((space :align-to (- (+ right right-fringe right-margin)
-                                               ,reserve)))
-                'face face))
+      (defun ml-fill-to-right (reserve face)
+        "Return empty space, leaving RESERVE space on the right."
+        (when ml-text-scale-factor
+          (setq reserve (* ml-text-scale-factor reserve)))
+        (when (and window-system (eq 'right (get-scroll-bar-mode)))
+          (setq reserve (- reserve 2))) ; Powerline uses 3 here, but my scrollbars are narrower.
+        (propertize " "
+                    'display `((space :align-to (- (+ right right-fringe right-margin)
+                                                   ,reserve)))
+                    'face face))
 
-  (defun ml-render-2-part (left right &optional fill-face)
-    (concat left
-            (ml-fill-to-right (string-width (format-mode-line right)) fill-face)
-            right))
+      (defun ml-render-2-part (left right &optional fill-face)
+        (concat left
+                (ml-fill-to-right (string-width (format-mode-line right)) fill-face)
+                right))
 
-  (defun ml-render-3-part (left center right &optional fill-face)
-    (concat left
-            (ml-fill-to-center (/ (string-width (format-mode-line center)) 2.0) fill-face)
-            center
-            (ml-fill-to-right (string-width (format-mode-line right)) fill-face)
-            right))
+      (defun ml-render-3-part (left center right &optional fill-face)
+        (concat left
+                (ml-fill-to-center (/ (string-width (format-mode-line center)) 2.0) fill-face)
+                center
+                (ml-fill-to-right (string-width (format-mode-line right)) fill-face)
+                right))
 
+    ;; modeline content?
+  (setq-default mode-line-format
+                  '((:eval
+                     (simple-mode-line-render
+                      ;; Left.
+                      (quote (" %5l:%2c "
+                              "%e %1* "
+                              mode-line-buffer-identification
+                              " %3p"))
+                      ;; Right.
+                      (quote (mode-line-frame-identification
+                              mode-line-modes
+                              mode-line-misc-info))))))
+
+#+end_src
+
+Or to keep things legible and simple, [[https://emacs.stackexchange.com/a/37270/23936][ideasman42's solution]]:
+
+#+begin_src emacs-lisp
+  (defun simple-mode-line-render (left right)
+    "Return a string of `window-width' length.
+  Containing LEFT, and RIGHT aligned respectively."
+    (let ((available-width
+           (- (window-total-width)
+              (+ (length (format-mode-line left))
+                 (length (format-mode-line right))))))
+      (append left
+              (list (format (format "%%%ds" available-width) ""))
+              right)))
+
+  (setq-default mode-line-format
+                '((:eval
+                   (simple-mode-line-render
+                    ;; Left.
+                    (quote (" %5l:%2c "
+                            "%e %1* "
+                            mode-line-buffer-identification
+                            " %3p"))
+                    ;; Right.
+                    (quote (mode-line-frame-identification
+                            mode-line-modes
+                            mode-line-misc-info))))))
 #+end_src
 
 
@@ -2283,10 +2328,10 @@ within Emacs
       ;; (set-face-attribute 'bold nil :weight 'semibold)
 
       ;; Load the theme files before enabling a theme
-      ;; (modus-themes-load-themes)
+      (modus-themes-load-themes)
 
       ;; Load the theme of your choice:
-      ;; (peremacs/call-modus-operandi)
+      (peremacs/call-modus-operandi)
       ;; (peremacs/call-modus-vivendi)
       )
 #+END_SRC
@@ -2320,8 +2365,9 @@ stow and I'd prefer it be under version control)
 
 #+begin_src emacs-lisp
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-  (load-theme 'wilmersdorf t)
+  ;; (load-theme 'wilmersdorf t)
 #+end_src
+
 
 **** TODO Elegant Emacs from Nicolas Rougier
 
