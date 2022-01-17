@@ -1083,7 +1083,7 @@ Simpler navigation between open Emacs windows
     ;; :bind ((M-o . ace-window))
     :init
     (setq aw-keys '(?a ?s ?d ?f ?j ?k ?l ?o))
-    (global-set-key (kbd "M-o") 'ace-window)
+    (global-set-key (kbd "C-x o") 'ace-window)
     :diminish ace-window-mode)
 #+END_SRC
 
@@ -1455,7 +1455,7 @@ Persist history over Emacs restarts. Vertico sorts by history position.
 #+END_SRC
 
 
-** TODO Embark - actions; reorganise and make this a title by itself
+** TODO Embark - actions; reorganise
 
 This I've not used yet but makes a lot of stuff easier like
 searchingfor the =definition= or the =help/info= page a highlighted
@@ -1960,7 +1960,7 @@ see [[https://github.com/daviwil/dotfiles/blob/9776d65c4486f2fa08ec60a06e86ecb6d
 * UI configuration
 
 
-** highlighted line-mode
+** Highlighted line-mode
 
 #+NAME: cursorline
 #+BEGIN_SRC emacs-lisp
@@ -1983,7 +1983,7 @@ see [[https://github.com/daviwil/dotfiles/blob/9776d65c4486f2fa08ec60a06e86ecb6d
 #+END_SRC
 
 
-** TODO figure out what this is about
+** Something about underlines
 
 Underline line at descent position, not baseline position
 
@@ -1992,9 +1992,9 @@ Underline line at descent position, not baseline position
 #+END_SRC
 
 
-** TODO figure this out too - No ugly button for checkboxes
+** IGNORE figure this out too - No ugly button for checkboxes
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (setq widget-image-enable nil)
 #+END_SRC
 
@@ -2138,7 +2138,7 @@ modeline/. I still need to figure out how to use this properly.
 #+END_SRC
 
 
-** Better popups
+** IN-PROGRESS Better popups
 
 #+BEGIN_SRC emacs-lisp
   (use-package popper
@@ -2155,9 +2155,9 @@ modeline/. I still need to figure out how to use this properly.
               "\\*Warnings\\*"
               ;; terminals as popups
               "^\\*eshell.*\\*$" eshell-mode
-                "^\\*shell.*\\*$"  shell-mode
-                "^\\*term.*\\*$"   term-mode
-                "^\\*vterm.*\\*$"  vterm-mode
+                "^\\*shell.*\\*$" shell-mode
+                "^\\*term.*\\*$" term-mode
+                "^\\*vterm.*\\*$" vterm-mode
               help-mode
               compilation-mode
               ;;magit stuff
@@ -2235,7 +2235,7 @@ sure it works this way.
 *** Externally sourced
 
 
-**** TODO Modus themes from Protesilaos!
+**** Modus themes from Protesilaos!
 
 This might need additional setting since modus themes are now included
 within Emacs
@@ -2292,7 +2292,7 @@ within Emacs
 #+END_SRC
 
 
-**** Wilmersdorf for dark theme
+**** IN-PROGRESS Wilmersdorf for dark theme
 
 I saw this on [[https://github.com/hlissner/emacs-doom-themes][doom-themes]] but I don't want to pull all of those just
 for this, so installing from it's [[https://github.com/ianyepan/wilmersdorf-emacs-theme][GitHub]] using ~straight.el~. But it
@@ -2393,7 +2393,7 @@ An elegant theme highlighting comments only
 #+END_SRC
 
 
-*** TODO My themes (LOL)
+*** IN-PROGRESS My themes (LOL)
 
 Neither of these work using =straight.el= or =use-package=, together
 or separately (afaik). If these work, I could maybe add some more of
