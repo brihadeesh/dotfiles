@@ -1299,7 +1299,7 @@ Again stolen from Karthik Chikmaglur and needs heavy work, hence not enabled
 
 #+begin_src emacs-lisp :tangle no
 (use-package vertico-multiform
-  :load-path "~/.emacs.d/straight/repos/vertico/extensions/"
+  :load-path "~/.emacs.d/lisp/vertico-extensions/"
   :commands vertico-multiform-mode
   :after vertico-flat
   :bind (:map vertico-map
@@ -1347,7 +1347,7 @@ Again stolen from Karthik Chikmaglur and needs heavy work, hence not enabled
   :after vertico-flat)
 
 (use-package vertico-grid
-  :load-path "~/.emacs.d/straight/repos/vertico/extensions/"
+  :load-path "~/.emacs.d/lisp/vertico-extensions/"
   :after vertico
   ;; :bind (:map vertico-map ("M-q" . vertico-grid-mode))
   :config
@@ -1366,7 +1366,7 @@ Again stolen from Karthik Chikmaglur and needs heavy work, hence not enabled
   (setq vertico-grid-lookahead 50))
 
 (use-package vertico-quick
-  :load-path "~/.emacs.d/straight/repos/vertico/extensions/"
+  :load-path "~/.emacs.d/lisp/vertico-extensions/"
   :after vertico
   :bind (:map vertico-map
          ("M-i" . vertico-quick-insert)
@@ -1380,7 +1380,7 @@ Again stolen from Karthik Chikmaglur and needs heavy work, hence not enabled
       (embark-act arg))))
 
 (use-package vertico-directory
-  :load-path "~/.emacs.d/straight/repos/vertico/extensions/"
+  :load-path "~/.emacs.d/lisp/vertico-extensions/"
   :hook (rfn-eshadow-update-overlay vertico-directory-tidy)
   :after vertico
   :bind (:map vertico-map
@@ -1390,23 +1390,23 @@ Again stolen from Karthik Chikmaglur and needs heavy work, hence not enabled
          ("RET"   . vertico-directory-enter)))
 
 (use-package vertico-repeat
-  :load-path "~/.emacs.d/straight/repos/vertico/extensions/"
+  :load-path "~/.emacs.d/lisp/vertico-extensions/"
   :after vertico
   :bind (("C-x ." . vertico-repeat))
 
 (use-package vertico-reverse
   ;; :disabled
-  :load-path "~/.emacs.d/straight/repos/vertico/extensions/"
+  :load-path "~/.emacs.d/lisp/vertico-extensions/"
   :after vertico)
 
 (use-package vertico-flat
-  :load-path "~/.emacs.d/straight/repos/vertico/extensions/"
+  :load-path "~/.emacs.d/lisp/vertico-extensions/"
   ;; :bind (:map vertico-map
   ;;             ("M-q" . vertico-flat-mode))
   :after vertico)
 
 (use-package vertico-buffer
-  :load-path "~/.emacs.d/straight/repos/vertico/extensions/"
+  :load-path "~/.emacs.d/lisp/vertico-extensions/"
   :after vertico
   ;; :hook (vertico-buffer-mode . vertico-buffer-setup)
   :config

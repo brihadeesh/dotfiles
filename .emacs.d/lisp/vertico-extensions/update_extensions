@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# lists files in the vertico repo cloned by straight and then
+# downloads them using wget. Might have to figure out version control
+# because this very likely will not work with files that already exist
+# in the directory. I used some form of this for downloading them in
+# the first place.
+
+refer_dir=/home/peregrinator/.emacs.d/straight/repos/vertico/extensions
+
+for i in $refer_dir/* ; do
+    wget https://raw.githubusercontent.com/minad/vertico/main/extensions/$(basename $i) ;
+done
