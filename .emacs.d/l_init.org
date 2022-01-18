@@ -223,7 +223,7 @@ when I thought I understood what I was doing)
 #+END_SRC
 
 
-** Org-mode as the *initial major mode*
+** Org-mode as the /initial major mode/
 
 #+NAME: start-with-org
 #+BEGIN_SRC emacs-lisp
@@ -373,6 +373,14 @@ first code block can be evaluated using =C-c C-c=:
 #+END_SRC
 
 
+
+** Prompt before closing Emacs
+
+#+begin_src emacs-lisp
+;; Confirm when killing Emacs
+(setq confirm-kill-emacs (lambda (prompt)
+                           (y-or-n-p-with-timeout prompt 2 nil)))
+#+end_src
 
 * TODO SSH for personal packages and magit
 
@@ -1077,6 +1085,21 @@ but perhaps a lot more dynamic. This might need more work hence adding
 #+END_SRC
 
 
+** Undo disrupted window/frame arrangement after using some shit
+
+Stolen from [[https://github.com/karthinks/emacs.d][Karthik Chikmaglur's emacs.d]]
+
+#+begin_src emacs-lisp
+  (use-package winner
+    :disabled
+    :commands winner-undo
+    :bind (("C-x C-/" . winner-undo)
+           ("s-/" . winner-undo)
+           ("s-S-/" . winner-redo))
+    :config
+    (winner-mode +1))
+#+end_src
+
 ** Ace-window
 
 Simpler navigation between open Emacs windows
@@ -1136,6 +1159,47 @@ Focuses new windows when created.
   ;;     (other-window 1)))
   #+END_SRC
 
+
+
+** IN-PROGRESS Better popups
+
+#+BEGIN_SRC emacs-lisp
+  (use-package popper
+      :bind (("C-`"   . popper-toggle-latest)
+             ("M-`"   . popper-cycle)
+             ("C-M-`" . popper-toggle-type))
+
+      :init
+      ;; assign windows to popper (to appear as popups)
+      (setq popper-reference-buffers
+            '("\\*Messages\\*"
+              "Output\\*$"
+              "\\*Backtrace\\*"
+              "\\*Warnings\\*"
+              "^Calc:"
+              "^\\*ielm\\*"
+              ;; terminals as popups
+              "^\\*eshell.*\\*$" eshell-mode
+              "^\\*shell.*\\*$" shell-mode
+              "^\\*term.*\\*$" term-mode
+              "^\\*vterm.*\\*$" vterm-mode
+              help-mode
+              compilation-mode
+              ;;magit stuff
+              "^magit:*" magit-mode))
+
+      ;;grouping popups by projectile groups
+      (setq popper-group-function #'popper-group-by-projectile)
+
+      ;; popper UI configguration
+      (setq popper-modeline nil)
+
+      :config
+      (popper-mode +1)
+      ;; echo area hints?
+      (popper-echo-mode +1)
+      )
+#+END_SRC
 
 
 * Display keybinds following various prefixes such as =C-h=
@@ -1217,29 +1281,137 @@ behaviour in Emacs.
 #+BEGIN_SRC emacs-lisp
   ;; Enable vertico
   (use-package vertico
+    ;; pulls extensions as well?
+    ;; :straight (:host github :repo "minad/vertico")
+
     :init
     (vertico-mode)
 
-    ;; Different scroll margin
-    ;; (setq vertico-scroll-margin 0)
-
-    ;; Show more candidates
-    ;; (setq vertico-count 20)
-
+    :config
     ;; Grow and shrink the Vertico minibuffer
     (setq vertico-resize t)
-
-    ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
-    ;; (setq vertico-cycle t)
-    )
-
-  ;; Optionally use the `orderless' completion style. See
-  ;; `+orderless-dispatch' in the Consult wiki for an advanced Orderless style
-  ;; dispatcher. Additionally enable `partial-completion' for file path
-  ;; expansion. `partial-completion' is important for wildcard support.
-  ;; Multiple files can be opened at once with `find-file' if you enter a
-  ;; wildcard. You may also give the `initials' completion style a try.
+    (advice-add #'tmm-add-prompt :after #'minibuffer-hide-completions))
 #+END_SRC
+
+*** TODO Vertico extensions
+
+Again stolen from Karthik Chikmaglur and needs heavy work, hence not enabled
+
+#+begin_src emacs-lisp :tangle no
+(use-package vertico-multiform
+  :load-path "~/.emacs.d/straight/repos/vertico/extensions/"
+  :commands vertico-multiform-mode
+  :after vertico-flat
+  :bind (:map vertico-map
+              ("M-q" . vertico-multiform-grid)
+              ("C-l" . vertico-multiform-unobtrusive)
+              ("C-M-l" . embark-export))
+  :init (vertico-multiform-mode 1)
+  :config
+  (setq vertico-multiform-categories
+         '((file my/vertico-grid-mode reverse)
+           (project-file my/vertico-grid-mode reverse)
+           (imenu buffer)
+           (consult-location buffer)
+           (consult-grep buffer)
+           (notmuch-result reverse)
+           (minor-mode reverse)
+           (reftex-label reverse)
+           (bib-reference reverse)
+           (xref-location reverse)
+           (t unobtrusive)))
+   (setq vertico-multiform-commands
+         '((load-theme my/vertico-grid-mode reverse)
+           (my/toggle-theme my/vertico-grid-mode reverse)
+           (consult-dir-maybe reverse)
+           (consult-dir reverse)
+           (consult-history reverse)
+           (consult-completion-in-region reverse)
+           (completion-at-point reverse)
+           (org-roam-node-find reverse)
+           (embark-completing-read-prompter reverse)
+           (embark-act-with-completing-read reverse)
+           (embark-prefix-help-command reverse)
+           (tmm-menubar reverse)))
+
+   (defun vertico-multiform-unobtrusive ()
+     "Toggle the quiet display."
+     (interactive)
+     (vertico-multiform--display-toggle 'vertico-unobtrusive-mode)
+     (if vertico-unobtrusive-mode
+         (vertico-multiform--temporary-mode 'vertico-reverse-mode -1)
+       (vertico-multiform--temporary-mode 'vertico-reverse-mode 1))))
+
+(use-package vertico-unobtrusive
+  :load-path "~/.local/share/git/vertico/extensions/"
+  :after vertico-flat)
+
+(use-package vertico-grid
+  :load-path "~/.emacs.d/straight/repos/vertico/extensions/"
+  :after vertico
+  ;; :bind (:map vertico-map ("M-q" . vertico-grid-mode))
+  :config
+  (defvar my/vertico-count-orig vertico-count)
+  (define-minor-mode my/vertico-grid-mode
+    "Vertico-grid display with modified row count."
+    :global t :group 'vertico
+    (cond
+     (my/vertico-grid-mode
+      (setq my/vertico-count-orig vertico-count)
+      (setq vertico-count 4)
+      (vertico-grid-mode 1))
+     (t (vertico-grid-mode 0)
+        (setq vertico-count my/vertico-count-orig))))
+  (setq vertico-grid-separator "    ")
+  (setq vertico-grid-lookahead 50))
+
+(use-package vertico-quick
+  :load-path "~/.emacs.d/straight/repos/vertico/extensions/"
+  :after vertico
+  :bind (:map vertico-map
+         ("M-i" . vertico-quick-insert)
+         ("C-'" . vertico-quick-exit)
+         ("C-o" . vertico-quick-embark))
+  :config
+  (defun vertico-quick-embark (&optional arg)
+    "Embark on candidate using quick keys."
+    (interactive)
+    (when (vertico-quick-jump)
+      (embark-act arg))))
+
+(use-package vertico-directory
+  :load-path "~/.emacs.d/straight/repos/vertico/extensions/"
+  :hook (rfn-eshadow-update-overlay vertico-directory-tidy)
+  :after vertico
+  :bind (:map vertico-map
+         ("DEL"   . vertico-directory-delete-char)
+         ("M-DEL" . vertico-directory-delete-word)
+         ("C-w"   . vertico-directory-delete-word)
+         ("RET"   . vertico-directory-enter)))
+
+(use-package vertico-repeat
+  :load-path "~/.emacs.d/straight/repos/vertico/extensions/"
+  :after vertico
+  :bind (("C-x ." . vertico-repeat))
+
+(use-package vertico-reverse
+  ;; :disabled
+  :load-path "~/.emacs.d/straight/repos/vertico/extensions/"
+  :after vertico)
+
+(use-package vertico-flat
+  :load-path "~/.emacs.d/straight/repos/vertico/extensions/"
+  ;; :bind (:map vertico-map
+  ;;             ("M-q" . vertico-flat-mode))
+  :after vertico)
+
+(use-package vertico-buffer
+  :load-path "~/.emacs.d/straight/repos/vertico/extensions/"
+  :after vertico
+  ;; :hook (vertico-buffer-mode . vertico-buffer-setup)
+  :config
+  (setq vertico-buffer-display-action 'display-buffer-reuse-window))
+#+end_src
 
 
 ** Orderless completion
@@ -2183,45 +2355,6 @@ Or to keep things legible and simple, [[https://emacs.stackexchange.com/a/37270/
 #+END_SRC
 
 
-** IN-PROGRESS Better popups
-
-#+BEGIN_SRC emacs-lisp
-  (use-package popper
-      :bind (("C-`"   . popper-toggle-latest)
-             ("M-`"   . popper-cycle)
-             ("C-M-`" . popper-toggle-type))
-
-      :init
-      ;; assign windows to popper (to appear as popups)
-      (setq popper-reference-buffers
-            '("\\*Messages\\*"
-              "Output\\*$"
-              "\\*Backtrace\\*"
-              "\\*Warnings\\*"
-              ;; terminals as popups
-              "^\\*eshell.*\\*$" eshell-mode
-                "^\\*shell.*\\*$" shell-mode
-                "^\\*term.*\\*$" term-mode
-                "^\\*vterm.*\\*$" vterm-mode
-              help-mode
-              compilation-mode
-              ;;magit stuff
-              magit-mode))
-
-      ;;grouping popups by projectile groups
-      (setq popper-group-function #'popper-group-by-projectile)
-
-      ;; popper UI configguration
-      (setq popper-modeline nil)
-
-      :config
-      (popper-mode +1)
-      ;; echo area hints?
-      (popper-echo-mode +1)
-      )
-#+END_SRC
-
-
 ** Font configuration
 
 
@@ -2456,3 +2589,60 @@ themes of my own that use this macro.
     ;;(load-theme 'beelzebub t)
     )
 #+END_SRC
+
+
+** Pulse to locate cursor
+
+Also stolen from Karthik Chikmaglur
+
+#+begin_src emacs-lisp :tangle no
+(use-package pulse
+  :custom-face
+  (pulse-highlight-start-face ((t (:inherit region))))
+  (pulse-highlight-face ((t (:inherit region))))
+  :hook (((dumb-jump-after-jump
+           imenu-after-jump) . my/recenter-and-pulse)
+         ((bookmark-after-jump
+           magit-diff-visit-file
+           next-error) . my/recenter-and-pulse-line))
+  :init
+  (add-hook 'after-make-frame-functions
+            (defun my/pulse-type (_frame)
+              (when window-system (setq pulse-flag t))))
+
+  (with-no-warnings
+    (defun my/pulse-momentary-line (&rest _)
+      "Pulse the current line."
+      (pulse-momentary-highlight-one-line (point)))
+
+    (defun my/pulse-momentary (&rest _)
+      "Pulse the region or the current line."
+      (if (fboundp 'xref-pulse-momentarily)
+          (xref-pulse-momentarily)
+        (my/pulse-momentary-line)))
+
+    (defun my/recenter-and-pulse(&rest _)
+      "Recenter and pulse the region or the current line."
+      (recenter)
+      (my/pulse-momentary))
+
+    (defun my/recenter-and-pulse-line (&rest _)
+      "Recenter and pulse the current line."
+      (recenter)
+      (my/pulse-momentary-line))
+
+    (defun my/pulse-momentary-upper-bound (&rest _)
+      "Pulse the upper scrolling bound of the screen."
+      (save-excursion
+        (move-to-window-line next-screen-context-lines)
+        (my/pulse-momentary-line)))
+
+    (defun my/pulse-momentary-lower-bound (&rest _)
+      "Pulse the lower scrolling bound of the screen."
+      (save-excursion
+        (move-to-window-line (- next-screen-context-lines))
+        (my/pulse-momentary-line)))
+
+    (advice-add 'scroll-up-command   :after #'my/pulse-momentary-upper-bound)
+    (advice-add 'scroll-down-command :after #'my/pulse-momentary-lower-bound)
+#+end_src
