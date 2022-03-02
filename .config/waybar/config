@@ -7,7 +7,7 @@
 	"height": 20, // Waybar height (to be removed for auto height)
 
 	// Choose the order of the modules
-	"modules-left": ["custom/time", "custom/bat"],
+	"modules-left": ["clock", "battery"],
 	"modules-center": ["sway/window"],
 	"modules-right": ["sway/mode", "sway/workspaces"],
 
@@ -19,19 +19,37 @@
 	},
 
 	// custom battery script
-	"custom/bat": {
-    	    "exec": "bash ~/.config/waybar/batt",
-    	    "format": "{}",
-	    "interval": 30
-	},
+	// "custom/bat": {
+    	//    "exec": "bash ~/.config/waybar/batt",
+    	//    "format": "{}",
+	//    "interval": 30
+	//},
+
+	"battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "Bat {capacity}%",
+        "format-charging": "Chr {capacity}%",
+        "format-plugged": "Ful {capacity}% ",
+        "format-alt": "{time}"
+    },
+
+    "clock": {
+        // "timezone": "America/New_York",
+        "tooltip-format": "{%H:%M}",
+        "format-alt": "{:%Y-%m-%d}"
+    },
 
 	// custom time
 	// TODO still needs work
-	"custom/time": {
-    	    "exec": "date +'%b %d | %H:%M'",
-	    "format": "  {} · ",
-	    "interval": 60
-	},
+	//"custom/time": {
+    	//    "exec": "date +'%b %d | %H:%M'",
+	//    "format": "  {} · ",
+	//    "interval": 60
+	//},
 
 	"sway/window": {
 	    "max-length": 30,

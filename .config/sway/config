@@ -20,7 +20,8 @@ set $term alacritty
 # on the original workspace that the command was run on.
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
 # set $menu wofi --show run | xargs swaymsg exec --
-set $menu "fuzzel -f 'M+ 1mn:size=10' -P '*>  '"
+# set $menu "fuzzel -f 'M+ 1mn:size=10' -P '*>  '"
+set $menu "fuzzel -f 'Hack:size=10' -P '*>  '"
 
 ### Output configuration
 #
@@ -62,7 +63,7 @@ output * bg #212121 solid_color
 # Read `man 5 sway-input` for more information about this section.
 
 # touchpad configuration
-input "2:7:SynPS/2_Synaptics_TouchPad" {
+input "1739:0:Synaptics_TM3127-001" {
 dwt enabled
 tap enabled
 natural_scroll enabled

@@ -127,7 +127,7 @@ modus-operandi: &operandi
 colors: *vivendi
 
 # opacity for
-background_opacity: 1.0
+# background_opacity: 1.0
 
 key_bindings:
   - { key: V,        mods: Control|Shift,    action: Paste               }

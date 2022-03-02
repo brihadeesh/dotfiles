@@ -6,7 +6,7 @@
 
 # LANG=en_GB.UTF-8
 # LC_ALL=C
-LC_ALL=C.UTF-8
+LC_ALL=en_US.UTF-8
 # export LANG
 export LC_ALL
 
@@ -38,7 +38,7 @@ if test -z "${XDG_RUNTIME_DIR}"; then
  	chmod 0700 "${XDG_RUNTIME_DIR}"
     fi
 fi
-if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/ttyv0 ]]; then
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
 	exec sway;
 	# exec hikari;
 fi
