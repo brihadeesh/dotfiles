@@ -2,7 +2,7 @@
     border: none;
     border-radius: 0;
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: "M+ 1mn";
+    font-family: "Ubuntu Mono";
     font-size: 12px;
     min-height: 0;
 }

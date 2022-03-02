@@ -31,10 +31,11 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "Bat {capacity}%",
-        "format-charging": "Chr {capacity}%",
-        "format-plugged": "Ful {capacity}% ",
-        "format-alt": "{time}"
+        "format": "{capacity}%",
+        "format-charging": "{capacity}%",
+        "format-plugged": "{capacity}% "
+	//,
+        // "format-alt": "{time}"
     },
 
     "clock": {
