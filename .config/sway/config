@@ -270,7 +270,7 @@ client.urgent            	#ffff00  #ffff00     #ffffff  #ffff00
 # Autostart?
 #
 
-exec backlight 25% &
+exec light -S 30% &
 exec fnott &
 exec rdshft &
 
