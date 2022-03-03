@@ -21,7 +21,7 @@ set $term alacritty
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
 # set $menu wofi --show run | xargs swaymsg exec --
 # set $menu "fuzzel -f 'M+ 1mn:size=10' -P '*>  '"
-set $menu "fuzzel -f 'Hack:size=10' -P '*>  '"
+set $menu "fuzzel -f 'Terminus (TTF):size=12' -P '*>  '"
 
 ### Output configuration
 #
@@ -220,8 +220,8 @@ bindsym $mod+r mode "resize"
 #
 # FN keys:
 #
-bindsym F2 exec "backlight decr"
-bindsym F3 exec "backlight incr"
+bindsym XF86MonBrightnessDown exec "backlight decr"
+bindsym XF86MonBrightnessUp exec "backlight incr"
 
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%

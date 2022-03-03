@@ -17,18 +17,18 @@ scrolling:
 draw_bold_text_with_bright_colors: false
 font:
   normal:
-    family: Hack
-    style:  Regular
+    family: Terminus (TTF)
+    style:  Medium
   bold:
-    family: Hack
+    family: Terminus (TTF)
     style:  Bold
   italic:
-    family: Hack
+    family: Terminus (TTF)
     style:  Italic
   bold-italic:
-    family: Hack
+    family: Terminus (TTF)
     style:  Bold Italic
-  size: 8
+  size: 9
   offset:
     x: 0
     y: 0

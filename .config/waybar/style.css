@@ -2,7 +2,7 @@
     border: none;
     border-radius: 0;
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: "Ubuntu Mono";
+    font-family: "Terminus (TTF)";
     font-size: 12px;
     min-height: 0;
 }
@@ -82,7 +82,7 @@ window#waybar.firefox {
 
 #window,
 #workspaces {
-    margin: 0 4px;
+    margin: 0 8px;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -90,18 +90,18 @@ window#waybar.firefox {
 /*     margin-left: 4px; */
 /* } */
 
-/* If workspaces is the rightmost module, omit right margin */
+/* If workspaces is the rightmost module, omit right margin 
 .modules-right > widget:last-child > #workspaces {
     margin-right: 4px;
-}
+} */
 
 #clock {
     background-color: #64727D;
 }
 
 #battery {
-    background-color: #ffffff;
-    color: #000000;
+    background-color: #64727D;
+    color: #f8f8f8;
 }
 
 #battery.charging, #battery.plugged {
@@ -136,28 +136,3 @@ label:focus {
     min-width: 100px;
 }
 
-#custom-media.custom-spotify {
-    background-color: #66cc99;
-}
-
-#custom-media.custom-vlc {
-    background-color: #ffa000;
-}
-
-
-#mpd {
-    background-color: #66cc99;
-    color: #2a5c45;
-}
-
-#mpd.disconnected {
-    background-color: #f53c3c;
-}
-
-#mpd.stopped {
-    background-color: #90b1b1;
-}
-
-#mpd.paused {
-    background-color: #51a37a;
-}
