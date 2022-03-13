@@ -49,9 +49,6 @@ setxkbmap -option ctrl:nocaps
 # do NOT put commands below the exec lines
 case $session in
 
-    spectrwm)
-	exec spectrwm ;;
-
     dwm)
         ~/.dwm/startdwm.sh ;;
 
@@ -60,38 +57,6 @@ case $session in
 
     hlwm)
         exec herbstluftwm --locked ;;
-
-    cwm)
-	wal -R
-
-	xbanish -i mod4 &
-
-	# hsetroot -solid '#a8d0a9' &
-	hsetroot -extend ~/Pictures/Wallpapers/really_minimal/light/Fondo_iconoaperture.png &
-	# hsetroot -extend Pictures/Wallpapers/really_minimal/dark/TriCircle-Blues.png &
-
-	numlockx on &
-
-	# pkill -x picom
-	# picom -b &
-
-	# rdshft &
-
-	# pkill -x xclock; xclock -strftime "%a %e %b  %H%M h" -geometry 130x18+5+5 -render \
-	    # 			-face  "Spleen:pixelsize=12" -fg SandyBrown -bg
-
-	# # Terminate already running bar instances
-	pkill -x polybar
-	# # Wait until the processes have been shut down
-	while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
-	# # Launch bar
-	polybar -qc cwm &
-
-	# xclock???
-	# pkill -9 xclock
-	# LANG= xclock -strftime " %H:%M | %a %e %b " -geometry 120x18+5-5 -render \
-	    #     -face "Isonorm:size=8" -fg '#fffff0' -bg '#C1EAFE' & # '#14172E' &
-	exec cwm ;;
 
     wmutils)
 	# focus.sh border settings
@@ -162,23 +127,12 @@ case $session in
 
 	# Finally start Emacs
 	exec emacs ;;
+	
+    leftwm)
+	    exec leftwm ;;
 
-    sowm)
-	# redshift &
-	# picom -b &
-	# xsetroot -cursor_name left_ptr &
-	# numlockx &
-	# hsetroot -solid '#666666' &
-	exec sowm ;;
-
-    fvwm)
-	# redshift &
-	picom -b &
-	xsetroot -cursor_name left_ptr &
-	numlockx &
-	xbanish -i mod1 &
-	hsetroot -solid '#666666' &
-	exec fvwm3 ;;
+    mate)
+	    exec mate-session ;;
 
     wmii)
 	exec wmii ;;

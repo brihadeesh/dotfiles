@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sudo iwctl device wlo1 set-property Powered off & sudo iwctl device wlo1 set-property Powered on

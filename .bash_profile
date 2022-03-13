@@ -11,7 +11,7 @@ LC_ALL=en_US.UTF-8
 export LC_ALL
 
 # my shitty scripts + pip binaries
-export PATH=$PATH:$HOME/bin:$HOME/.dotbare
+export PATH=$PATH:$HOME/bin
 
 # dotbare
 # source ~/.dotbare/dotbare.plugin.bash
@@ -41,7 +41,9 @@ if test -z "${XDG_RUNTIME_DIR}"; then
  	chmod 0700 "${XDG_RUNTIME_DIR}"
     fi
 fi
+
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-	exec sway;
+	dbus-run-session sway;
 	# exec hikari;
+	# exec mate-session ;
 fi

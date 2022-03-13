@@ -56,6 +56,6 @@
 (setq inhibit-startup-buffer-menu t)
 
 ;; for when I upgrade to emacs28 with native compilation
-;; (setq native-comp-async-report-warnings-errors 'silent)
+(setq native-comp-async-report-warnings-errors nil)
 
 ;;; early-init.el ends here

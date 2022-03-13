@@ -9,13 +9,30 @@
 
 Lexical binding is required for a lot of stuff here
 
-#+BEGIN_SRC emacs-lisp :comments no :tangle yes
+#+BEGIN_SRC emacs-lisp
   ;; -*- lexical-binding: t -*-
 
   ;; don't follow symlinks? hopefully this solves the
   ;; `symbols function definition is void: org-file-name-concat' error
   (setq vc-follow-symlinks nil)
 #+END_SRC
+
+
+** Reload Emacs configuration
+
+I'm not sure I understand how this works entirely but [[https://github.com/joseph8th/literatemacs#tangle-and-reload][joseph8th's repo]]
+suggests using =M-: (load-file user-init-file) RET= or evaluating that
+same function interactively. I've modified the sanemacs reload config
+function below hoping that it works but in that doesn't happen, this
+first code block can be evaluated using =C-c C-c=:
+
+#+NAME: reload-emacs
+#+BEGIN_SRC emacs-lisp
+  (defun reload-config ()
+    (interactive)
+    (load-file user-init-file))
+#+END_SRC
+
 
 
 * Ensure UTF-8
@@ -66,11 +83,6 @@ Maybe I'll understand what this is about one day
   (add-hook 'after-init-hook #'(lambda ()
                                  ;; restore after startup
                                  (setq gc-cons-threshold 100000000)))
-
-  ;;; Fix this bug:
-  ;;; https://www.reddit.com/r/emacs/comments/cueoug/the_failed_to_download_gnu_archive_is_a_pretty/
-  (when (version< emacs-version "26.3")
-    (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
 #+END_SRC
 
 
@@ -164,6 +176,17 @@ packages used in this config are managed/organized by
           (gitlab . "peregrinator")
           (bitbucket . "peregrinator")))
 #+END_SRC
+
+
+*** Prevent older org-mode versions from being loaded
+
+Check
+[[https://www.reddit.com/r/emacs/comments/qcj33a/problem_and_workaround_with_orgmode_function/hhmmskg/][this
+reddit post]] which I found thankfully.
+
+#+begin_src emacs-lisp
+(straight-use-package 'org)
+#+end_src
 
 
 ** Minimal ~package.el~ setup only to browse packages
@@ -357,23 +380,6 @@ Opens files at last position used. Something about this on [[https://www.emacswi
 #+END_SRC
 
 
-** Reload Emacs configuration
-
-I'm not sure I understand how this works entirely but [[https://github.com/joseph8th/literatemacs#tangle-and-reload][joseph8th's repo]]
-suggests using =M-: (load-file user-init-file) RET= or evaluating that
-same function interactively. I've modified the sanemacs reload config
-function below hoping that it works but in that doesn't happen, this
-first code block can be evaluated using =C-c C-c=:
-
-#+NAME: reload-emacs
-#+BEGIN_SRC emacs-lisp
-  (defun reload-config ()
-    (interactive)
-    (load-file user-init-file))
-#+END_SRC
-
-
-
 ** Prompt before closing Emacs
 
 #+begin_src emacs-lisp
@@ -381,6 +387,7 @@ first code block can be evaluated using =C-c C-c=:
 (setq confirm-kill-emacs (lambda (prompt)
                            (y-or-n-p-with-timeout prompt 2 nil)))
 #+end_src
+
 
 * TODO SSH for personal packages and magit
 
@@ -586,6 +593,8 @@ Scope for adding more such shit?
 
 #+BEGIN_SRC emacs-lisp
   (show-paren-mode 1)
+  ;; Worst possible setting with this theme - it sucks balls
+  ;; (setq show-paren-style 'expression)
 #+END_SRC
 
 
@@ -600,7 +609,7 @@ case. I might end up replacing this with a *lua config*
 #+BEGIN_SRC emacs-lisp
   ;; vimrc syntax
   (use-package vimrc-mode)
-  ;; :ensure t)
+  ;; :ensure t
   (add-to-list 'auto-mode-alist '("\\.vim\\(rc\\)?\\'" . vimrc-mode))
 #+END_SRC
 
@@ -861,7 +870,7 @@ doing here so I've disabled it for now.
     (add-hook 'hledger-mode-hook
               (lambda ()
                 (make-local-variable 'company-backends)
-                (add-to-list 'company-backends 'hledger-company)))))
+                (add-to-list 'company-backends 'hledger-company))))
 
   (use-package hledger-input
     :bind (("C-c e" . hledger-capture)
@@ -893,7 +902,7 @@ doing here so I've disabled it for now.
 
 Transient: only until I can figure corfu out
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package company
         ;; :ensure t
     ;; :bind
@@ -908,6 +917,7 @@ Transient: only until I can figure corfu out
     (after-init-hook . global-company-mode))
 #+END_SRC
 
+
 * TODO Corfu for completion-at-point (non-minibuffer kind)
 
 This might need some more work - integration with [[https://github.com/minad/cape][minad's ~cape~]] for
@@ -915,25 +925,69 @@ various kinds of completions although he alleges this works well with
 base Emacs.
 
 #+NAME: corfu-competions
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
   (use-package corfu
-    :bind
-    ;; Use TAB for cycling, default is `corfu-complete'.
-    (:map corfu-map
-          ("TAB" . corfu-next)
-          ([tab] . corfu-next)
-          ("S-TAB" . corfu-previous)
-          ([backtab] . corfu-previous))
+    :bind (
+           (:map corfu-map
+                 ;; ??? :states 'insert
+                 ("TAB" . corfu-next)
+                 ("S-TAB" . corfu-previous)
+                 ;; ([tab] . corfu-next)
+                 ;; ([backtab] . corfu-previous)
+                 ("<escape>" . corfu-quit)
+                 ("<return>" . corfu-insert)
+                 ("M-d" . corfu-show-documentation)
+                 ("M-l" . 'corfu-show-location))
+           :map corfu-map ("SPC" . corfu-insert-separator))
 
     :config
-    ;; TAB-and-Go customizations
-    ;; Enable cycling for `corfu-next/previous'
-    (setq corfu-cycle t)
-    ;; Disable candidate preselection
-    (setq corfu-preselect-first nil)
+    ;; Only use `corfu' when calling `completion-at-point' or
+    ;; (corfu-auto nil)
+    ;; `indent-for-tab-command'
+    (corfu-auto-prefix 2)
+    (corfu-auto-delay 0.25)
 
-    (corfu-global-mode +1))
+    (corfu-min-width 80)
+    ;; Always have the same width
+    (corfu-max-width corfu-min-width)
+    (corfu-count 14)
+    (corfu-scroll-margin 4)
+    (corfu-cycle nil)
+
+    ;; Show documentation in echo area?
+    (corfu-echo-documentation t)
+
+    ;; Preselect first candidate?
+    (corfu-preselect-first t)
+    ;; Preview current candidate?
+    (corfu-preview-current 'insert)
+
+    (corfu-global-mode))
 #+END_SRC
+
+
+The following might need removal
+
+#+BEGIN_SRC emacs-lisp :tangle no
+  (use-package corfu
+        :bind
+        ;; Use TAB for cycling, default is `corfu-complete'.
+        (:map corfu-map
+              ("TAB" . corfu-next)
+              ([tab] . corfu-next)
+              ("S-TAB" . corfu-previous)
+              ([backtab] . corfu-previous))
+
+        :config
+        ;; TAB-and-Go customizations
+        ;; Enable cycling for `corfu-next/previous'
+        (setq corfu-cycle t)
+        ;; Disable candidate preselection
+        (setq corfu-preselect-first nil)
+
+        (corfu-global-mode +1))
+#+END_SRC
+
 
 ** CAPE - extensions for corfu
 
@@ -941,7 +995,7 @@ Corfu needs ~cape~ to provide completion backends because it's extremely
 stripped down. Will have to check what other backends I'll need to
 enable.
 
-#+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp
   (use-package cape
       :config
       (setq cape-dabbrev-min-length 2)
@@ -960,7 +1014,7 @@ enable.
       ;; (add-to-list 'completion-at-point-functions #'cape-ispell)
       ;; (add-to-list 'completion-at-point-functions #'cape-dict)
       ;; (add-to-list 'completion-at-point-functions #'cape-symbol)
-      ;; (add-to-list 'completion-at-point-functions #'cape-line))
+      ;; (add-to-list 'completion-at-point-functions #'cape-line)
 #+end_src
 
 
@@ -988,7 +1042,7 @@ somewhere. Hmm. I doubt I ever use it so disabling it now.
     ("C-c p" . projectile-command-map)
     ;; :diminish projectile-mode
     :config
-    (setq projectile-project-search-path '("~/my_gits/" "~/dled_gits/" "~/Journal/" "~/Ledger"))
+    (setq projectile-project-search-path '("~/my_gits/" "~/Journal/"))
     (projectile-mode +1))
 
   ;; (use-package ibuffer-projectile
@@ -1111,6 +1165,7 @@ Stolen from [[https://github.com/karthinks/emacs.d][Karthik Chikmaglur's emacs.d
     :config
     (winner-mode +1))
 #+end_src
+
 
 ** Ace-window
 
@@ -1421,7 +1476,7 @@ Again stolen from Karthik Chikmaglur and needs heavy work, hence not enabled
     (use-package vertico-repeat
       :load-path "~/.emacs.d/lisp/vertico-extensions/"
       :after vertico
-      :bind (("C-x ." . vertico-repeat))
+      :bind (("C-x ." . vertico-repeat)))
 #+end_src
 
 #+name:vertico-reverse
@@ -1626,7 +1681,7 @@ Persist history over Emacs restarts. Vertico sorts by history position.
      ("M-s r" . consult-ripgrep)
      ("C-c f r" . consult-recent-file)
      ;; Isearch integration
-     ("C-s" . consult-isearch)
+     ("C-s" . consult-isearch-history)
      ("C-c L" . consult-outline)
      ("C-c L" . consult-org-heading)
      ;; yank from kill-ring
@@ -1895,6 +1950,37 @@ post in my [[file:person_el/sample-org-setup.el][unused local elisp libs]] too.
 #+END_SRC
 
 
+*** Minad's modern UI for org-mode
+
+#+begin_src emacs-lisp
+    (use-package org-modern
+      :config
+      ;; Add frame borders and window dividers
+      (modify-all-frames-parameters
+       '((right-divider-width . 40)
+   (internal-border-width . 0)))
+      (dolist (face '(window-divider
+                  window-divider-first-pixel
+                  window-divider-last-pixel))
+    (face-spec-reset-face face)
+    (set-face-foreground face (face-attribute 'default :background)))
+  (set-face-background 'fringe (face-attribute 'default :background))
+
+  ;; Org settings
+  (setq org-hide-emphasis-markers t
+        org-pretty-entities t
+        org-auto-align-tags nil
+        org-tags-column 0
+        org-ellipsis "…"
+        org-catch-invisible-edits 'show-and-error
+        org-special-ctrl-a/e t
+        org-insert-heading-respect-content t)
+
+      :hook
+      (org-mode-hook . org-modern-mode))
+#+end_src
+
+
 *** =Table of contents= for org-mode files
 
 #+BEGIN_SRC emacs-lisp
@@ -2074,99 +2160,6 @@ see [[https://github.com/daviwil/dotfiles/blob/9776d65c4486f2fa08ec60a06e86ecb6d
       "https://guix.gnu.org/feeds/blog.atom"
       "https://valdyas.org/fading/feed/"
       "https://www.reddit.com/r/emacs/.rss")))
-#+end_src
-
-
-** IN-PROGRESS ERC for IRC
-#+begin_src emacs-lisp :tangle no
-  (use-package erc-hl-nicks
-    :after erc)
-
-  (use-package erc-image
-    :after erc)
-
-  (use-package erc
-    :commands erc
-    :hook (erc-track-list-changed . dw/on-erc-track-list-changed)
-    :config
-    (setq
-        erc-nick "peregrinator"
-        erc-user-full-name "Brihadeesh"
-        erc-prompt-for-password nil
-        erc-auto-query 'bury
-        erc-join-buffer 'bury
-        erc-track-shorten-start 8
-        erc-interpret-mirc-color t
-        erc-rename-buffers t
-        erc-kill-buffer-on-part t
-  ;;      erc-track-exclude '("#twitter_daviwil")
-        erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE" "AWAY")
-        erc-track-enable-keybindings nil
-        erc-track-visibility nil ; Only use the selected frame for visibility
-        erc-track-exclude-server-buffer t
-        erc-fill-column 120
-        erc-fill-function 'erc-fill-static
-        erc-fill-static-center 20
-        erc-image-inline-rescale 400
-        erc-server-reconnect-timeout 10
-        erc-server-reconnect-attempts 5
-        erc-autojoin-channels-alist '(("irc.libera.chat" "#systemcrafters" "#emacs" "#guix"))
-        erc-quit-reason (lambda (s) (or s "Ejecting from cyberspace"))
-        erc-modules
-        '(autoaway autojoin button completion fill irccontrols keep-place
-            list match menu move-to-prompt netsplit networks noncommands
-            readonly ring stamp track image hl-nicks notify notifications))
-
-    (add-hook 'erc-join-hook 'bitlbee-identify)
-    (defun bitlbee-identify ()
-      "If we're on the bitlbee server, send the identify command to the &bitlbee channel."
-      (when (and (string= "127.0.0.1" erc-session-server)
-                 (string= "&bitlbee" (buffer-name)))
-        (erc-message "PRIVMSG" (format "%s identify %s"
-                                       (erc-default-target)
-                                       (password-store-get "IRC/Bitlbee"))))))
-
-  ;; TODO: idk how this works
-  (defun peremacs/connect-irc ()
-    (interactive)
-    (erc-tls :server "irc.libera.chat" :port 3110 :nick "peregrinator"))
-    ;; (erc
-    ;;    :server "127.0.0.1" :port 6667
-    ;;    :nick "daviwil" :password (password-store-get "IRC/Bitlbee")))
-
-  ;; Thanks karthik!
-  (defun erc-image-create-image (file-name)
-    "Create an image suitably scaled according to the setting of
-  'ERC-IMAGE-RESCALE."
-    (let* ((positions (window-inside-absolute-pixel-edges))
-          (width (- (nth 2 positions) (nth 0 positions)))
-          (height (- (nth 3 positions) (nth 1 positions)))
-          (image (create-image file-name))
-          (dimensions (image-size image t))
-          (imagemagick-p (and (fboundp 'imagemagick-types) 'imagemagick)))
-                                          ; See if we want to rescale the image
-      (if (and erc-image-inline-rescale
-              (not (image-multi-frame-p image)))
-          ;; Rescale based on erc-image-rescale
-          (cond (;; Numeric: scale down to that size
-                (numberp erc-image-inline-rescale)
-                (if (> (cdr dimensions) erc-image-inline-rescale)
-                    (create-image file-name imagemagick-p nil :height erc-image-inline-rescale)
-                  image))
-                (;; 'window: scale down to window size, if bigger
-                (eq erc-image-inline-rescale 'window)
-                ;; But only if the image is greater than the window size
-                (if (or (> (car dimensions) width)
-                        (> (cdr dimensions) height))
-                    ;; Figure out in which direction we need to scale
-                    (if (> width height)
-                        (create-image file-name imagemagick-p nil :height  height)
-                      (create-image file-name imagemagick-p nil :width width))
-                  ;; Image is smaller than window, just give that back
-                  image))
-                (t (progn (message "Error: none of the rescaling options matched") image)))
-        ;; No rescale
-        image)))
 #+end_src
 
 
@@ -2388,28 +2381,12 @@ doesn't work well. Will revisit later
 #+end_src
 
 
-*** ~simple-mode-line~ because it's apparently simple
+*** TODO Mood-line because I'm fucking tired
 
-Was hoping I'd get a very minimalist mode-line like Karthik (who's
-somehow becoming something of an obsession now).
-
-#+name: sml-config
 #+begin_src emacs-lisp
-  (use-package smart-mode-line
-    :commands sml/setup
-    :init
-    (setq sml/theme nil)
-    (sml/setup)
-    (unless (version< emacs-version "28.0")
-      (setq mode-line-misc-info
-            '((which-function-mode
-               (which-func-mode
-                ("" which-func-format " ")))
-              ;; (global-mode-string
-              ;;  ("" global-mode-string))
-              )))
+  (use-package mood-line
     :config
-    (setq sml/mode-width 'full)
+    (mood-line-mode)
     )
 #+end_src
 
@@ -2436,9 +2413,8 @@ somehow becoming something of an obsession now).
 *** Setting a font
 
 #+BEGIN_SRC emacs-lisp
-  ;; (set-face-font 'default "Input:size=10")
   ;; (set-face-font 'default "Unifont Medium 8")
-  ;; (set-face-font 'default "Sudo Light 9")
+  ;; (set-face-font 'default "Sudo 9")
   ;; (set-face-font 'default "Roboto Mono-7.5")
   ;; (set-face-font 'default "Anka/Coder:pixelsize=10")
   ;; (set-face-font 'default "Cascadia Mono:style=Light:size=10")
@@ -2447,12 +2423,12 @@ somehow becoming something of an obsession now).
   ;; (set-face-font 'default "mononoki-7.5")
   ;; (set-face-font 'default "Consolas-8")
   (set-face-font 'default "Hack-7.5")
-  ;; (set-face-font 'default "Liga SFMono Nerd Font-7.5")
-  ;; (set-face-font 'default "xos4 Terminus-9")
-  ;; (set-face-font 'default "Anonymous Pro Minus-8.5")
+  ;; (set-face-font 'default "Liga SFMono Nerd Font-8")
+  ;; (set-face-font 'default "Terminus (TTF)-9")
+  ;; (set-face-font 'default "Anonymous Pro-8.5")
   ;; (set-face-font 'default "Dina-8")
   ;; (set-face-font 'default "Droid Sans Mono-7.5")
-  ;; (set-face-font 'default "Inconsolata-9")
+  ;; (set-face-font 'default "Inconsolata:pixelsize=11")
 #+END_SRC
 
 
@@ -2502,12 +2478,16 @@ within Emacs
             modus-themes-region 'no-extend
             modus-themes-mode-line '(2)
             modus-themes-prompts '(backgound bold intense)
-            modus-themes-completions 'opinionated
-            modus-themes-hl-line 'accented
+            ;; modus-themes-hl-line 'accented
             modus-themes-intense-markup t
             modus-themes-region '(no-extend bg-only)
             modus-themes-org-block 'gray-background
             modus-themes-subtle-line-numbers t)
+
+      (setq modus-themes-completions
+            (quote ((matches . (background))
+                   (selection . (semibold background))
+                   (popup . (background)))))
 
       (defun peremacs/call-modus-operandi ()
         (interactive)
@@ -2539,7 +2519,7 @@ within Emacs
       (modus-themes-load-themes)
 
       ;; Load the theme of your choice:
-      (peremacs/call-modus-operandi)
+      ;; (peremacs/call-modus-operandi)
       ;; (peremacs/call-modus-vivendi)
       )
 #+END_SRC
@@ -2551,29 +2531,29 @@ I saw this on [[https://github.com/hlissner/emacs-doom-themes][doom-themes]] but
 for this, so installing from it's [[https://github.com/ianyepan/wilmersdorf-emacs-theme][GitHub]] using ~straight.el~. But it
 fails to load with ~use-package~ so I'm going to have to do it manually.
 
-#+begin_src emacs-lisp :tangle no
-  (use-package wilmersdorf
-    :straight(:type git :host github
-                    :repo "ianyepan/wilmersdorf-emacs-theme"
-                    ;; :files ("*.el")
-                    )
+#+begin_src emacs-lisp
+    (use-package wilmersdorf
+      :straight (:host github :repo "ianyepan/wilmersdorf-emacs-theme")
 
-    :config
-    (load-theme 'wilmersdorf t))
+      :config
+      ;; (load-theme 'wilmersdorf t)
+      )
 #+end_src
 
 The download/setup process should look like this but it'll need some
 work before I can full automate it (since this is a repo that uses
 stow and I'd prefer it be under version control)
+
 #+begin_src sh :tangle no
   mkdir ~/.emacs.d/themes
   cd ~/.emacs.d/themes
   wget https://raw.githubusercontent.com/ianyepan/wilmersdorf-emacs-theme/master/wilmersdorf-theme.el
 #+end_src
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
   ;; (load-theme 'wilmersdorf t)
+
 #+end_src
 
 
@@ -2600,39 +2580,42 @@ This is my fork
 #+END_SRC
 
 
-**** Expresso like Alessandro Yorba's vim theme ~breve~
+
+**** Tao themes
+
+Monochrome theme with minimal bold highlights and boxes?
 
 #+BEGIN_SRC emacs-lisp
-;; (use-package expresso-theme
-  ;;   :recipe ()
-  ;;   :config
-  ;;   (load-theme expresso nil t))
-#+END_SRC
-
-
-**** Zenburn
-
-Needs no introduction
-
-#+BEGIN_SRC emacs-lisp
-  (use-package zenburn-theme
+  (use-package tao-theme
     :config
-    ;; scale headings in org-mode
-    (setq zenburn-scale-org-headlines nil)
-
-    ;; scale headings in outline-mode
-    (setq zenburn-scale-outline-headlines nil)
     ;; load theme
-    ;; (load-theme 'zenburn t)
-    ;; (let ((line (face-attribute 'mode-line :underline)))
-    ;;   (set-face-attribute 'mode-line          nil :overline line)
-    ;;   (set-face-attribute 'mode-line-inactive nil :overline line)
-    ;;   (set-face-attribute 'mode-line-inactive nil :underline line)
-    ;;   (set-face-attribute 'mode-line          nil :box nil)
-    ;;   (set-face-attribute 'mode-line-inactive nil :box nil)
-    ;;   (set-face-attribute 'mode-line-inactive nil :box nil))
+    ;; (load-theme 'tao-yang t)
+    ;; (load-theme 'tao-yin t)
     )
 #+END_SRC
+
+
+**** Expresso theme
+
+#+begin_src emacs-lisp
+(use-package espresso-theme
+    :straight (:host github :repo "dgutov/espresso-theme")
+    ;;:config
+    ;; (load-theme 'espresso t)
+    )
+#+end_src
+
+
+**** Github dark
+
+#+begin_src emacs-lisp
+  (use-package github-dark-vscode-theme
+    :config
+    (load-theme 'github-dark-vscode t)
+    ;; unrelated but the cursor colour really needs improvement
+    (set-cursor-color "#ffffff")
+    )
+#+end_src
 
 
 **** Commentary
@@ -2719,5 +2702,5 @@ Also stolen from Karthik Chikmaglur
         (my/pulse-momentary-line)))
 
     (advice-add 'scroll-up-command   :after #'my/pulse-momentary-upper-bound)
-    (advice-add 'scroll-down-command :after #'my/pulse-momentary-lower-bound)
+    (advice-add 'scroll-down-command :after #'my/pulse-momentary-lower-bound)))
 #+end_src
