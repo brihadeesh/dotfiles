@@ -696,7 +696,7 @@ Like really?
 
 Finally figured this out from a [[https://redd.it/ahysvb][reddit post from 2019]].
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   ;; flyspell + aspell??
   (setq ispell-dictionary "en_GB")
   (setq ispell-program-name "hunspell")
@@ -713,6 +713,22 @@ Finally figured this out from a [[https://redd.it/ahysvb][reddit post from 2019]
   ;; hook to check spelling for comments in code
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 #+END_SRC
+
+*** Trying something else...
+
+... because Void linux keeps complaining about not being able to find
+a British English dictionary
+
+#+begin_src emacs-lisp
+  (setq ispell-program-name "aspell")
+  ;; Please note ispell-extra-args contains ACTUAL parameters passed to aspell
+  (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_GB"))
+
+  ;; hook for text mode
+  (add-hook 'text-mode-hook 'flyspell-mode)
+  ;; hook to check spelling for comments in code
+  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+#+end_src
 
 
 ** Something like scrivener from Mac
@@ -1024,9 +1040,11 @@ Helps revert to older versions of files in case I fuck up something
 somewhere. Hmm. I doubt I ever use it so disabling it now.
 
 #+BEGIN_SRC emacs-lisp
-    (use-package undo-tree
-      :init (global-undo-tree-mode)
-      :diminish undo-tree-mode)
+  (use-package undo-tree
+    :init
+    (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
+    (global-undo-tree-mode)
+    :diminish undo-tree-mode)
 #+END_SRC
 
 
@@ -1768,91 +1786,100 @@ completion list.
 - [X] Get the damn thing first
 - [ ] Organise the thing - needs splitting into multiple code blocks.
 
+
+** Basic configuration
 #+BEGIN_SRC emacs-lisp
-        (use-package org
-          ;;:defer t
-          ;;:hook (org-mode . dw/org-mode-setup)
-          :config
-          (setq org-ellipsis " ▾"
-                org-hide-emphasis-markers t
-                org-src-fontify-natively t
-                org-fontify-quote-and-verse-blocks t
-                org-src-tab-acts-natively t
-                ;; org-edit-src-content-indentation 2
-                org-hide-block-startup nil
-                org-src-preserve-indentation nil
-                ;; org-startup-folded 'content
-                org-cycle-separator-lines 2
-                org-capture-bookmark nil)
+  (use-package org
+    ;;:defer t
+    ;;:hook (org-mode . dw/org-mode-setup)
+    :config
+    (setq ;; org-ellipsis " ▾"
+     ;; hide markers for bold, italic, etc
+     org-hide-emphasis-markers t
+     ;; fontify code in code blocks
+     org-src-fontify-natively t
+     org-fontify-quote-and-verse-blocks t
+     org-src-tab-acts-natively t
+     ;; org-edit-src-content-indentation 2
+     org-hide-block-startup nil
+     org-src-preserve-indentation nil
+     ;; org-startup-folded 'content
+     org-cycle-separator-lines 2
+     org-capture-bookmark nil
+     org-hide-leading-stars t
+     ;; display numbers instead of bullets for headings
+     org-num-mode t
+     )
 
-          ;;(setq org-modules
-          ;;  '(org-crypt
-          ;;      org-habit
-          ;;      org-bookmark
-          ;;      org-eshell
-          ;;      org-irc))
+    ;;(setq org-modules
+    ;;  '(org-crypt
+    ;;      org-habit
+    ;;      org-bookmark
+    ;;      org-eshell
+    ;;      org-irc))
 
-          (setq org-refile-targets '((nil :maxlevel . 1)
-                                     (org-agenda-files :maxlevel . 1)))
+    (setq org-refile-targets '((nil :maxlevel . 5)
+                               (org-agenda-files :maxlevel . 5)))
 
-          (setq org-outline-path-complete-in-steps nil)
-          (setq org-refile-use-outline-path t)
+    (setq org-outline-path-complete-in-steps nil)
+    (setq org-refile-use-outline-path t)
 
-          ;; get something like this for regular emacs bindings
-          ;;(evil-define-key '(normal insert visual) org-mode-map (kbd "C-j") 'org-next-visible-heading)
-          ;;(evil-define-key '(normal insert visual) org-mode-map (kbd "C-k") 'org-previous-visible-heading)
-          ;;(evil-define-key '(normal insert visual) org-mode-map (kbd "M-j") 'org-metadown)
-          ;;(evil-define-key '(normal insert visual) org-mode-map (kbd "M-k") 'org-metaup)
+    ;; get something like this for regular emacs bindings
+    ;;(evil-define-key '(normal insert visual) org-mode-map (kbd "C-j") 'org-next-visible-heading)
+    ;;(evil-define-key '(normal insert visual) org-mode-map (kbd "C-k") 'org-previous-visible-heading)
+    ;;(evil-define-key '(normal insert visual) org-mode-map (kbd "M-j") 'org-metadown)
+    ;;(evil-define-key '(normal insert visual) org-mode-map (kbd "M-k") 'org-metaup)
 
-          (org-babel-do-load-languages
-           'org-babel-load-languages
-           '((emacs-lisp . t)
-             (R . t)
-             ;;(ledger . t)
-             ))
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((emacs-lisp . t)
+       (R . t)
+       ;;(ledger . t)
+       ))
 
-          (use-package org-superstar
-            :after org
-            :hook (org-mode . org-superstar-mode)
-            :custom
-            (org-superstar-remove-leading-stars t)
-            (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
+    ;; (use-package org-superstar
+    ;;   :after org
+    ;;   :hook (org-mode . org-superstar-mode)
+    ;;   :custom
+    ;;   (org-superstar-remove-leading-stars t)
+    ;;   ;;(org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●"))
+    ;;   )
 
-          ;; Replace list hyphen with dot
-       (font-lock-add-keywords 'org-mode
-                               '(("^ *\\([-]\\) "
-                                  (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+    ;; Replace list hyphen with dot
+    (font-lock-add-keywords 'org-mode
+                            '(("^ *\\([-]\\) "
+                               (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
-       ;; Make sure org-indent face is available
-       (require 'org-indent)
+    ;; Make sure org-indent face is available
+    (require 'org-indent)
 
-       ;; Ensure that anything that should be fixed-pitch in Org files appears that way
-       (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
-       (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
-       (set-face-attribute 'org-formula nil :inherit 'fixed-pitch)
-       (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
-       (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
-       (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-       (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-       (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-       (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+    ;; Ensure that anything that should be fixed-pitch in Org files appears that way
+    (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
+    (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
+    (set-face-attribute 'org-formula nil :inherit 'fixed-pitch)
+    (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
+    (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
 
 
-       ;; block templates
-       ;; This is needed as of Org 9.2
-       (require 'org-tempo)
+    ;; block templates
+    ;; This is needed as of Org 9.2
+    (require 'org-tempo)
 
-       (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
-       (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-       (add-to-list 'org-structure-template-alist '("li" . "src lisp"))
-       (add-to-list 'org-structure-template-alist '("sc" . "src scheme"))
-       (add-to-list 'org-structure-template-alist '("rr" . "src R"))
-       (add-to-list 'org-structure-template-alist '("py" . "src python"))
-       (add-to-list 'org-structure-template-alist '("lua" . "src lua"))
-       (add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
-       (add-to-list 'org-structure-template-alist '("json" . "src json"))
+    (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+    (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+    (add-to-list 'org-structure-template-alist '("li" . "src lisp"))
+    (add-to-list 'org-structure-template-alist '("sc" . "src scheme"))
+    (add-to-list 'org-structure-template-alist '("rr" . "src R"))
+    (add-to-list 'org-structure-template-alist '("py" . "src python"))
+    (add-to-list 'org-structure-template-alist '("lua" . "src lua"))
+    (add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
+    (add-to-list 'org-structure-template-alist '("json" . "src json"))
 
-  )
+    )
 #+END_SRC
 
 
@@ -1884,10 +1911,10 @@ directory
 ** Display features
 
 
+
 *** Autoindent/autofill turned on automatically
 
 #+BEGIN_SRC emacs-lisp
-  ;; Emacs ver 24+
   (add-hook 'org-mode-hook 'org-indent-mode)
   (setq org-startup-indented t)
 
@@ -1905,8 +1932,7 @@ classifying stuff by the general theme of what's being talked about.
 **** todo-keywords
 #+BEGIN_SRC emacs-lisp
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "IN-PROGRESS(i@/!)" "CHECK(c!)" "|" "DONE(d!)" "IGNORE(f!)"
-                    )))
+        '((sequence "TODO(t)" "IN-PROGRESS(i@/!)" "CHECK(c!)" "|" "DONE(d!)" "IGNORE(f!)")))
 #+END_SRC
 
 
@@ -1922,6 +1948,7 @@ classifying stuff by the general theme of what's being talked about.
 #+END_SRC
 
 
+
 *** TODO Capture templates
 
 This will need to be looked at carefully. Roughly, I need to work out
@@ -1931,6 +1958,7 @@ this for entering entries into ~org-journal~, making it a whole deal
 easier. Perhaps to start off, [[https://orgmode.org/worg/org-tutorials/index.html][the org-mode tutorial]] might be a good
 place to start. I've also got a simple enough config from a reddit
 post in my [[file:person_el/sample-org-setup.el][unused local elisp libs]] too.
+
 
 
 *** Bullets for non ordered list
@@ -1948,6 +1976,7 @@ post in my [[file:person_el/sample-org-setup.el][unused local elisp libs]] too.
     ;; contents, toc-org will maintain a table of contents at the first
     ;; heading that has a :TOC: tag.
 #+END_SRC
+
 
 
 *** Minad's modern UI for org-mode
@@ -1971,7 +2000,7 @@ post in my [[file:person_el/sample-org-setup.el][unused local elisp libs]] too.
         org-pretty-entities t
         org-auto-align-tags nil
         org-tags-column 0
-        org-ellipsis "…"
+        org-ellipsis " ▾"
         org-catch-invisible-edits 'show-and-error
         org-special-ctrl-a/e t
         org-insert-heading-respect-content t)
@@ -1979,6 +2008,7 @@ post in my [[file:person_el/sample-org-setup.el][unused local elisp libs]] too.
       :hook
       (org-mode-hook . org-modern-mode))
 #+end_src
+
 
 
 *** =Table of contents= for org-mode files
@@ -2613,12 +2643,22 @@ Monochrome theme with minimal bold highlights and boxes?
     :config
     (load-theme 'github-dark-vscode t)
     ;; unrelated but the cursor colour really needs improvement
-    (set-cursor-color "#ffffff")
+    ;; (set-cursor-color "#ffffff")
     )
 #+end_src
 
 
-**** Commentary
+*** Github modern theme (light)
+
+#+begin_src emacs-lisp
+  (use-package github-modern-theme
+    :config
+    ;; (load-theme 'github-modern t)
+    )
+#+end_src
+
+
+*** Commentary
 
 An elegant theme highlighting comments only
 
