@@ -27,7 +27,7 @@ export MOZ_ENABLE_WAYLAND=1
 # export GDK_BACKEND=wayland
 
 # enable keychain for ssh-keys (prevents asking for passphrase each time)
-eval `keychain --agents ssh --eval .ssh/id_ed25519_{github,srht}`
+eval `keychain --agents ssh --eval .ssh/id_ed25519_{github,srht,gitlab}`
 
 # autostart X at login on TTY1
 # if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/ttyv0 ]]; then exec startx; fi

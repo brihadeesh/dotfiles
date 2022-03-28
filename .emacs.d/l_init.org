@@ -175,6 +175,7 @@ packages used in this config are managed/organized by
         '((github . "brihadeesh")
           (gitlab . "peregrinator")
           (bitbucket . "peregrinator")))
+  (setq straight-check-for-modifications nil)
 #+END_SRC
 
 
@@ -943,25 +944,25 @@ base Emacs.
 #+NAME: corfu-competions
 #+BEGIN_SRC emacs-lisp
   (use-package corfu
-    :bind (
-           (:map corfu-map
-                 ;; ??? :states 'insert
-                 ("TAB" . corfu-next)
-                 ("S-TAB" . corfu-previous)
-                 ;; ([tab] . corfu-next)
-                 ;; ([backtab] . corfu-previous)
-                 ("<escape>" . corfu-quit)
-                 ("<return>" . corfu-insert)
-                 ("M-d" . corfu-show-documentation)
-                 ("M-l" . 'corfu-show-location))
-           :map corfu-map ("SPC" . corfu-insert-separator))
+    :bind
+    (:map corfu-map
+           ;; ??? :states 'insert
+           ("TAB" . corfu-next)
+           ([tab] . corfu-next)
+           ("S-TAB" . corfu-previous)
+           ([backtab] . corfu-previous)
+           ("<escape>" . corfu-quit)
+           ("<return>" . corfu-insert)
+           ("M-d" . corfu-show-documentation)
+           ("M-l" . 'corfu-show-location)
+           ("SPC" . corfu-insert-separator))
 
-    :config
+    :custom
     ;; Only use `corfu' when calling `completion-at-point' or
-    ;; (corfu-auto nil)
+    (corfu-auto t)
     ;; `indent-for-tab-command'
-    (corfu-auto-prefix 2)
-    (corfu-auto-delay 0.25)
+    (corfu-auto-prefix 0)
+    (corfu-auto-delay 0.2)
 
     (corfu-min-width 80)
     ;; Always have the same width
@@ -978,6 +979,7 @@ base Emacs.
     ;; Preview current candidate?
     (corfu-preview-current 'insert)
 
+    :init
     (corfu-global-mode))
 #+END_SRC
 
@@ -1040,11 +1042,12 @@ Helps revert to older versions of files in case I fuck up something
 somewhere. Hmm. I doubt I ever use it so disabling it now.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package undo-tree
-    :init
-    (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
-    (global-undo-tree-mode)
-    :diminish undo-tree-mode)
+    (use-package undo-tree
+      :init
+      (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo"))
+            undo-tree-auto-save-history nil)
+      (global-undo-tree-mode)
+      :diminish undo-tree-mode)
 #+END_SRC
 
 
@@ -1270,7 +1273,7 @@ Focuses new windows when created.
               "^\\*vterm.*\\*$" vterm-mode
               help-mode
               compilation-mode
-              ;;magit stuff
+              ;; magit stuff
               "^magit:*" magit-mode))
 
       ;;grouping popups by projectile groups
@@ -1279,7 +1282,6 @@ Focuses new windows when created.
       ;; popper UI configguration
       (setq popper-modeline nil)
 
-      :config
       (popper-mode +1)
       ;; echo area hints?
       (popper-echo-mode +1)
@@ -1788,6 +1790,7 @@ completion list.
 
 
 ** Basic configuration
+
 #+BEGIN_SRC emacs-lisp
   (use-package org
     ;;:defer t
@@ -1837,13 +1840,13 @@ completion list.
        ;;(ledger . t)
        ))
 
-    ;; (use-package org-superstar
-    ;;   :after org
-    ;;   :hook (org-mode . org-superstar-mode)
-    ;;   :custom
-    ;;   (org-superstar-remove-leading-stars t)
-    ;;   ;;(org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●"))
-    ;;   )
+    (use-package org-superstar
+      :after org
+      :hook (org-mode . org-superstar-mode)
+      :custom
+      (org-superstar-remove-leading-stars t)
+      ;;(org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●"))
+      )
 
     ;; Replace list hyphen with dot
     (font-lock-add-keywords 'org-mode
@@ -1937,6 +1940,7 @@ classifying stuff by the general theme of what's being talked about.
 
 
 **** TODO tags
+
 #+BEGIN_SRC emacs-lisp
   (setq org-tag-alist '((("misc" . ?m)
                         ("emacs" . ?e)
@@ -1979,38 +1983,6 @@ post in my [[file:person_el/sample-org-setup.el][unused local elisp libs]] too.
 
 
 
-*** Minad's modern UI for org-mode
-
-#+begin_src emacs-lisp
-    (use-package org-modern
-      :config
-      ;; Add frame borders and window dividers
-      (modify-all-frames-parameters
-       '((right-divider-width . 40)
-   (internal-border-width . 0)))
-      (dolist (face '(window-divider
-                  window-divider-first-pixel
-                  window-divider-last-pixel))
-    (face-spec-reset-face face)
-    (set-face-foreground face (face-attribute 'default :background)))
-  (set-face-background 'fringe (face-attribute 'default :background))
-
-  ;; Org settings
-  (setq org-hide-emphasis-markers t
-        org-pretty-entities t
-        org-auto-align-tags nil
-        org-tags-column 0
-        org-ellipsis " ▾"
-        org-catch-invisible-edits 'show-and-error
-        org-special-ctrl-a/e t
-        org-insert-heading-respect-content t)
-
-      :hook
-      (org-mode-hook . org-modern-mode))
-#+end_src
-
-
-
 *** =Table of contents= for org-mode files
 
 #+BEGIN_SRC emacs-lisp
@@ -2025,6 +1997,38 @@ Alternatively
 (use-package org-make-toc
   :hook (org-mode . org-make-toc-mode))
 #+end_src
+
+
+*** Minad's modern UI for org-mode
+
+#+begin_src emacs-lisp
+  (use-package org-modern
+    :config
+    ;; Add frame borders and window dividers
+    ;; (modify-all-frames-parameters
+     ;; '((right-divider-width . 40)
+     ;;  (internal-border-width . 0)))
+    (dolist (face '(window-divider
+                    window-divider-first-pixel
+                    window-divider-last-pixel))
+      (face-spec-reset-face face)
+      (set-face-foreground face (face-attribute 'default :background)))
+    (set-face-background 'fringe (face-attribute 'default :background))
+
+    ;; Org settings
+    (setq org-hide-emphasis-markers t
+          org-pretty-entities t
+          org-auto-align-tags nil
+          org-tags-column 0
+          org-ellipsis " ▾"
+          org-catch-invisible-edits 'show-and-error
+          org-special-ctrl-a/e t
+          org-insert-heading-respect-content t)
+
+    :hook
+    (org-mode . org-modern-mode))
+#+end_src
+
 
 
 ** TODO Org-Babel for literate programming
@@ -2658,6 +2662,18 @@ Monochrome theme with minimal bold highlights and boxes?
 #+end_src
 
 
+*** Almost mono theme
+
+#+begin_src emacs-lisp
+  (use-package almost-mono-themes
+    :config
+    ;; (load-theme 'almost-mono-black t)
+    ;; (load-theme 'almost-mono-gray t)
+    ;; (load-theme 'almost-mono-cream t)
+    ;; (load-theme 'almost-mono-white t)
+    )
+#+end_src
+
 *** Commentary
 
 An elegant theme highlighting comments only
@@ -2689,7 +2705,64 @@ themes of my own that use this macro.
 #+END_SRC
 
 
-** Pulse to locate cursor
+** Pulse to locate cursor with Protesilaos's pulsar
+
+#+begin_src emacs-lisp
+  (use-package pulsar
+    :straight (:host gitlab :repo "protesilaos/pulsar")
+
+    :custom
+    (pulsar-pulse-functions ; Read the doc string for why not `setq'
+     '(recenter-top-bottom
+       move-to-window-line-top-bottom
+       reposition-window
+       bookmark-jump
+       other-window
+       delete-window
+       delete-other-windows
+       forward-page
+       backward-page
+       scroll-up-command
+       scroll-down-command
+       windmove-right
+       windmove-left
+       windmove-up
+       windmove-down
+       windmove-swap-states-right
+       windmove-swap-states-left
+       windmove-swap-states-up
+       windmove-swap-states-down
+       tab-new
+       tab-close
+       tab-next
+       org-next-visible-heading
+       org-previous-visible-heading
+       org-forward-heading-same-level
+       org-backward-heading-same-level
+       outline-backward-same-level
+       outline-forward-same-level
+       outline-next-visible-heading
+       outline-previous-visible-heading
+       outline-up-heading))
+
+     :config
+     (setq pulsar-pulse t)
+     (setq pulsar-delay 0.055)
+     (setq pulsar-iterations 10)
+     (setq pulsar-face 'pulsar-blue)
+
+     (pulsar-setup)
+
+     :bind (("C-c l" . pulsar-pulse-line)
+            ("C-c h l" . pulsar-highlight-line))
+
+     :hook
+     (consult-after-jump-hook . pulsar-recenter-middle)
+     (consult-after-jump-hook . pulsar-reveal-entry))
+#+end_src
+
+
+
 
 Also stolen from Karthik Chikmaglur
 
