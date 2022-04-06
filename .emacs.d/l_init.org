@@ -2565,7 +2565,7 @@ I saw this on [[https://github.com/hlissner/emacs-doom-themes][doom-themes]] but
 for this, so installing from it's [[https://github.com/ianyepan/wilmersdorf-emacs-theme][GitHub]] using ~straight.el~. But it
 fails to load with ~use-package~ so I'm going to have to do it manually.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
     (use-package wilmersdorf
       :straight (:host github :repo "ianyepan/wilmersdorf-emacs-theme")
 
@@ -2645,7 +2645,7 @@ Monochrome theme with minimal bold highlights and boxes?
 #+begin_src emacs-lisp
   (use-package github-dark-vscode-theme
     :config
-    (load-theme 'github-dark-vscode t)
+    ;; (load-theme 'github-dark-vscode t)
     ;; unrelated but the cursor colour really needs improvement
     ;; (set-cursor-color "#ffffff")
     )
@@ -2662,6 +2662,16 @@ Monochrome theme with minimal bold highlights and boxes?
 #+end_src
 
 
+**** Vale theme
+
+#+begin_src emacs-lisp
+  (use-package vale
+    :straight (:type git :repo "https://codeberg.org/ext0l/vale.el")
+    :config
+    ;; (load-theme 'vale t)
+    )
+#+end_src
+
 *** Almost mono theme
 
 #+begin_src emacs-lisp
@@ -2672,6 +2682,16 @@ Monochrome theme with minimal bold highlights and boxes?
     ;; (load-theme 'almost-mono-cream t)
     ;; (load-theme 'almost-mono-white t)
     )
+#+end_src
+
+
+*** Stimmung themes for nearly monochrome appearance
+
+#+begin_src emacs-lisp
+  (use-package stimmung-themes
+    ;; :straight (stimmung-themes :host github :repo "motform/stimmung-themes") ; if you are a straight shooter
+    :config
+    (stimmung-themes-load-light))
 #+end_src
 
 *** Commentary
