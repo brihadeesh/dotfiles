@@ -35,6 +35,15 @@ first code block can be evaluated using =C-c C-c=:
 
 
 
+** Use-package v2 related changes
+
+#+begin_src emacs-lisp
+  (eval-when-compile
+    (require 'use-package))
+  (require 'diminish)
+  (require 'bind-key)
+#+end_src
+
 * Ensure UTF-8
 
 #+begin_src emacs-lisp
@@ -381,6 +390,12 @@ Opens files at last position used. Something about this on [[https://www.emacswi
 #+END_SRC
 
 
+** Pixel scroll precision mode (Emacs 29+)
+
+#+begin_src emacs-lisp
+  (pixel-scroll-precision-mode +1)
+#+end_src
+
 ** Prompt before closing Emacs
 
 #+begin_src emacs-lisp
@@ -715,6 +730,7 @@ Finally figured this out from a [[https://redd.it/ahysvb][reddit post from 2019]
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 #+END_SRC
 
+
 *** Trying something else...
 
 ... because Void linux keeps complaining about not being able to find
@@ -742,6 +758,28 @@ near future
     ;; (use-package binder-tutorial)
   #+END_SRC
 
+
+** Brainfuck?
+
+Esoteric language which makes absolutely no sense for me considering
+ADHD and all.
+
+#+begin_src emacs-lisp
+    (use-package brainfuck-mode)
+#+end_src
+
+** El Doc for help in echo area
+
+#+begin_src emacs-lisp
+  (use-package eldoc
+    :straight (:type built-in)
+
+    :hook
+    ((emacs-lisp-mode-hook . eldoc-mode)
+     (lisp-interaction-mode-hook . eldoc-mode)
+     (ielm-mode-hook . eldoc-mode)
+     (org-mode . eldoc-mode)))
+#+end_src
 
 * Git with Magit and gists with =gist.el=
 
@@ -2186,16 +2224,15 @@ see [[https://github.com/daviwil/dotfiles/blob/9776d65c4486f2fa08ec60a06e86ecb6d
 ** Elfeed for RSS
 
 #+begin_src emacs-lisp
-(use-package elfeed
-  :commands elfeed
-  :config
-  (setq elfeed-feeds
-    '("https://nullprogram.com/feed/"
-      "https://guix.gnu.org/feeds/blog.atom"
-      "https://valdyas.org/fading/feed/"
-      "https://www.reddit.com/r/emacs/.rss")))
+  (use-package elfeed
+    :commands elfeed
+    :config
+    (setq elfeed-feeds
+      '("https://sachachua.com/blog/feed/"
+        "https://guix.gnu.org/feeds/blog.atom"
+        "https://www.reddit.com/r/emacs/.rss"
+        "​https://news.ycombinator.com/rss")))
 #+end_src
-
 
 * UI configuration
 
@@ -2526,6 +2563,7 @@ within Emacs
       (defun peremacs/call-modus-operandi ()
         (interactive)
         ;; heading backgrounds work better here
+        (disable-theme 'modus-vivendi)
         (setq modus-themes-headings
               '((1 . (overline background semibold 1.2))
                 (2 . (overline background semibold 1.1))
@@ -2536,6 +2574,7 @@ within Emacs
 
       (defun peremacs/call-modus-vivendi ()
         (interactive)
+        (disable-theme 'modus-operandi)
         (setq modus-themes-headings
               '((1 . (overline semibold 1.2))
                 (2 . (overline semibold 1.1))
@@ -2672,6 +2711,7 @@ Monochrome theme with minimal bold highlights and boxes?
     )
 #+end_src
 
+
 *** Almost mono theme
 
 #+begin_src emacs-lisp
@@ -2693,6 +2733,7 @@ Monochrome theme with minimal bold highlights and boxes?
     :config
     (stimmung-themes-load-light))
 #+end_src
+
 
 *** Commentary
 
