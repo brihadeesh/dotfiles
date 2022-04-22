@@ -1,1 +1,1 @@
-(org-babel-load-file "~/.emacs.d/l_init.org")
+(org-babel-load-file "~/.emacs.d/configuration.org")

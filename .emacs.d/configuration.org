@@ -35,14 +35,17 @@ first code block can be evaluated using =C-c C-c=:
 
 
 
-** Use-package v2 related changes
+** TODO Use-package v2 related changes
 
-#+begin_src emacs-lisp
+Need to figure this out - I think maybe ~use-package~ might not be updated
+
+#+begin_src emacs-lisp :tangle no
   (eval-when-compile
     (require 'use-package))
   (require 'diminish)
   (require 'bind-key)
 #+end_src
+
 
 * Ensure UTF-8
 
