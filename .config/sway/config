@@ -252,10 +252,10 @@ bar {
 # Appearance
 #
 
-default_border pixel 1
-default_floating_border pixel 1
-gaps inner 3px
-gaps outer 3px
+default_border pixel 2
+default_floating_border pixel 2
+# gaps inner 3px
+# gaps outer 3px
 smart_gaps on
 smart_borders on
 
