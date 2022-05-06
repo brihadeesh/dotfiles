@@ -17,18 +17,18 @@ scrolling:
 draw_bold_text_with_bright_colors: false
 font:
   normal:
-    family: Hack
-    style:  Medium
+    family: Monoid
+    style:  Regular
   bold:
-    family: Hack
+    family: Monoid
     style:  Bold
   italic:
-    family: Hack
+    family: Monoid
     style:  Italic
   bold-italic:
-    family: Hack
+    family: Monoid
     style:  Bold Italic
-  size: 8
+  size: 7
   offset:
     x: 0
     y: 0

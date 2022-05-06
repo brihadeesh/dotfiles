@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# turn on the keyboard backlight for when I get a laptop with keyboard
+# backlight
+# ~/bin/keyboard dim
+
+# ensure the output is set to the laptop display
+~/bin/monitor laptop

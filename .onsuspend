@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# activate the lock
+swaylock
+
+sleep 1

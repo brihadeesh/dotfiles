@@ -399,6 +399,7 @@ Opens files at last position used. Something about this on [[https://www.emacswi
   (pixel-scroll-precision-mode +1)
 #+end_src
 
+
 ** Prompt before closing Emacs
 
 #+begin_src emacs-lisp
@@ -407,6 +408,14 @@ Opens files at last position used. Something about this on [[https://www.emacswi
                            (y-or-n-p-with-timeout prompt 2 nil)))
 #+end_src
 
+
+** Show keystrokes
+
+Stolen from [[https://github.com/karthink/emacs.d][Karthik Chikmaglur's emacs.d]]; shows what is typed immediately.
+
+#+begin_src emacs-lisp
+(setq echo-keystrokes 0.01)
+#+end_src
 
 * TODO SSH for personal packages and magit
 
@@ -509,31 +518,30 @@ own.
     :hook
     (prog-mode . flycheck-mode)
     (org-mode . flycheck-mode)
+    (sh-mode . flycheck-mode)
     :diminish flycheck-mode
     )
+#+end_src
+
+
+** Bash - use tabs instead of spaces
+
+Maybe this needs to be universal but this is especially annoying when
+I edit void-packages 'template's which specifically need tabs in the
+custom functions below.
+
+#+begin_src emacs-lisp
+  (add-hook 'sh-mode-hook
+      (lambda ()
+          (setq-default indent-tabs-mode t)
+          (setq-default tab-width 8)
+      (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
 #+end_src
 
 
 ** Autopaired parens
 
 #+BEGIN_SRC emacs-lisp
-    ;; auto-pair parens
-    ;; (use-package autopair
-    ;;   ;; :ensure t
-    ;;   :init (setq autopair-autowrap t)
-    ;;   :config (autopair-mode 1))
-
-    ;; (use-package electric-pairs
-    ;;   :straight (:type built-in)
-    ;;   :config)
-
-  ;; arguably the best package for managing parens
-        ;; (use-package smartparens
-        ;;   ;; :defer 1
-        ;;   ;; :delight
-        ;;   :custom (sp-escape-quotes-after-insert nil)
-        ;;   :config (smartparens-global-mode 1))
-
   (electric-pair-mode 1)
 #+END_SRC
 
@@ -771,6 +779,7 @@ ADHD and all.
     (use-package brainfuck-mode)
 #+end_src
 
+
 ** El Doc for help in echo area
 
 #+begin_src emacs-lisp
@@ -783,6 +792,7 @@ ADHD and all.
      (ielm-mode-hook . eldoc-mode)
      (org-mode . eldoc-mode)))
 #+end_src
+
 
 * Git with Magit and gists with =gist.el=
 
@@ -1132,6 +1142,57 @@ somewhere. Hmm. I doubt I ever use it so disabling it now.
 
 
 
+* ERC for IRC
+
+SystemCrafters recommends this so here I am using it.
+
+#+begin_src emacs-lisp
+  (setq erc-server "irc.libera.chat"
+        erc-nick "peregrinator"    ; Change this!
+        erc-user-full-name "Brihadeesh S"  ; And this!
+        erc-track-shorten-start 8
+        erc-autojoin-channels-alist '(("irc.libera.chat" "#voidlinux" "#xbps" "#emacs" "#bash" "#sway" "#river" "#systemcrafters"))
+        erc-kill-buffer-on-part t
+        erc-auto-query 'bury)
+#+end_src
+
+** Configuring SASL for automatic authentication
+
+#+begin_src emacs-lisp :tangle no
+  (add-to-list 'load-path "~/.emacs.d/lisp/erc-libera-sasl")
+
+  ;; Require ERC-SASL package
+  (require 'erc-sasl)
+
+  ;; Add SASL server to list of SASL servers (start a new list, if it did not exist)
+  (add-to-list 'erc-sasl-server-regexp-list "irc\\.libera\\.chat")
+
+  ;; Redefine/Override the erc-login() function from the erc package, so that
+  ;; it now uses SASL
+  (defun erc-login ()
+    "Perform user authentication at the IRC server. (PATCHED)"
+    (erc-log (format "login: nick: %s, user: %s %s %s :%s"
+             (erc-current-nick)
+             (user-login-name)
+             (or erc-system-name (system-name))
+             erc-session-server
+             erc-session-user-full-name))
+    (if erc-session-password
+        (erc-server-send (format "PASS %s" erc-session-password))
+      (message "Logging in without password"))
+    (when (and (featurep 'erc-sasl) (erc-sasl-use-sasl-p))
+      (erc-server-send "CAP REQ :sasl"))
+    (erc-server-send (format "NICK %s" (erc-current-nick)))
+    (erc-server-send
+     (format "USER %s %s %s :%s"
+         ;; hacked - S.B.
+         (if erc-anonymous-login erc-email-userid (user-login-name))
+         "0" "*"
+         erc-session-user-full-name))
+    (erc-update-mode-line))
+#+end_src
+
+
 * Window Management
 This ofc *doensn't work* on wayland and =pgtk= emacs but am I willing
 to learn C++ and emacs-lisp well enough to contribute to porting this
@@ -1215,7 +1276,7 @@ but perhaps a lot more dynamic. This might need more work hence adding
 
 ** Undo disrupted window/frame arrangement after using some shit
 
-Stolen from [[https://github.com/karthinks/emacs.d][Karthik Chikmaglur's emacs.d]]
+Stolen from [[https://github.com/karthink/emacs.d][Karthik Chikmaglur's emacs.d]]
 
 #+begin_src emacs-lisp
   (use-package winner
@@ -1923,7 +1984,13 @@ completion list.
     (add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
     (add-to-list 'org-structure-template-alist '("json" . "src json"))
 
-    )
+    ;; disable electric pairing for angle bracket
+
+    (add-hook 'org-mode-hook (lambda ()
+           (setq-local electric-pair-inhibit-predicate
+                   `(lambda (c)
+                  (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c)))))))
+
 #+END_SRC
 
 
@@ -2237,6 +2304,7 @@ see [[https://github.com/daviwil/dotfiles/blob/9776d65c4486f2fa08ec60a06e86ecb6d
         "​https://news.ycombinator.com/rss")))
 #+end_src
 
+
 * UI configuration
 
 
@@ -2357,128 +2425,60 @@ although it's still a good contender considering it's very simple to
 configure. I'm also considering [[https://github.com/gexplorer/simple-modeline][simple-mode-line]].
 
 
-*** TODO Mode-line
-
-For now I'll stick to using a set of functions shared by [[https://www.reddit.com/r/emacs/comments/mmqjjw/how_rightalign_items_in_modeline/gttjpc4/][u/pkkm]] /on
-right aligning items on modeline/. I still need to figure out how to
-use this properly and perhaps replace the next section.
-
-#+name: complex-modeline-setup
-#+begin_src emacs-lisp :tangle no :fold t
-        ;;; Alignment.
-      ;; Fill functions are from <https://github.com/milkypostman/powerline>.
-
-      (defvar ml-text-scale-factor 1.0
-        "Scale of mode-line font size to default font size, as a float.
-        This is needed to make sure that text is properly aligned.")
-
-      (defun ml-fill-to-center (reserve face)
-        "Return empty space to the center, leaving RESERVE space on the right."
-        (when ml-text-scale-factor
-          (setq reserve (* ml-text-scale-factor reserve)))
-        (propertize " "
-                    'display `((space :align-to (- (+ center (.5 . right-margin))
-                                                   ,reserve
-                                                   (.5 . left-margin))))
-                    'face face))
-
-      (defun ml-fill-to-right (reserve face)
-        "Return empty space, leaving RESERVE space on the right."
-        (when ml-text-scale-factor
-          (setq reserve (* ml-text-scale-factor reserve)))
-        (when (and window-system (eq 'right (get-scroll-bar-mode)))
-          (setq reserve (- reserve 2))) ; Powerline uses 3 here, but my scrollbars are narrower.
-        (propertize " "
-                    'display `((space :align-to (- (+ right right-fringe right-margin)
-                                                   ,reserve)))
-                    'face face))
-
-      (defun ml-render-2-part (left right &optional fill-face)
-        (concat left
-                (ml-fill-to-right (string-width (format-mode-line right)) fill-face)
-                right))
-
-      (defun ml-render-3-part (left center right &optional fill-face)
-        (concat left
-                (ml-fill-to-center (/ (string-width (format-mode-line center)) 2.0) fill-face)
-                center
-                (ml-fill-to-right (string-width (format-mode-line right)) fill-face)
-                right))
-
-    ;; modeline content?
-  (setq-default mode-line-format
-                  '((:eval
-                     (simple-mode-line-render
-                      ;; Left.
-                      (quote (" %5l:%2c "
-                              "%e %1* "
-                              mode-line-buffer-identification
-                              " %3p"))
-                      ;; Right.
-                      (quote (mode-line-frame-identification
-                              mode-line-modes
-                              mode-line-misc-info))))))
-
-#+end_src
-
-
-*** IN-PROGRESS simplistic left-right alignment
-
-Or to keep things legible and simple, [[https://emacs.stackexchange.com/a/37270/23936][ideasman42's solution]], except it
-doesn't work well. Will revisit later
-
-#+name: does-not-work-mode-line
-#+begin_src emacs-lisp :tangle no
-    (defun simple-mode-line-render (left right)
-      "Return a string of `window-width' length.
-    Containing LEFT, and RIGHT aligned respectively."
-      (let ((available-width
-             (- (window-total-width)
-                (+ (length (format-mode-line left))
-                   (length (format-mode-line right))))))
-        (append left
-                (list (format (format "%%%ds" available-width) ""))
-                right)))
-
-    (setq-default mode-line-format
-                  '((:eval
-                     (simple-mode-line-render
-                      ;; Left.
-                      (quote (" %5l:%2c "
-                              "%e %1* "
-                              mode-line-buffer-identification
-                              " %3p"))
-                      ;; Right.
-                      (quote (mode-line-frame-identification
-                              mode-line-modes
-                              mode-line-misc-info))))))
-#+end_src
-
-
-*** TODO Mood-line because I'm fucking tired
-
+#+name: lamdba-modeline
 #+begin_src emacs-lisp
+  (use-package lambda-line
+    :straight (:type git :host github :repo "lambda-emacs/lambda-line")
+
+    :custom
+    ;; Set position of status-line
+    (lambda-line-position 'bottom)
+
+    ;; abbreviate major modes
+    (lambda-line-abbrev t)
+
+    ;; add some cushion
+    (lambda-line-hspace "  ")
+
+    ;; use a prefix symbol
+    (lambda-line-prefix t)
+
+    ;; no extra space for prefix
+    (lambda-line-prefix-padding nil)
+
+    ;; no invert colors
+    (lambda-line-status-invert nil)
+
+    ;; status symbols
+    (lambda-line-gui-ro-symbol  " ⨂")
+    (lambda-line-gui-mod-symbol " ⬤")
+    (lambda-line-gui-rw-symbol  " ◯")
+
+    ;; padding on top and bottom of line
+    (lambda-line-space-top 0)
+    (lambda-line-space-bottom 0)
+
+    ;; adjust the vertical placement of symbol
+    (lambda-line-symbol-position 0.1)
+
+    :config
+    ;; activate lambda-line
+    (lambda-line-mode)
+
+    ;; set divider line in footer
+    (when (eq lambda-line-position 'top)
+     (setq-default mode-line-format (list "%_"))
+     (setq mode-line-format (list "%_"))))
+#+end_src
+
+*** IN-PROGRESS Mood-line because I'm fucking tired
+
+#+begin_src emacs-lisp :tangle no
   (use-package mood-line
     :config
     (mood-line-mode)
     )
 #+end_src
-
-
-*** TODO battery on mode-line
-
-#+BEGIN_SRC emacs-lisp
-  ;; (use-package battery
-  ;;   :straight (:type built-in)
-  ;;   ;; :type built-in
-  ;;   :config
-  ;;   (setq battery-mode-line-format " [%b%p%%]"
-  ;;         battery-mode-line-limit 95
-  ;;         battery-update-interval 180
-  ;;         battery-load-low 20
-  ;;         battery-load-critical 10)
-  ;;   :hook after-init)
-#+END_SRC
 
 
 ** Font configuration
@@ -2492,11 +2492,11 @@ doesn't work well. Will revisit later
   ;; (set-face-font 'default "Roboto Mono-7.5")
   ;; (set-face-font 'default "Anka/Coder:pixelsize=10")
   ;; (set-face-font 'default "Cascadia Mono:style=Light:size=10")
-  ;; (set-face-font 'default "Monoid-7")
+  (set-face-font 'default "Monoid-7")
   ;; (set-face-font 'default "Iosevka-8")
   ;; (set-face-font 'default "mononoki-7.5")
   ;; (set-face-font 'default "Consolas-8")
-  (set-face-font 'default "Hack-7.5")
+  ;; (set-face-font 'default "Hack-7.5")
   ;; (set-face-font 'default "Liga SFMono Nerd Font-8")
   ;; (set-face-font 'default "Terminus (TTF)-9")
   ;; (set-face-font 'default "Anonymous Pro-8.5")
@@ -2626,10 +2626,10 @@ stow and I'd prefer it be under version control)
   wget https://raw.githubusercontent.com/ianyepan/wilmersdorf-emacs-theme/master/wilmersdorf-theme.el
 #+end_src
 
-#+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
   ;; (load-theme 'wilmersdorf t)
-
+  ;; (load-theme 'Parchment t)
 #+end_src
 
 
@@ -2694,7 +2694,7 @@ Monochrome theme with minimal bold highlights and boxes?
 #+end_src
 
 
-*** Github modern theme (light)
+**** Github modern theme (light)
 
 #+begin_src emacs-lisp
   (use-package github-modern-theme
@@ -2706,7 +2706,7 @@ Monochrome theme with minimal bold highlights and boxes?
 
 **** Vale theme
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (use-package vale
     :straight (:type git :repo "https://codeberg.org/ext0l/vale.el")
     :config
@@ -2714,6 +2714,17 @@ Monochrome theme with minimal bold highlights and boxes?
     )
 #+end_src
 
+**** IN-PROGRESS Parchment theme
+
+Based on the screenshot of Haskell code on the [[https://fsd.it/shop/fonts/pragmatapro/#tab-fb289adf-7c14-8][Pragmata Pro website]].
+
+#+begin_src emacs-lisp :tangle no
+  (use-package Parchment-theme
+    :straight (:host github :repo "brihadeesh/emacs-parchment-theme")
+    :config
+    (load-theme 'Parchment t)
+    )
+#+end_src
 
 *** Almost mono theme
 
