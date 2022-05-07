@@ -5,4 +5,4 @@
 # ~/bin/keyboard dim
 
 # ensure the output is set to the laptop display
-~/bin/monitor laptop
+# ~/bin/monitor laptop

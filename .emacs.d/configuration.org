@@ -1,9 +1,78 @@
 #+TITLE: Literate Emacs Configuration
 #+AUTHOR: Brihadeesh S
 #+EMAIL: brihadeesh@protonmail.com
-#+STARTUP: show4levels
+#+STARTUP: show3levels
 #+CREATED: <2021-12-04 Sat>
 #+MODIFIED: <2021-12-14 Tue>
+
+* TODO Early init
+
+This creates a file, [[file:~/.emacs.d/early-init.el][ ~early-init.el~ ]], in ~~/.emacs.d~. This was stolen
+from Protesilaos some time back. It still needs work - it's not
+tangled (by default) yet.
+
+#+begin_src emacs-lisp :file ~/.emacs.d/early-init.el :tangle no
+;;; early-init.el --- Early Init File -*- lexical-binding: t -*-
+
+;; Copyright (c) 2021-2022  Brihadeesh S <brihadeesh@protonmail.com>
+
+;; Author: Protesilaos Stavrou <info@protesilaos.com>
+;; URL: https://git.sr.ht/~peregrinator/dotfiles
+;; Version: 0.1.0
+;; Package-Requires: ((emacs "28.1"))
+
+;; This file is NOT part of GNU Emacs.
+
+;; This file is free software: you can redistribute it and/or modify it
+;; under the terms of the GNU General Public License as published by the
+;; Free Software Foundation, either version 3 of the License, or (at
+;; your option) any later version.
+;;
+;; This file is distributed in the hope that it will be useful, but
+;; WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this file.  If not, see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;; Prior to Emacs 27, the `init.el' was supposed to handle the
+;; initialisation of the package manager, by means of calling
+;; `package-initialize'.  Starting with Emacs 27, the default
+;; behaviour is to start the package manager before loading the init
+;; file.
+
+;;; Code:
+
+;; Don't initialise installed packages cause package.el sucks balls
+(setq package-enable-at-startup nil)
+
+;; Do not resize the frame at this early stage.
+(setq frame-inhibit-implied-resize t)
+
+;; Disable GUI elements
+;;; Disable menu-bar, tool-bar, and scroll-bar.
+(if (fboundp 'menu-bar-mode)
+    (menu-bar-mode -1))
+(if (fboundp 'tool-bar-mode)
+    (tool-bar-mode -1))
+(if (fboundp 'scroll-bar-mode)
+    (scroll-bar-mode -1))
+(setq inhibit-splash-screen t)
+;; (setq use-dialog-box nil)                 ; only for mouse events
+(setq use-file-dialog nil)
+
+(setq inhibit-startup-screen t)
+(setq inhibit-startup-buffer-menu t)
+
+;; for when I upgrade to emacs28 with native compilation
+(setq native-comp-async-report-warnings-errors nil)
+
+;;; early-init.el ends here
+#+end_src
+
 
 * Prerequisites
 
@@ -279,11 +348,27 @@ when I thought I understood what I was doing)
 #+END_SRC
 
 
-** Only *y or n prompts* like vim
+** Only *y or n prompts* for speed
+
+Apparently there is a ~short-answers~ variable
 
 #+BEGIN_SRC emacs-lisp
-  (fset 'yes-or-no-p 'y-or-n-p)
+  ;; (fset 'yes-or-no-p 'y-or-n-p)
+
+  (setq-default
+   use-short-answers t
+
+   ;; Ok to visit non existent files (no confirmation reqd)
+   confirm-nonexistent-file-or-buffer nil)
 #+END_SRC
+
+
+** Merge Emacs and system clipboards
+
+#+begin_src emacs-lisp
+;; Merge system's and Emacs' clipboard
+(setq-default select-enable-clipboard t)
+#+end_src
 
 
 ** Overwrite selected text
@@ -416,6 +501,7 @@ Stolen from [[https://github.com/karthink/emacs.d][Karthik Chikmaglur's emacs.d]
 #+begin_src emacs-lisp
 (setq echo-keystrokes 0.01)
 #+end_src
+
 
 * TODO SSH for personal packages and magit
 
@@ -1011,11 +1097,14 @@ base Emacs.
     :custom
     ;; Only use `corfu' when calling `completion-at-point' or
     (corfu-auto t)
+
     ;; `indent-for-tab-command'
-    (corfu-auto-prefix 0)
+    (corfu-auto-prefix 3)
     (corfu-auto-delay 0.2)
 
+    ;; size
     (corfu-min-width 80)
+
     ;; Always have the same width
     (corfu-max-width corfu-min-width)
     (corfu-count 14)
@@ -1026,9 +1115,13 @@ base Emacs.
     (corfu-echo-documentation t)
 
     ;; Preselect first candidate?
-    (corfu-preselect-first t)
+    (corfu-preselect-first nil)
+
     ;; Preview current candidate?
     (corfu-preview-current 'insert)
+
+    ;; quit if no match
+    (corfu-quit-no-match t)
 
     :init
     (corfu-global-mode))
@@ -1102,7 +1195,7 @@ somewhere. Hmm. I doubt I ever use it so disabling it now.
 #+END_SRC
 
 
-* Project management and navigation
+* Project management and navigation - projectile
 
 #+BEGIN_SRC emacs-lisp
   ;; project management
@@ -1126,8 +1219,6 @@ somewhere. Hmm. I doubt I ever use it so disabling it now.
   ;;       (ibuffer-do-sort-by-alphabetic)))
   ;;   :hook (ibuffer . my/ibuffer-projectile))
 #+END_SRC
-
-
 
 * Consistent and simpler keybinding assignment
 
@@ -1155,6 +1246,7 @@ SystemCrafters recommends this so here I am using it.
         erc-kill-buffer-on-part t
         erc-auto-query 'bury)
 #+end_src
+
 
 ** Configuring SASL for automatic authentication
 
@@ -1194,12 +1286,14 @@ SystemCrafters recommends this so here I am using it.
 
 
 * Window Management
-This ofc *doensn't work* on wayland and =pgtk= emacs but am I willing
-to learn C++ and emacs-lisp well enough to contribute to porting this
-to wayland/wlroots or something?
 
 
 ** EXWM
+
+This ofc *doesn't work* on wayland and =pgtk= emacs but am I willing
+to learn C++ and emacs-lisp well enough to contribute to porting this
+to wayland/wlroots or something?
+
 
 #+BEGIN_SRC emacs-lisp
   (use-package exwm
@@ -1260,18 +1354,30 @@ but perhaps a lot more dynamic. This might need more work hence adding
 #+BEGIN_SRC emacs-lisp
   (use-package perspective
     :demand t
+
     :bind
     ;; these work with selectrum/vertico i.e. `completing-read'
     ;; type completion systems that are appararently closer to
     ;; base Emacs functioning.
     (("C-x b" . persp-switch-to-buffer*)
-    ;;("C-x k" . persp-kill-buffer*)
+     ;;("C-x k" . persp-kill-buffer*)
     )
+
     :config
+
     ;; Running `persp-mode' multiple times resets the perspective list...
   (unless (equal (default-value 'persp-mode) t)
     (persp-mode 1)))
 #+END_SRC
+
+
+*** persp-projectile for proper workspace window management
+
+#+begin_src emacs-lisp
+    (use-package persp-projectile
+      :bind
+      ("C-x x s". persp-projectile-switch-project))
+#+end_src
 
 
 ** Undo disrupted window/frame arrangement after using some shit
@@ -1351,7 +1457,7 @@ Focuses new windows when created.
 
 
 
-** IN-PROGRESS Better popups
+** IN-PROGRESS Better popups with popper
 
 #+BEGIN_SRC emacs-lisp
   (use-package popper
@@ -1376,7 +1482,8 @@ Focuses new windows when created.
               help-mode
               compilation-mode
               ;; magit stuff
-              "^magit:*" magit-mode))
+              "^magit:*" magit-mode
+              "^\\*Ilist\\*$"))
 
       ;;grouping popups by projectile groups
       (setq popper-group-function #'popper-group-by-projectile)
@@ -1477,10 +1584,64 @@ behaviour in Emacs.
     (vertico-mode)
 
     :config
-    ;; Grow and shrink the Vertico minibuffer
-    (setq vertico-resize t)
-    (advice-add #'tmm-add-prompt :after #'minibuffer-hide-completions))
+    (setq
+     ;; Grow and shrink the Vertico minibuffer
+     vertico-resize t
+
+     ;; No prefix with number of entries
+     vertico-count-format nil)
+
+    (advice-add #'tmm-add-prompt :after #'minibuffer-hide-completions)
 #+END_SRC
+
+(Continuing from previous block)
+
+
+Completion-at-point and completion-in-region with Vertico. Use
+`consult-completion-in-region' if Vertico is enabled. Otherwise use
+the default `completion--in-region' function.
+
+#+begin_src emacs-lisp
+  (setq completion-in-region-function
+            (lambda (&rest args)
+              (apply (if vertico-mode
+                         #'consult-completion-in-region
+                       #'completion--in-region)
+                     args)))
+#+end_src
+
+Prefix the current candidate (See [[https://github.com/minad/vertico/wiki#prefix-current-candidate-with-arrow][relevant section on the wiki]])
+
+#+begin_src emacs-lisp
+  (defun minibuffer-format-candidate (orig cand prefix suffix index _start)
+      (let ((prefix (if (= vertico--index index)
+                        "  "
+                      "   ")))
+        (funcall orig cand prefix suffix index _start)))
+
+    (advice-add #'vertico--format-candidate
+               :around #'minibuffer-format-candidate)
+#+end_src
+
+
+Completions for ~M-:~ as well; closes the use-package function started
+at Vertico header.
+
+#+begin_src emacs-lisp
+(defun minibuffer-vertico-setup ()
+
+  (setq truncate-lines t)
+  (setq completion-in-region-function
+        (if vertico-mode
+            #'consult-completion-in-region
+          #'completion--in-region)))
+
+(add-hook 'vertico-mode-hook #'minibuffer-vertico-setup)
+(add-hook 'minibuffer-setup-hook #'minibuffer-vertico-setup)
+)
+#+end_src
+
+
 
 
 *** TODO Vertico extensions
@@ -1802,10 +1963,11 @@ Persist history over Emacs restarts. Vertico sorts by history position.
      ("M-s g" . consult-grep)
      ("M-s r" . consult-ripgrep)
      ("C-c f r" . consult-recent-file)
+     ("C-x C-" . consult-recent-file)
      ;; Isearch integration
      ("C-s" . consult-isearch-history)
      ("C-c L" . consult-outline)
-     ("C-c L" . consult-org-heading)
+     ("C-c h l" . consult-org-heading)
      ;; yank from kill-ring
      ("M-y" . consult-yank-pop)
      )
@@ -1829,11 +1991,11 @@ Persist history over Emacs restarts. Vertico sorts by history position.
 
     (defvar consult--source-perspective
       (list :name     "Perspective"
-	    :narrow   ?s
-	    :category 'buffer
-	    :state    #'consult--buffer-state
-	    :default  t
-	    :items    #'persp-get-buffer-names))
+            :narrow   ?s
+            :category 'buffer
+            :state    #'consult--buffer-state
+            :default  t
+            :items    #'persp-get-buffer-names))
 
     (push consult--source-perspective consult-buffer-sources)
     )
@@ -1841,7 +2003,7 @@ Persist history over Emacs restarts. Vertico sorts by history position.
   ;; Optionally add the `consult-flycheck' command.
   (use-package consult-flycheck
     :bind (:map flycheck-command-map
-		("!" . consult-flycheck)))
+                ("!" . consult-flycheck)))
 #+END_SRC
 
 
@@ -1883,6 +2045,62 @@ completion list.
 #+END_SRC
 
 
+
+
+** TODO Imenu-list?
+
+See [[https://www.reddit.com/r/emacs/comments/ujuokl/my_take_on_dotemacsorg/][Nicolas Rougier's reddit post]], primarily the screenshot which has
+an outline for his literate Emacs configuration.
+
+#+begin_src emacs-lisp
+  (use-package imenu-list
+
+    :config
+    ;; self explanatory
+    (setq imenu-list-focus-after-activation t
+          imenu-list-auto-resize t
+          imenu-list-position 'left)
+
+    ;; further config stolen from https://github.com/rougier/dotemacs.org#sidebar
+    (defun peremacs/org-tree-to-indirect-buffer ()
+      "Create indirect buffer, narrow it to current subtree and unfold blocks"
+
+      (org-tree-to-indirect-buffer)
+      (org-show-block-all)
+      (setq-local my/org-blocks-hidden nil))
+
+
+    (defun peremacs/org-sidebar ()
+      "Open an imenu list on the left that allow navigation."
+
+      (interactive)
+      (setq imenu-list-after-jump-hook #'my/org-tree-to-indirect-buffer
+            imenu-list-position 'left
+            imenu-list-size 36
+            imenu-list-focus-after-activation t)
+
+      ;; this needs work -
+      (let ((heading (substring-no-properties (or (org-get-heading t t t t) ""))))
+        (when (buffer-base-buffer)
+          (switch-to-buffer (buffer-base-buffer)))
+        (imenu-list-minor-mode)
+        (imenu-list-stop-timer)
+        (hl-line-mode)
+        (face-remap-add-relative 'hl-line :inherit 'org-level-1)
+
+        (setq-local cursor-type nil)
+        (when (> (length heading) 0)
+          (goto-char (point-min))
+          (search-forward heading)
+          (imenu-list-display-dwim)))
+
+    ;; :hook
+    ;; (org-mode . peremacs/org-sidebar)
+
+    :bind
+    (("C-c w" . peremacs/org-sidebar))
+    )
+#+end_src
 
 
 * IN-PROGRESS org-mode setup
@@ -2425,7 +2643,8 @@ although it's still a good contender considering it's very simple to
 configure. I'm also considering [[https://github.com/gexplorer/simple-modeline][simple-mode-line]].
 
 
-#+name: lamdba-modeline
+** IN-PROGRESS Lambda modeline
+#+name: lamdba-modeline :tangle no
 #+begin_src emacs-lisp
   (use-package lambda-line
     :straight (:type git :host github :repo "lambda-emacs/lambda-line")
@@ -2450,9 +2669,9 @@ configure. I'm also considering [[https://github.com/gexplorer/simple-modeline][
     (lambda-line-status-invert nil)
 
     ;; status symbols
-    (lambda-line-gui-ro-symbol  " ⨂")
-    (lambda-line-gui-mod-symbol " ⬤")
-    (lambda-line-gui-rw-symbol  " ◯")
+    (lambda-line-gui-ro-symbol  " ●")
+    (lambda-line-gui-mod-symbol " ●")
+    (lambda-line-gui-rw-symbol  " ●")
 
     ;; padding on top and bottom of line
     (lambda-line-space-top 0)
@@ -2471,9 +2690,10 @@ configure. I'm also considering [[https://github.com/gexplorer/simple-modeline][
      (setq mode-line-format (list "%_"))))
 #+end_src
 
+
 *** IN-PROGRESS Mood-line because I'm fucking tired
 
-#+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp
   (use-package mood-line
     :config
     (mood-line-mode)
@@ -2486,24 +2706,36 @@ configure. I'm also considering [[https://github.com/gexplorer/simple-modeline][
 
 *** Setting a font
 
+#+name: monospace-fonts
 #+BEGIN_SRC emacs-lisp
-  ;; (set-face-font 'default "Unifont Medium 8")
-  ;; (set-face-font 'default "Sudo 9")
-  ;; (set-face-font 'default "Roboto Mono-7.5")
-  ;; (set-face-font 'default "Anka/Coder:pixelsize=10")
-  ;; (set-face-font 'default "Cascadia Mono:style=Light:size=10")
-  (set-face-font 'default "Monoid-7")
-  ;; (set-face-font 'default "Iosevka-8")
-  ;; (set-face-font 'default "mononoki-7.5")
-  ;; (set-face-font 'default "Consolas-8")
-  ;; (set-face-font 'default "Hack-7.5")
-  ;; (set-face-font 'default "Liga SFMono Nerd Font-8")
-  ;; (set-face-font 'default "Terminus (TTF)-9")
-  ;; (set-face-font 'default "Anonymous Pro-8.5")
-  ;; (set-face-font 'default "Dina-8")
-  ;; (set-face-font 'default "Droid Sans Mono-7.5")
-  ;; (set-face-font 'default "Inconsolata:pixelsize=11")
-#+END_SRC
+  ;; (set-face-attribute 'default nil :font "Unifont Medium 8")
+  ;; (set-face-attribute 'default nil :font "Sudo 9")
+  ;; (set-face-attribute 'default nil :font "Roboto Mono-7.5")
+  ;; (set-face-attribute 'default nil :font "Anka/Coder:pixelsize=10")
+  ;; (set-face-attribute 'default nil :font "Cascadia Mono:style=Light:size=10")
+  ;; (set-face-attribute 'default nil :font "Monoid-7")
+  ;; (set-face-attribute 'default nil :font "Iosevka-8")
+  ;; (set-face-attribute 'default nil :font "mononoki-7.5")
+  ;; (set-face-attribute 'default nil :font "Consolas-8")
+  ;; (set-face-attribute 'default nil :font "Hack-7.5")
+  ;; (set-face-attribute 'default nil :font "Liga SFMono Nerd Font-8")
+  ;; (set-face-attribute 'default nil :font "Terminus (TTF)-9")
+  ;; (set-face-attribute 'default nil :font "Anonymous Pro-8.5")
+  ;; (set-face-attribute 'default nil :font "Dina-8")
+  ;; (set-face-attribute 'default nil :font "Droid Sans Mono-7.5")
+  ;; (set-face-attribute 'default nil :font "Inconsolata:pixelsize=11")
+
+  (dolist (face '(default fixed-pitch))
+    (set-face-attribute `,face nil :font "Monoid-7"))
+  #+END_SRC
+
+#+name: variable-pitch-fonts
+#+begin_src emacs-lisp
+(set-face-attribute 'variable-pitch nil :font "Iosevka Aile:size=7")
+
+
+#+end_src
+
 
 
 *** Line spacing
@@ -2714,6 +2946,7 @@ Monochrome theme with minimal bold highlights and boxes?
     )
 #+end_src
 
+
 **** IN-PROGRESS Parchment theme
 
 Based on the screenshot of Haskell code on the [[https://fsd.it/shop/fonts/pragmatapro/#tab-fb289adf-7c14-8][Pragmata Pro website]].
@@ -2725,6 +2958,7 @@ Based on the screenshot of Haskell code on the [[https://fsd.it/shop/fonts/pragm
     (load-theme 'Parchment t)
     )
 #+end_src
+
 
 *** Almost mono theme
 
@@ -2745,7 +2979,7 @@ Based on the screenshot of Haskell code on the [[https://fsd.it/shop/fonts/pragm
   (use-package stimmung-themes
     ;; :straight (stimmung-themes :host github :repo "motform/stimmung-themes") ; if you are a straight shooter
     :config
-    (stimmung-themes-load-light))
+    (stimmung-themes-load-dark))
 #+end_src
 
 
@@ -2783,112 +3017,58 @@ themes of my own that use this macro.
 ** Pulse to locate cursor with Protesilaos's pulsar
 
 #+begin_src emacs-lisp
-  (use-package pulsar
-    :straight (:host gitlab :repo "protesilaos/pulsar")
+    (use-package pulsar
+      :straight (:host gitlab :repo "protesilaos/pulsar")
 
-    :custom
-    (pulsar-pulse-functions ; Read the doc string for why not `setq'
-     '(recenter-top-bottom
-       move-to-window-line-top-bottom
-       reposition-window
-       bookmark-jump
-       other-window
-       delete-window
-       delete-other-windows
-       forward-page
-       backward-page
-       scroll-up-command
-       scroll-down-command
-       windmove-right
-       windmove-left
-       windmove-up
-       windmove-down
-       windmove-swap-states-right
-       windmove-swap-states-left
-       windmove-swap-states-up
-       windmove-swap-states-down
-       tab-new
-       tab-close
-       tab-next
-       org-next-visible-heading
-       org-previous-visible-heading
-       org-forward-heading-same-level
-       org-backward-heading-same-level
-       outline-backward-same-level
-       outline-forward-same-level
-       outline-next-visible-heading
-       outline-previous-visible-heading
-       outline-up-heading))
+      :custom
+      (pulsar-pulse-functions ; Read the doc string for why not `setq'
+       '(recenter-top-bottom
+          move-to-window-line-top-bottom
+          reposition-window
+          ;; bookmark-jump
+          ;; other-window
+          ;; delete-window
+          ;; delete-other-windows
+          forward-page
+          backward-page
+          scroll-up-command
+          scroll-down-command
+          ;; windmove-right
+          ;; windmove-left
+          ;; windmove-up
+          ;; windmove-down
+          ;; windmove-swap-states-right
+          ;; windmove-swap-states-left
+          ;; windmove-swap-states-up
+          ;; windmove-swap-states-down
+          ;; tab-new
+          ;; tab-close
+          ;; tab-next
+          org-next-visible-heading
+          org-previous-visible-heading
+          org-forward-heading-same-level
+          org-backward-heading-same-level
+          outline-backward-same-level
+          outline-forward-same-level
+          outline-next-visible-heading
+          outline-previous-visible-heading
+          outline-up-heading))
 
-     :config
-     (setq pulsar-pulse t)
-     (setq pulsar-delay 0.055)
-     (setq pulsar-iterations 10)
-     (setq pulsar-face 'pulsar-blue)
+       :config
+       (setq pulsar-pulse-on-window-change t)
+       (setq pulsar-pulse t)
+       (setq pulsar-delay 0.055)
+       (setq pulsar-iterations 10)
+       (setq pulsar-face 'pulsar-yellow)
 
-     (pulsar-setup)
+       (pulsar-global-mode 1)
 
-     :bind (("C-c l" . pulsar-pulse-line)
-            ("C-c h l" . pulsar-highlight-line))
+       :bind (("C-c l" . pulsar-pulse-line)
+              ("C-c h l" . pulsar-highlight-line)
+              ("C-l" . pulsar-recenter-middle))
 
-     :hook
-     (consult-after-jump-hook . pulsar-recenter-middle)
-     (consult-after-jump-hook . pulsar-reveal-entry))
-#+end_src
-
-
-
-
-Also stolen from Karthik Chikmaglur
-
-#+begin_src emacs-lisp :tangle no
-(use-package pulse
-  :custom-face
-  (pulse-highlight-start-face ((t (:inherit region))))
-  (pulse-highlight-face ((t (:inherit region))))
-  :hook (((dumb-jump-after-jump
-           imenu-after-jump) . my/recenter-and-pulse)
-         ((bookmark-after-jump
-           magit-diff-visit-file
-           next-error) . my/recenter-and-pulse-line))
-  :init
-  (add-hook 'after-make-frame-functions
-            (defun my/pulse-type (_frame)
-              (when window-system (setq pulse-flag t))))
-
-  (with-no-warnings
-    (defun my/pulse-momentary-line (&rest _)
-      "Pulse the current line."
-      (pulse-momentary-highlight-one-line (point)))
-
-    (defun my/pulse-momentary (&rest _)
-      "Pulse the region or the current line."
-      (if (fboundp 'xref-pulse-momentarily)
-          (xref-pulse-momentarily)
-        (my/pulse-momentary-line)))
-
-    (defun my/recenter-and-pulse(&rest _)
-      "Recenter and pulse the region or the current line."
-      (recenter)
-      (my/pulse-momentary))
-
-    (defun my/recenter-and-pulse-line (&rest _)
-      "Recenter and pulse the current line."
-      (recenter)
-      (my/pulse-momentary-line))
-
-    (defun my/pulse-momentary-upper-bound (&rest _)
-      "Pulse the upper scrolling bound of the screen."
-      (save-excursion
-        (move-to-window-line next-screen-context-lines)
-        (my/pulse-momentary-line)))
-
-    (defun my/pulse-momentary-lower-bound (&rest _)
-      "Pulse the lower scrolling bound of the screen."
-      (save-excursion
-        (move-to-window-line (- next-screen-context-lines))
-        (my/pulse-momentary-line)))
-
-    (advice-add 'scroll-up-command   :after #'my/pulse-momentary-upper-bound)
-    (advice-add 'scroll-down-command :after #'my/pulse-momentary-lower-bound)))
+       :hook
+       (consult-after-jump-hook . pulsar-recenter-middle)
+       (consult-after-jump-hook . pulsar-reveal-entry)
+       (imenu-list-after-jump . pulsar-pulse-line))
 #+end_src

@@ -20,7 +20,7 @@ export PATH=$PATH:$HOME/bin
 # export DOTBARE_TREE="$HOME/.cfg"
 
 # set a terminal so I don't have to do it each time for each wm
-export TERMINAL=alacritty
+export TERMINAL=foot
 
 # wayland native firefox?
 export MOZ_ENABLE_WAYLAND=1
@@ -43,7 +43,8 @@ if test -z "${XDG_RUNTIME_DIR}"; then
 fi
 
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-	dbus-run-session sway;
+        dbus-run-session sway;
 	# exec hikari;
-	# exec mate-session ;
+	# for when it's packaged, I guess
+	# dbus-run-session cagebreak;
 fi
