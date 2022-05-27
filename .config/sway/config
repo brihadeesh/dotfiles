@@ -28,7 +28,9 @@ set $menu "fuzzel -f 'Monoid:size=10' -P '*>  '"
 #
 # Default wallpaper (more resolutions are available in /usr/local/share/backgrounds/sway/)
 # output * bg /usr/local/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-output * bg #212121 solid_color
+# output * bg #212121 solid_color
+output * bg /home/peregrinator/wallpapers/void_purple.png fill
+
 #
 # Example configuration:
 #
@@ -243,7 +245,7 @@ bar {
     # status_command while date +'%H:%M'; do sleep 1; done
     # status_command while ~/.config/sway/status.sh; do sleep 60; done
 
-    swaybar_command waybar
+    swaybar_command "waybar -c /home/peregrinator/.config/waybar/config-sway"
 
     # colors {
     #     statusline #ffffff

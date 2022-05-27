@@ -9,13 +9,14 @@
 	// Choose the order of the modules
 	"modules-left": ["clock", "battery"],
 	// "modules-center": ["sway/window"],
-	"modules-right": ["sway/mode", "sway/workspaces"],
+	// "modules-center": ["battery"],
+	"modules-right": ["river/tags"],
 
 	// Modules configuration
 
-	// sway workspaces
-	"sway/mode": {
-            "format": "<span style=\"italic\">{}</span>"
+	// river tags
+	"river/tags": {
+	    "num-tags": 5
 	},
 
 	// custom battery script
@@ -40,8 +41,8 @@
 
     "clock": {
         // "timezone": "America/New_York",
-        "format": "{:%b %d | %H:%M}",
-        "format-alt": "{:%Y-%m-%d}"
+        "format": "{:%H:%M}",
+        "format-alt": "{::%b %d %Y}"
     },
 
 	// custom time

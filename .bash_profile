@@ -43,8 +43,9 @@ if test -z "${XDG_RUNTIME_DIR}"; then
 fi
 
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-        dbus-run-session sway;
-	# exec hikari;
-	# for when it's packaged, I guess
-	# dbus-run-session cagebreak;
+    # dbus-run-session sway;
+    # dbus-run-session hikari;
+    XKB_DEFAULT_OPTIONS="ctrl:none,caps:ctrl_modifier" dbus-run-session river;
+    # for when it's packaged, I guess
+    # dbus-run-session cagebreak;
 fi
