@@ -280,16 +280,18 @@ client.urgent            	#ffff00  #ffff00     #ffffff  #ffff00
 # Autostart?
 #
 
+# sway overview startup
 exec rm -f /tmp/sovpipe && mkfifo /tmp/sovpipe && tail -f /tmp/sovpipe | sov
-exec light -S 30% &
+
 # fnott starts with this command but segfaults
 # see https://codeberg.org/dnkl/fnott/issues/66
 # exec fnott &
 exec mako &
+
+# nightlight
 exec rdshft &
 
-# wob - overlay bar for volume/brightness
-set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
-exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob
+# volume/brightness bar overlay
+exec wob_fifo &
 
 include /usr/local/etc/sway/config.d/*

@@ -33,33 +33,35 @@ window#waybar.solo {
 
 window#waybar.emacs {
     background-color: #444444;
-    border: none;
+    border: 1px transparent;
 }
 
 window#waybar.alacritty {
     background-color: #1d214f;
+    border: 1px transparent;
 }
 
 window#waybar.firefox {
     background-color: #000000;
-    border: none;
+    border: 1px transparent;
 }
 
 #tags button,
 #workspaces button {
-    padding: 0 3px;
     background: none;
+    border: 1px transparent;
     color: #ffffff;
+    padding: 0 4px;
     /* Use box-shadow instead of border so the text isn't offset */
-    /* box-shadow: inset 0 -3px transparent; */
+    /* box-shadow: inset 0 2px transparent; */
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 #tags button.occupied,
 #workspaces button:hover {
     background: #1d214f;
-    border: none;
-    /* box-shadow: inset 0 -3px #666666; */
+    border: 1px transparent;
+    /* box-shadow: inset 0 2px #1d214f; */
 }
 
 #tags button.focused,
@@ -68,16 +70,19 @@ window#waybar.firefox {
     color: #66cc99;
     border: 1px solid #66cc99;
     padding: 0 7px;
+    /* box-shadow: inset 0 2px #66cc99; */
 }
 
 #tags button.urgent,
 #workspaces button.urgent {
-    border: 2px solid #eb4d4b;
+    background: #eb4d4b;
+    color: #000000;
+    border: 1px solid #000000;
 }
 
 #mode {
     background-color: #64727D;
-    border-bottom: 3px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
 }
 
 #battery,
@@ -86,6 +91,8 @@ window#waybar.firefox {
     padding: 0 7px;
     margin: 0 1px;
     color: #ffffff;
+    /* box-shadow: inset -2px -2px #1d214f; */
+    border: 1px solid #1d214f;
 }
 
 
@@ -142,10 +149,4 @@ window#waybar.firefox {
 
 label:focus {
     background-color: #000000;
-}
-
-#custom-media {
-    background-color: #66cc99;
-    color: #2a5c45;
-    min-width: 100px;
 }

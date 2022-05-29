@@ -137,20 +137,21 @@ do
     # Eject the optical drive (well if you still have one that is)
     # riverctl map $mode None XF86Eject spawn 'eject -T'
 
-    # Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
-    riverctl map $mode None XF86AudioRaiseVolume  spawn 'pamixer -i 5'
-    riverctl map $mode None XF86AudioLowerVolume  spawn 'pamixer -d 5'
-    riverctl map $mode None XF86AudioMute         spawn 'pamixer --toggle-mute'
+    # Control pulse audio volume
+    # river config suggests pamixer (https://github.com/cdemoulins/pamixer)
+    riverctl map $mode None XF86AudioRaiseVolume spawn "pactl set-sink-volume @DEFAULT_SINK@ +5% && pactl get-sink-volume @DEFAULT_SINK@ | head -n 1| awk '{print substr($5, 1, length($5)-1)}' > $WOBSOCK"
+    riverctl map $mode None XF86AudioLowerVolume spawn "pactl set-sink-volume @DEFAULT_SINK@ -5% && pactl get-sink-volume @DEFAULT_SINK@ | head -n 1| awk '{print substr($5, 1, length($5)-1)}' > $WOBSOCK"
+    riverctl map $mode None XF86AudioMute spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle && pactl get-sink-volume @DEFAULT_SINK@ | head -n 1 | awk '{print substr($5, 1, length($5)-1)}' > $WOBSOCK"
 
     # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
-    riverctl map $mode None XF86AudioMedia spawn 'playerctl play-pause'
-    riverctl map $mode None XF86AudioPlay  spawn 'playerctl play-pause'
-    riverctl map $mode None XF86AudioPrev  spawn 'playerctl previous'
-    riverctl map $mode None XF86AudioNext  spawn 'playerctl next'
+    riverctl map $mode None XF86AudioPlay spawn 'playerctl play-pause'
+    riverctl map $mode None XF86AudioPrev spawn 'playerctl previous'
+    riverctl map $mode None XF86AudioNext spawn 'playerctl next'
 
-    # Control screen backlight brighness with light (https://github.com/haikarainen/light)
-    riverctl map $mode None XF86MonBrightnessUp   spawn 'brightnessctl s +5%'
-    riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl s -5%'
+    # Control screen backlight brightness
+    # Use light (https://github.com/haikarainen/light)
+    riverctl map $mode None XF86MonBrightnessUp spawn "brightnessctl set 5%+ | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK"
+    riverctl map $mode None XF86MonBrightnessDown spawn "brightnessctl set 5%- | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK"
 done
 
 # Set background and border color
@@ -187,20 +188,27 @@ riverctl set-repeat 50 300
 # riverctl float-filter-add title "popup title with spaces"
 
 # Set app-ids and titles of views which should use client side decorations
-riverctl csd-filter-add app-id "gedit"
+# riverctl csd-filter-add app-id "gedit"
 
 #
 # Autostart?
 #
 
-# riverctl spawn rm -f /tmp/sovpipe && mkfifo /tmp/sovpipe && tail -f /tmp/sovpipe | sov
-# riverctl spawn light -S 30% &
+# volume/brightness bar overlay
+wob_fifo &
+
 # fnott starts with this command but segfaults
 # see https://codeberg.org/dnkl/fnott/issues/66
 # riverctl spawn fnott &
-riverctl spawn "mako &"
-riverctl spawn "rdshft &"
-riverctl spawn "waybar -c /home/peregrinator/.config/waybar/config-river &"
+mako &
+
+# nightlight
+rdshft &
+
+# status bar
+waybar -c /home/peregrinator/.config/waybar/config-river &
+
+
 
 # TODO wob - overlay bar for volume/brightness
 # set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
@@ -212,4 +220,4 @@ riverctl spawn "waybar -c /home/peregrinator/.config/waybar/config-river &"
 # riverctl default-layout rivertile
 # exec rivertile -view-padding 6 -outer-padding 0
 riverctl default-layout rivercarro
-exec rivercarro
+exec rivercarro -main-ratio 0.55
