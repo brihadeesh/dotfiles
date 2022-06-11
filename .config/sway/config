@@ -77,15 +77,16 @@ middle_emulation enabled
 bindsym F4 swaymsg input type:touchpad events toggle enabled disabled && notify-send "Touchpad disabled"
 
 # remapping keys for emacs pinky and all
-input "type:keyboard" {
 # 1. disable capslock & replace with ctrl
 # 2. rupee sign on R (not sure how this should work)
-xkb_options ctrl:none,caps:ctrl_modifier,rupeesign:r
+input * xkb_options ctrl:none,caps:ctrl_modifier,rupeesign:r
 # disable left ctrl key?
-}
 
 # numlockx replacement
 input * xkb_numlock enable
+
+# unclutter replacement (hides mouse cursor?)
+seat * hide_cursor 8000
 
 #
 ### Key bindings
@@ -237,22 +238,22 @@ bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && pactl ge
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-    position top
+# bar {
+#     position top
 
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    # status_command while date +'%H:%M'; do sleep 1; done
-    # status_command while ~/.config/sway/status.sh; do sleep 60; done
+#     # When the status_command prints a new line to stdout, swaybar updates.
+#     # The default just shows the current date and time.
+#     # status_command while date +'%H:%M'; do sleep 1; done
+#     # status_command while ~/.config/sway/status.sh; do sleep 60; done
 
-    swaybar_command "waybar -c /home/peregrinator/.config/waybar/config-sway"
+#     swaybar_command "waybar -c /home/peregrinator/.config/waybar/config-sway &"
 
-    # colors {
-    #     statusline #ffffff
-    #     background #323232
-    #     inactive_workspace #323232 #323232 #ffffff
-    # }
-}
+#     # colors {
+#     #     statusline #ffffff
+#     #     background #323232
+#     #     inactive_workspace #323232 #323232 #ffffff
+#     # }
+# }
 
 #
 # Appearance
@@ -281,7 +282,7 @@ client.urgent            	#ffff00  #ffff00     #ffffff  #ffff00
 #
 
 # sway overview startup
-exec rm -f /tmp/sovpipe && mkfifo /tmp/sovpipe && tail -f /tmp/sovpipe | sov
+exec rm -f /tmp/sovpipe && mkfifo /tmp/sovpipe && tail -f /tmp/sovpipe | sov &
 
 # fnott starts with this command but segfaults
 # see https://codeberg.org/dnkl/fnott/issues/66
@@ -292,6 +293,11 @@ exec mako &
 exec rdshft &
 
 # volume/brightness bar overlay
-exec wob_fifo &
+# exec wob_fifo &
+set $WOBSOCK "$XDG_RUNTIME_DIR/wob.sock"
+exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob &
+
+# waybar because it seemingly doesn't start with the bar {} section
+exec waybar -c /home/peregrinator/.config/waybar/config-sway &
 
 include /usr/local/etc/sway/config.d/*

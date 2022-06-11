@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 # activate the lock
-swaylock
+gtklock

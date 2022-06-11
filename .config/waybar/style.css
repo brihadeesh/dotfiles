@@ -8,11 +8,13 @@
 }
 
 window#waybar {
-    background-color: rgba(0, 0, 0, 0.3);
+    /* background-color: rgba(0, 0, 0, 0.3); */
+    /* probably make this transparent like the above */
+    background-color: #d0d0d0;
     /* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
     margin-left: 10px;
     margin-right: 10px;
-    color: #ffffff;
+    color: #000000;
     transition-property: background-color;
     transition-duration: .3s;
 }
@@ -32,25 +34,25 @@ window#waybar.solo {
 */
 
 window#waybar.emacs {
-    background-color: #444444;
-    border: 1px transparent;
+    background-color: #666666;
+    /* border: 1px transparent; */
 }
 
 window#waybar.alacritty {
-    background-color: #1d214f;
-    border: 1px transparent;
+    background-color: #606060;
+    /* border: 1px transparent; */
 }
 
 window#waybar.firefox {
-    background-color: #000000;
-    border: 1px transparent;
+    background-color: #666666;
+    /* border: 1px transparent; */
 }
 
 #tags button,
 #workspaces button {
     background: none;
-    border: 1px transparent;
-    color: #ffffff;
+    border: 1px solid #d0d0d0;
+    color: #64727D;
     padding: 0 4px;
     /* Use box-shadow instead of border so the text isn't offset */
     /* box-shadow: inset 0 2px transparent; */
@@ -59,16 +61,15 @@ window#waybar.firefox {
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 #tags button.occupied,
 #workspaces button:hover {
-    background: #1d214f;
-    border: 1px transparent;
+    border: 1px solid #64727D;
     /* box-shadow: inset 0 2px #1d214f; */
 }
 
 #tags button.focused,
 #workspaces button.focused {
     background: none;
-    color: #66cc99;
-    border: 1px solid #66cc99;
+    color: #000000;
+    border: 1px solid #000000;
     padding: 0 7px;
     /* box-shadow: inset 0 2px #66cc99; */
 }
@@ -76,13 +77,13 @@ window#waybar.firefox {
 #tags button.urgent,
 #workspaces button.urgent {
     background: #eb4d4b;
-    color: #000000;
-    border: 1px solid #000000;
+    color: #ffffff;
+    border: 1px solid #d0d0d0;
 }
 
 #mode {
     background-color: #64727D;
-    border-bottom: 1px solid #ffffff;
+    border-bottom: 1px solid #000000;
 }
 
 #battery,
@@ -90,9 +91,9 @@ window#waybar.firefox {
 #mode {
     padding: 0 7px;
     margin: 0 1px;
-    color: #ffffff;
+    color: #000000;
     /* box-shadow: inset -2px -2px #1d214f; */
-    border: 1px solid #1d214f;
+    border: 1px solid #d0d0d0;
 }
 
 
@@ -116,7 +117,8 @@ window#waybar.firefox {
 #clock {
     margin-left: 10px;
     padding: 0 7px;
-    background: #1d214f;
+    border: 1px solid #d0d0d0;
+    /* background: #1d214f; */
 }
 
 #battery {
@@ -127,13 +129,13 @@ window#waybar.firefox {
 #battery.charging, #battery.plugged {
     color: #66cc99;
     /* background: none; */
-    /* border: 2px solid #26A65B; */
+    border: 1px solid #d0d0d0;
 }
 
 @keyframes blink {
     to {
-        background-color: #ffffff;
-        color: #000000;
+        background-color: #000000;
+        color: #d0d0d0;
     }
 }
 
@@ -148,5 +150,5 @@ window#waybar.firefox {
 }
 
 label:focus {
-    background-color: #000000;
+    background-color: #d0d0d0;
 }

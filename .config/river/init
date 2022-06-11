@@ -197,6 +197,9 @@ riverctl set-repeat 50 300
 # volume/brightness bar overlay
 wob_fifo &
 
+# set brightness to sane level
+brightnessctl set 25%
+
 # fnott starts with this command but segfaults
 # see https://codeberg.org/dnkl/fnott/issues/66
 # riverctl spawn fnott &
