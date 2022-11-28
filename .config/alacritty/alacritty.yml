@@ -17,16 +17,16 @@ scrolling:
 draw_bold_text_with_bright_colors: false
 font:
   normal:
-    family: Monoid
+    family: Anka/Coder Condensed
     style:  Regular
   bold:
-    family: Monoid
+    family: Anka/Coder Condensed
     style:  Bold
   italic:
-    family: Monoid
+    family: Anka/Coder Condensed
     style:  Italic
   bold-italic:
-    family: Monoid
+    family: Anka/Coder Condensed
     style:  Bold Italic
   size: 7
   offset:

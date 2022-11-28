@@ -7,7 +7,7 @@
 	"height": 20, // Waybar height (to be removed for auto height)
 
 	// Choose the order of the modules
-	"modules-left": ["clock", "battery"],
+	"modules-left": ["clock", "battery", "network"],
 	// "modules-center": ["sway/window"],
 	// "modules-center": ["battery"],
 	"modules-right": ["sway/mode", "sway/workspaces"],
@@ -25,6 +25,16 @@
     	//    "format": "{}",
 	//    "interval": 30
 	//},
+
+	"network": {
+	    "interface": "wlo1",
+	    "format": "{ifname}",
+	    "format-wifi": " |  {essid}",
+	    "format-ethernet": " |  {ipaddr}",
+	    "format-disconnected": "", // An empty format will hide the module.
+	    "tooltip-format-disconnected": "Disconnected",
+	    "max-length": 50
+	},
 
 	"battery": {
         "states": {

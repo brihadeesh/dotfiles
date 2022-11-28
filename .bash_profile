@@ -11,7 +11,7 @@ LC_ALL=en_US.UTF-8
 export LC_ALL
 
 # my shitty scripts + pip binaries
-export PATH=$PATH:$HOME/bin:$HOME/.local/bin
+export PATH=$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.local/share/yabridge
 
 # dotbare
 # source ~/.dotbare/dotbare.plugin.bash
@@ -23,14 +23,14 @@ export PATH=$PATH:$HOME/bin:$HOME/.local/bin
 export TERMINAL=foot
 
 # wayland native firefox?
+# enable for wayland
 export MOZ_ENABLE_WAYLAND=1
-# export GDK_BACKEND=wayland
+# ignore
+## export GDK_BACKEND=wayland
 
 # enable keychain for ssh-keys (prevents asking for passphrase each time)
 eval `keychain --agents ssh --eval .ssh/id_ed25519_{github,srht,gitlab}`
 
-# autostart X at login on TTY1
-# if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/ttyv0 ]]; then exec startx; fi
 
 # # autostart wayland?
 # this bit doesn't seem to be nexessary (was for sway I think)
@@ -42,10 +42,26 @@ if test -z "${XDG_RUNTIME_DIR}"; then
     fi
 fi
 
+# video accel for xorg
+# export LIBVA_DRIVER_NAME=iHD
+
+# audio server
+# pipewire &
+# pipewire-pulse &
+
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-    dbus-run-session sway;
-    # dbus-run-session hikari;
+
+# autostart X at login on TTY1
+# older version / use outside this `if' section
+# if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/ttyv0 ]]; then exec startx; fi
+    # startx
+
+    # wayland
+    dbus-launch --exit-with-session sway;
+    # dbus-run-session hikari; ## NOTE: possibly deprecated dbus command for `dbus-launch`
+    # dbus-launch --exit-with-session hikari;
     # XKB_DEFAULT_OPTIONS="ctrl:none,caps:ctrl_modifier" dbus-run-session river;
     # for when it's packaged, I guess
-    # dbus-run-session cagebreak;
+    # dbus-run-session cagebreak; ## NOTE: possibly deprecated dbus command for `dbus-launch`
+    # dbus-launch --exit-with-session cagebreak;
 fi
