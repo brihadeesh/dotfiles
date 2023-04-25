@@ -69,10 +69,10 @@ output * bg /home/peregrinator/wallpapers/void_purple.png fill
 
 # touchpad configuration
 input "1739:0:Synaptics_TM3127-001" {
-dwt enabled
-tap enabled
-natural_scroll enabled
-middle_emulation enabled
+      dwt enabled
+      tap enabled
+      natural_scroll enabled
+      middle_emulation enabled
 }
 
 # touchpad toggle
@@ -81,8 +81,11 @@ bindsym F4 swaymsg input type:touchpad events toggle enabled disabled && notify-
 # remapping keys for emacs pinky and all
 # 1. disable capslock & replace with ctrl
 # 2. rupee sign on R (not sure how this should work)
-input * xkb_options ctrl:none,caps:ctrl_modifier,rupeesign:r
+input * xkb_options ctrl:none,caps:ctrl_modifier,rupeesign:r,compose:ralt
 # disable left ctrl key?
+
+# reassign right ctrl key to compose
+# input * xkb_options
 
 # numlockx replacement
 input * xkb_numlock enable
@@ -134,6 +137,9 @@ seat * hide_cursor 8000
     bindsym $mod+Shift+$up move up
     bindsym $mod+Shift+$right move right
 
+    # toggle sticky floating windows
+    bindsym $mod+Shift+Up sticky toggle
+
 #
 # Workspaces:
 #
@@ -166,6 +172,12 @@ seat * hide_cursor 8000
     bindsym $mod+Shift+4 move container to workspace number 4
     bindsym $mod+Shift+5 move container to workspace number 5
     bindsym $mod+Shift+6 move container to workspace number 6
+
+#
+# Window rules:
+#
+
+for_window [app_id="mpv"] sticky toggle
 
 #
 # Layout stuff:
@@ -298,8 +310,8 @@ exec rm -f /tmp/sovpipe && mkfifo /tmp/sovpipe && tail -f /tmp/sovpipe | sov
 
 # fnott starts with this command but segfaults
 # see https://codeberg.org/dnkl/fnott/issues/66
-# exec fnott &
-exec mako
+exec fnott
+# exec mako
 
 # nightlight
 exec rdshft

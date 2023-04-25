@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# Easily post files/logs to pastebin at 0x0.st. Prints an error if a
+# directory or non-existent file is selected. I don't know if the
+# colours are really necessary though
+
+set -euo pipefail
+IFS=$'\n\t'
+
+if [[ -t 1 ]]; then
+    # stdout is a TTY, enable colors
+    STYLE_COMMAND="\\e[0;97m"
+    STYLE_ARG="\\e[0;96m"
+    STYLE_ERROR="\\e[91m"
+    STYLE_BOLD="\\e[1m"
+    STYLE_NORMAL="\\e[22m"
+    STYLE_RESET="\\e[0m"
+else
+    # stdout is not a TTY, disable colors
+    STYLE_COMMAND=""
+    STYLE_ARG=""
+    STYLE_ERROR=""
+    STYLE_BOLD=""
+    STYLE_NORMAL=""
+    STYLE_RESET=""
+fi
+
+# Prints an error message to stderr
+print_error() {
+    echo -e "${STYLE_ERROR}${STYLE_BOLD}Error:${STYLE_NORMAL} $1${STYLE_RESET}" >&2
+    exit 1
+}
+
+if [[ -f "$1" || "$1" = '-' ]]; then
+    # Upload from file or stdin
+    curl -F "file=@$1" https://0x0.st
+elif [[ -d "$1" ]]; then
+    print_error "\"$1\" is a directory."
+
+else
+    print_error "\"$1\": no such file."
+fi

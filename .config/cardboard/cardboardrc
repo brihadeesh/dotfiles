@@ -1,0 +1,26 @@
+#!/bin/sh
+
+alias cutter=$HOME/src/cardboard/build/cutter/cutter
+
+mod=alt
+
+cutter config mouse_mod $mod
+
+cutter bind $mod+shift+Escape quit
+cutter bind $mod+return exec sakura
+cutter bind $mod+shift+tab focus left
+cutter bind $mod+tab focus right
+cutter bind $mod+shift+h move -10 0
+cutter bind $mod+shift+l move 10 0
+cutter bind $mod+shift+j move 0 -10
+cutter bind $mod+shift+k move 0 10
+cutter bind $mod+shift+q close
+for i in $(seq 1 6); do
+	cutter bind $mod+$i workspace switch $(( i - 1 ))
+	cutter bind $mod+shift+$i workspace move $(( i - 1 ))
+done
+
+cutter bind $mod+shift+space toggle_floating
+
+cutter exec toolbox run swaybg -i ~/wallpapers/autobahn.png
+cutter exec toolbox run waybar
