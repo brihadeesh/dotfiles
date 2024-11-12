@@ -12,29 +12,29 @@ session="${1:-hlwm}"
 export WM="$session"
 
 # default arch xinit scripts
-if [ -d /etc/X11/xinit/xinitrc.d ]; then
-    for f in /etc/X11/xinit/xinitrc.d/*.sh; do
-        [ -x "$f" ] && . "$f"
-    done
-fi
+# if [ -d /etc/X11/xinit/xinitrc.d ]; then
+#     for f in /etc/X11/xinit/xinitrc.d/*.sh; do
+#         [ -x "$f" ] && . "$f"
+#     done
+# fi
 
 # user init scripts and settings
-[ -f /etc/X11/xinit/.Xmodmap ] && xmodmap /etc/X11/xinit/.Xmodmap
-[ -f ~/.Xmodmap ] && xmodmap ~/.Xmodmap
-[ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
-[ -f ~/.xprofile ] && source ~/.xprofile
+# [ -f /etc/X11/xinit/.Xmodmap ] && xmodmap /etc/X11/xinit/.Xmodmap
+# [ -f ~/.Xmodmap ] && xmodmap ~/.Xmodmap
+# [ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
+# [ -f ~/.xprofile ] && source ~/.xprofile
 
 # display timeout and sleep
-xset s 3600 3600
-xset dpms 3600 3700 4000
+# xset s 3600 3600
+# xset dpms 3600 3700 4000
 
 # keyboard repeat rate
-xset r rate 400 50
-kbdrate -d 400 -r 50
+# xset r rate 400 50
+# kbdrate -d 400 -r 50
 
 # dbus
-dbus-update-activation-environment --all
-dbus-launch
+# dbus-update-activation-environment --all
+# dbus-launch
 
 # adding paths to font config???
 # xset +fp /usr/share/fonts/envypn
@@ -127,7 +127,7 @@ case $session in
 
 	# Finally start Emacs
 	exec emacs ;;
-	
+
     leftwm)
 	    exec leftwm ;;
 
@@ -140,5 +140,5 @@ case $session in
     progman)
 	exec progman ;;
 
-    *)        exec "$session" # Unknown, try running it
+    *)        exec dbus-run-session "$session" # Unknown, try running it
 esac

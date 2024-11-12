@@ -28,9 +28,10 @@ hc keybind $Mod-Shift-q close
 # hc keybind $Mod-Shift-0 spawn ~/bin/suspend.sh
 
 hc keybind $Mod-Shift-Return spawn alacritty
-hc keybind $Mod-Control-Return spawn st
+# hc keybind $Mod-Control-Return spawn st
 # hc keybind $Mod-d spawn rofi -show run -theme ~/.config/rofi/curvature.rasi
-hc keybind $Mod-p spawn dmenu_run -m 0 -fn "Anka/Coder:size=7.5" -nb gray42 -nf white -sb gray82 -sf "#870000"
+hc keybind $Mod-p spawn rofi -show drun
+# hc keybind $Mod-p spawn dmenu_run -m 0 -fn "Terminus (TTF):size=9" -nb gray42 -nf white -sb gray82 -sf "#870000"
 
 # Brightness and volume controls
 hc keybind XF86AudioLowerVolume spawn volumeControl.sh down
@@ -210,6 +211,9 @@ for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
     "$panel" $monitor &
 #    hc pad $monitor 16 0 0 0
 done
+
+# set brightness to 40%
+brightnessctl s 40%
 
 # This resets redshift (which I turn off for movies so I need it to be rerun on reload)
 pkill redshift

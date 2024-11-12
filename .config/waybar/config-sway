@@ -51,8 +51,8 @@
 
     "clock": {
         // "timezone": "America/New_York",
-        "format": "{:%H%M (%a)}",
-        "format-alt": "{:%F}"
+        "format": "{:%H:%M · %a}  |",
+        "format-alt": "{:%F}   |"
     },
 
 	// custom time

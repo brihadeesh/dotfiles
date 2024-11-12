@@ -1,0 +1,146 @@
+# Default config for tofi
+#
+# Copy this file to ~/.config/tofi/config and get customising!
+#
+# A complete reference of available options can be found in `man 5 tofi`.
+
+#
+### Fonts
+#
+	# Font to use, either a path to a font file or a name.
+	#
+	# If a path is given, tofi will startup much quicker, but any
+	# characters not in the chosen font will fail to render.
+	#
+	# Otherwise, fonts are interpreted in Pango format.
+	font = "/home/peregrinator/.fonts/truetype/TerminusTTF-4.49.1.ttf"
+
+	# Point size of text.
+	font-size = 12
+
+	# Comma separated list of OpenType font feature settings to apply,
+	# if supported by the chosen font. The format is similar to the CSS
+	# "font-feature-settings" property.
+	#
+	# Examples:
+	#
+	# font-features = "smcp, c2sc" (all small caps)
+	# font-features = "liga 0" (disable ligatures)
+	# font-features = ""
+
+	# Comma separated list of OpenType font variation settings to apply
+	# to variable fonts. The format is similar to the CSS
+	# "font-variation-settings" property.
+	#
+	# Examples:
+	#
+	# font-variations = "wght 900" (Extra bold)
+	# font-variations = "wdth 25, slnt -10" (Narrow and slanted)
+	# font-variations = ""
+
+	# Perform font hinting. Only applies when a path to a font has been
+	# specified via `font`. Disabling font hinting speeds up text
+	# rendering appreciably, but will likely look poor at small font pixel
+	# sizes.
+	hint-font = true
+
+#
+### Text theming
+#
+width = 100%
+height = 100%
+border-width = 0
+outline-width = 0
+padding-left = 35%
+padding-top = 35%
+result-spacing = 5
+num-results = 10
+background-color = #191922e6
+selection-color = #66cc99
+
+#
+### Behaviour
+#
+	# Hide the mouse cursor.
+	hide-cursor = false
+
+	# Show a text cursor in the input field.
+	text-cursor = true
+
+	# Sort results by number of usages in run and drun modes.
+	history = true
+
+	# Specify an alternate file to read and store history information
+	# from / to. This shouldn't normally be needed, and is intended to
+	# facilitate the creation of custom modes.
+	# history-file = /path/to/histfile
+
+	# Select the matching algorithm used. If normal, substring matching is
+	# used, weighted to favour matches closer to the beginning of the
+	# string. If prefix, only substrings at the beginning of the string are
+	# matched. If fuzzy, searching is performed via a simple fuzzy matching
+	# algorithm.
+	#
+	# Supported values: normal, prefix, fuzzy
+	matching-algorithm = fuzzy
+
+	# If true, require a match to allow a selection to be made. If false,
+	# making a selection with no matches will print input to stdout.
+	# In drun mode, this is always true.
+	require-match = false
+
+	# If true, automatically accept a result if it is the only one
+	# remaining. If there's only one result on startup, window creation is
+	# skipped altogether.
+	auto-accept-single = false
+
+	# If true, typed input will be hidden, and what is displayed (if
+	# anything) is determined by the hidden-character option.
+	hide-input = false
+
+	# Replace displayed input characters with a character. If the empty
+	# string is given, input will be completely hidden.
+	# This option only has an effect when hide-input is set to true.
+	hidden-character = "*"
+
+	# If true, use physical keys for shortcuts, regardless of the current
+	# keyboard layout. If false, use the current layout's keys.
+	physical-keybindings = true
+
+	# Instead of printing the selected entry, print the 1-based index of
+	# the selection. This option has no effect in run or drun mode. If
+	# require-match is set to false, non-matching input will still result
+	# in the input being printed.
+	print-index = false
+
+	# If true, directly launch applications on selection when in drun mode.
+	# Otherwise, just print the command line to stdout.
+	drun-launch = false
+
+	# The terminal to run terminal programs in when in drun mode.
+	# This option has no effect if drun-launch is set to true.
+	# Defaults to the value of the TERMINAL environment variable.
+	# terminal = foot
+
+	# Delay keyboard initialisation until after the first draw to screen.
+	# This option is experimental, and will cause tofi to miss keypresses
+	# for a short time after launch. The only reason to use this option is
+	# performance on slow systems.
+	late-keyboard-init = false
+
+	# If true, allow multiple simultaneous processes.
+	# If false, create a lock file on startup to prevent multiple instances
+	# from running simultaneously.
+	multi-instance = false
+
+	# Assume input is plain ASCII, and disable some Unicode handling
+	# functions. This is faster, but means e.g. a search for "e" will not
+	# match "é".
+	ascii-input = false
+
+#
+### Inclusion
+#
+	# Configs can be split between multiple files, and then included
+	# within each other.
+	# include = /path/to/config

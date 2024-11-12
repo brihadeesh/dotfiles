@@ -1,13 +1,13 @@
 configuration {
   display-run: "run";
   modi: "run";
-  font: "Hermit Bold 7.5";
+  font: "Terminus (TTF) 9";
   fake-transparency: false;
   hide-scrollbar: true;
   bw: 0;
   fullscreen: true;
   show-icons: false;
-  terminal: "st";
+  terminal: "alacritty";
   sidebar-mode: false;
 }
 

@@ -21,9 +21,15 @@ set $term foot
 # on the original workspace that the command was run on.
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
 # set $menu wofi --show run | xargs swaymsg exec --
-# set $menu "fuzzel -f 'M+ 1mn:size=10' -P '*>  '"
-# set $menu "fuzzel -f 'Monoid:size=10' -P '*>  '"
-set $menu "fuzzel -f 'Monoid:size=10'"
+## set $menu "fuzzel -f 'M+ 1mn:size=10' -P '*>  '"
+## set $menu "fuzzel -f 'Monoid:size=10' -P '*>  '"
+# set $menu "fuzzel -f 'Monoid:size=10'"
+
+
+set $tofi tofi-run | xargs swaymsg exec --
+bindsym $mod+grave exec $tofi
+
+set $menu tofi-drun | xargs swaymsg exec --
 
 
 ### Output configuration
@@ -300,18 +306,19 @@ client.urgent            	#ffff00  #ffff00     #ffffff  #ffff00
 
 # audio server(s)
 exec pipewire
+# exec wireplumber
 exec pipewire-pulse
 
 # set brightness to something tolerable
 exec brightnessctl s 25%
 
 # sway overview startup
-exec rm -f /tmp/sovpipe && mkfifo /tmp/sovpipe && tail -f /tmp/sovpipe | sov
+# exec rm -f /tmp/sovpipe && mkfifo /tmp/sovpipe && tail -f /tmp/sovpipe | sov
 
 # fnott starts with this command but segfaults
 # see https://codeberg.org/dnkl/fnott/issues/66
-exec fnott
-# exec mako
+# exec fnott
+exec mako
 
 # nightlight
 exec rdshft

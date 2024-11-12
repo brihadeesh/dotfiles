@@ -2,8 +2,8 @@
     border: none;
     border-radius: 0;
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: "Monoid";
-    font-size: 9px;
+    font-family: "Spleen";
+    font-size: 12px;
     min-height: 0;
 }
 
@@ -55,14 +55,14 @@ window#waybar.firefox {
     color: #64727D;
     padding: 0 4px;
     /* Use box-shadow instead of border so the text isn't offset */
-    /* box-shadow: inset 0 2px transparent; */
+    box-shadow: inset 0 2px transparent; 
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 #tags button.occupied,
 #workspaces button:hover {
     border: 1px solid #64727D;
-    /* box-shadow: inset 0 2px #1d214f; */
+    box-shadow: inset 0 2px #1d214f;
 }
 
 #tags button.focused,
@@ -71,7 +71,7 @@ window#waybar.firefox {
     color: #000000;
     border: 1px solid #000000;
     padding: 0 7px;
-    /* box-shadow: inset 0 2px #66cc99; */
+    box-shadow: inset 0 2px #66cc99; 
 }
 
 #tags button.urgent,
@@ -127,7 +127,7 @@ window#waybar.firefox {
 }
 
 #battery.charging, #battery.plugged {
-    color: #66cc99;
+    color: #009933;
     /* background: none; */
     border: 1px solid #d0d0d0;
 }
@@ -142,11 +142,11 @@ window#waybar.firefox {
 #battery.critical:not(.charging) {
     background: none;
     color: #f53c3c;
-    animation-name: blink;
+/*    animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
-    animation-direction: alternate;
+    animation-direction: alternate; */
 }
 
 label:focus {

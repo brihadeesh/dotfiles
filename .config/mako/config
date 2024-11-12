@@ -1,23 +1,25 @@
 sort=-time
 layer=overlay
-background-color=#2e3440
+outer-margin=10,10
+background-color=#d0d0d0
 width=300
 height=110
-border-size=2
-# border-color=#88c0d0
-border-radius=15
+border-size=1
+border-color=#ffff00
+border-radius=0
+text-color=#000000
 icons=0
 max-icon-size=64
-default-timeout=10
+default-timeout=7000
 ignore-timeout=1
-font=Monoid 10
-
-[urgency=low]
-border-color=#cccccc
+font=Terminus (TTF) 10
 
 [urgency=normal]
-border-color=#d08770
+default-timeout=10000
 
 [urgency=high]
-border-color=#bf616a
-default-timeout=0
+background-color=#ffff66
+border-size=2
+border-color=#eb4d4b
+text-color=#cc0000
+default-timeout=20000

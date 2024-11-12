@@ -15,8 +15,8 @@ bind Q only
 bind D quit
 bind Tab focus
 bind A-Tab focusprev
-bind n next
-bind p prev
+# bind n next
+# bind p prev
 bind w exec firefox
 bind R setmode resize
 bind N nextscreen
@@ -33,6 +33,7 @@ bind j focusdown
 bind k focusup
 bind l focusright
 bind t exec foot
+bind p exec tofi-drun
 bind C-k close
 #bind m message Hello World!
 definekey resize h resizeleft

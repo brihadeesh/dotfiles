@@ -16,18 +16,29 @@ padding: 5px;
 }
 
 
-/* No (default) titlebar in kiwmi */
-headerbar.titlebar.default-decoration {
-    background: transparent;
-    padding: 0;
-    margin: 0 0 -17px 0;
-    border: 0;
-    min-height: 0;
-    font-size: 0;
-    box-shadow: none;
-}
+/* /\* No (default) titlebar in kiwmi *\/ */
+/* headerbar.titlebar.default-decoration { */
+/*     background: transparent; */
+/*     padding: 0; */
+/*     margin: 0 0 -17px 0; */
+/*     border: 0; */
+/*     min-height: 0; */
+/*     font-size: 0; */
+/*     box-shadow: none; */
+/* } */
 
-/* rm -rf window shadows */
-window.csd decoration {
-    box-shadow: none;
+/* /\* rm -rf window shadows *\/ */
+/* window.csd decoration { */
+/*     box-shadow: none; */
+/* } */
+
+window.ssd headerbar.titlebar {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    min-height: 0;
+}
+window.ssd headerbar.titlebar button.titlebutton {
+    padding: 1px;
+    min-height: 0;
+    min-width: 0;
 }

@@ -31,8 +31,8 @@ cwm-bg-1 = #909090
 ############################
 
 [fonts]
-font-0 = "Anka/Coder:size=7.5;1"
-font-1 = "Anka/Coder:weight=Bold:size-7.5;1"
+font-0 = "Terminus (TTF):size=9;1"
+font-1 = "Terminus (TTF):weight=Bold:size-8;1"
 
 ############################
 ######    HLWM BAR    ######
@@ -65,9 +65,9 @@ module-margin = 1
 underline-size = 3
 
 
-modules-left = time
-modules-center = hlwm-ws
-modules-right = date sep battery
+modules-left = time sep date sep battery
+modules-center =
+modules-right = hlwm-ws
 
 background-0 = ${colors.background-0}
 background-1 = ${colors.background-1}

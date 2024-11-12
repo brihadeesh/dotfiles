@@ -1,0 +1,83 @@
+[colors]
+draw_bold_text_with_bright_colors = false
+
+[colors.bright]
+black = "#555555"
+blue = "#92baff"
+cyan = "#a0bfdf"
+green = "#88cf88"
+magenta = "#e0b2d6"
+red = "#ffa0a0"
+white = "#ffffff"
+yellow = "#d2b580"
+
+[colors.cursor]
+background = "#777777"
+text = "#000000"
+
+[colors.dim]
+black = "#222222"
+blue = "#00a2ff"
+cyan = "#30ffc0"
+green = "#00fc50"
+magenta = "#ff8bd4"
+red = "#fb6859"
+white = "#dddddd"
+yellow = "#ffdd00"
+
+[colors.normal]
+black = "#000000"
+blue = "#29aeff"
+cyan = "#00d3d0"
+green = "#00fc50"
+magenta = "#feacd0"
+red = "#ff8059"
+white = "#eeeeee"
+yellow = "#eecc00"
+
+[colors.primary]
+background = "#000000"
+foreground = "#ffffff"
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 7
+
+[font.bold]
+family = "Hack"
+style = "Bold"
+
+[font.italic]
+family = "Hack"
+style = "Italic"
+
+[font.normal]
+family = "Hack"
+style = "Regular"
+
+[[keyboard.bindings]]
+action = "Paste"
+key = "V"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "C"
+mods = "Control|Shift"
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[window]
+decorations = "full"
+
+[window.dimensions]
+columns = 80
+lines = 30
+
+[window.padding]
+x = 0
+y = 1
